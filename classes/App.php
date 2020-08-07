@@ -1,0 +1,151 @@
+<?php
+namespace DanceStudioManager;
+
+class App
+{
+    protected static $api;
+    protected static $client;
+    protected static $template;
+    protected static $settings;
+    protected static $error;
+    protected static $emailer;
+    
+    
+    public function __construct()
+    {
+        
+        self::$error = new Error();
+        self::$api = new Api();
+        self::$client = new Client();
+        self::$template = new Template();
+        self::$settings = new Settings();
+        self::$emailer = new Emailer();
+        
+        add_action('admin_enqueue_scripts', function ($hook)
+            {
+                wp_enqueue_style('dsm_admin', plugins_url('../css/admin.css',__FILE__ ));
+            });
+        
+        add_action('wp_enqueue_scripts', function ($hook)
+            {
+               
+                wp_enqueue_style( 'bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' );
+                wp_enqueue_style( 'datetimepicker', '//clients.dancestudiomanager.com/libs/bootstrap-3.3.7/css/bootstrap-datetimepicker.min.css' );
+                wp_enqueue_style( 'fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
+                wp_enqueue_style(  'dsm_style', plugins_url('../css/style.css',__FILE__ ));
+                wp_enqueue_style(  'dsm_style_united', plugins_url('../css/style-united.css',__FILE__ ));
+                wp_enqueue_style(  'fullcalendar', '//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css');
+                
+                wp_enqueue_script( 'bootstrap','//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', array('jquery'));
+                wp_enqueue_script( 'momentjs','//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js', array('jquery'));
+                wp_enqueue_script( 'signature_pad',plugins_url('../js/signature_pad/index.js',__FILE__ ), array('jquery'), time());
+                wp_enqueue_script( 'dsmfunctionjs',plugins_url('../js/functions.js',__FILE__ ), array('jquery'), time());
+                
+                wp_localize_script( 'dsmfunctionjs', 'dsmajax', 
+                    array(
+                        'url' => admin_url('admin-ajax.php')
+                    )
+                );  
+                wp_enqueue_script( 'datetimepicker','//clients.dancestudiomanager.com/libs/bootstrap-3.3.7/js/bootstrap-datetimepicker.min.js', array('jquery'));
+                wp_enqueue_script( 'fullcalendar','//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js', array('jquery'));
+            }, 20);
+        
+        
+        add_action( 'widgets_init', function ()
+            {
+                register_widget( 'DanceStudioManager\GroupclassesWidget' );
+                register_widget( 'DanceStudioManager\RegisterWidget' );
+                register_widget( 'DanceStudioManager\CalendarWidget' );
+            });
+        
+        add_shortcode('dsm_classes_list', function ( $atts ) {
+            
+            $args = array(
+                'before_widget' => '<div class="box widget">',
+                'after_widget'  => '</div>',
+                'before_title'  => '<div class="widget-title">',
+                'after_title'   => '</div>',
+            );
+            
+            ob_start();
+            the_widget( 'DanceStudioManager\GroupclassesWidget', $atts, $args ); 
+            $output = ob_get_clean();
+            return   $output;
+        });
+        
+        
+        add_shortcode('dsm_calendar', function ( $atts ) {
+            
+            $args = array(
+                'before_widget' => '<div class="box widget">',
+                'after_widget'  => '</div>',
+                'before_title'  => '<div class="widget-title">',
+                'after_title'   => '</div>',
+            );
+            
+            ob_start();
+            the_widget( 'DanceStudioManager\CalendarWidget', $atts, $args ); 
+            $output = ob_get_clean();
+            return   $output;
+        });
+        
+        add_shortcode('dsm_register', function ( $atts ) {
+            
+            $args = array(
+                'before_widget' => '<div class="box widget">',
+                'after_widget'  => '</div>',
+                'before_title'  => '<div class="widget-title">',
+                'after_title'   => '</div>',
+            );
+            
+            ob_start();
+            the_widget( 'DanceStudioManager\RegisterWidget', $atts, $args ); 
+            $output = ob_get_clean();
+            return   $output;
+        });
+        
+        add_shortcode('dsm_client', function ( $atts ){
+            unset($_SESSION['dsm_client_attrs']);
+            foreach ($atts as $k_att => $att) {
+                if ($k_att == 'class_genre')
+                    $k_att = 'class_name';
+                if (strpos ( $att , '|') !== false)
+                    $_SESSION['dsm_client_attrs'][$k_att] = explode('|',$att);
+                else
+                    $_SESSION['dsm_client_attrs'][$k_att] = $att;
+            }
+                
+            ob_start();
+            self::$client->Output();
+            $output = ob_get_clean();
+            return   $output;
+        });
+    }
+    
+    
+    public static function GetApi()
+    {
+        return self::$api;
+    }
+    
+    public static function GetClient()
+    {
+        return self::$client;
+    }
+    
+    public static function GetTemplate()
+    {
+        return self::$template;
+    }
+    
+    public static function GetEmailer()
+    {
+        return self::$emailer;
+    }
+    
+    public static function GetError()
+    {
+        return self::$error;
+    }
+    
+}

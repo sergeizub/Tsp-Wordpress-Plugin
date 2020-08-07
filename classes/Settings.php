@@ -1,0 +1,91 @@
+<?php
+namespace DanceStudioManager;
+
+class Settings
+{
+   
+    
+    public function __construct()
+    {
+        add_action( 'admin_init', array( $this, 'Init' ) );
+        add_action( 'admin_menu', array( $this, 'InitPage' ) );
+    }
+    
+    
+    public function Init()
+    {
+        register_setting( 'dsm_api_settings', 'dsm_api_url');
+        register_setting( 'dsm_api_settings', 'dsm_api_key');
+        register_setting( 'dsm_api_settings', 'dsm_api_version');
+        register_setting( 'dsm_api_settings', 'dsm_api_username');
+        register_setting( 'dsm_api_settings', 'dsm_api_password');
+    }
+    
+    public function InitPage()
+    {
+        add_options_page(
+            'Dance Studion Manager Settings', 
+            'DSM Settings', 
+            'manage_options', 
+            'dsm-settings', 
+            array( $this, 'SetPage' )
+        );
+    }
+    
+    public function SetPage()
+    {
+
+    if (!empty($_POST['clear_cache'])) {
+        delete_expired_transients( true );
+        $dsm_classes_list = App::GetApi()->GetList("classes/list");
+        set_transient( 'dsm_classes_list', $dsm_classes_list, 24 * HOUR_IN_SECONDS );
+    }
+?>
+    <div class="wrap">
+<h1>DSM Plugin</h1>
+
+<form method="post" action="options.php">
+    <?php settings_fields( 'dsm_api_settings' ); ?>
+    <?php do_settings_sections( 'dsm_api_settings' ); ?>
+    <table class="form-table">
+        <tr valign="top">
+        <th scope="row">DSM Url</th>
+        <td><input type="text" name="dsm_api_url" value="<?php echo esc_attr( get_option('dsm_api_url') ); ?>" placeholder="https://clients.dancestudiomanager.com/"/></td>
+        </tr>
+        
+        <th scope="row">DSM Api Key</th>
+        <td><input type="text" name="dsm_api_key" value="<?php echo esc_attr( get_option('dsm_api_key') ); ?>" /></td>
+        </tr>
+        
+        <tr valign="top">
+        <th scope="row">DSM Api Version</th>
+            <td>
+                <select name="dsm_api_version">
+                <?php
+                    foreach(App::GetApi()->GetApiVersionList() as $k=>$v):
+                        echo '<option name="'.$v.'" '.((get_option('dsm_api_version') == $v) ? 'selected="selected"' : '').'>'.$v.'</option>';
+                    endforeach;
+                ?>
+                </select>
+            </td>
+        </tr>
+        <tr valign="top">
+        <th scope="row">DSM Admin Username</th>
+        <td><input type="text" name="dsm_api_username" value="<?php echo esc_attr( get_option('dsm_api_username') ); ?>" placeholder="Username" /></td>
+        </tr>
+        <tr valign="top">
+        <th scope="row">DSM Admin Password</th>
+        <td><input type="text" name="dsm_api_password" value="<?php echo esc_attr( get_option('dsm_api_password') ); ?>" placeholder="Password" /></td>
+        </tr>
+    </table>
+    
+    <?php submit_button(); ?>
+
+</form>
+<form method="post" >
+     <input id="clear_class_cache" type="submit" name="clear_cache" value="Reset Class Cache" class="button" >
+</form>
+</div>
+    <?php
+    }
+}

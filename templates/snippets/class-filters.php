@@ -1,0 +1,97 @@
+<?php
+namespace DanceStudioManager;
+$filters = App::GetClient()->GetController('classes')->GetFilters();
+?>
+<script>
+	jQuery(function() {
+		var hide_names = '<?=DSM_OC_CLASS_FILTER_NAME_HIDDEN_IDS?>';
+		if (hide_names != '') {		
+			var hn = hide_names.split(',');
+			jQuery.each(hn, function( index, value ) {
+				jQuery('select[name=class_name] option').each(function() {	
+				    if (jQuery(this).val() == value)
+				        jQuery(this).remove();
+				});
+			});
+		}
+		
+		var hide_programs = '<?=DSM_OC_CLASS_FILTER_PROGRAM_HIDDEN_IDS?>';
+		if (hide_programs != '') {
+			var hp = hide_programs.split(',');
+			jQuery.each(hp, function( index, value ) {
+				jQuery('select[name=class_program] option').each(function() {	
+				    if (jQuery(this).val() == value)
+				        jQuery(this).remove();
+				});
+			});
+		}
+	});
+</script>
+<form method="post"  action="index.php" id="schedule-filter" class="form-inline">
+<?php if (DSM_OC_USE_CLASSES_LIST_VIEW == "1" ) : ?>
+		<?php if (DSM_OC_CLASS_LIST_TYPE == 'list_by_program' || DSM_OC_CLASS_LIST_TYPE == 'list_by_program_table' || $_SESSION['dsm_client_attrs']['view'] == "List" ) : ?>
+			<input type="hidden" name="boot_tab" value="tab-classes-list" />
+		<?php else : ?>
+			<input type="hidden" name="boot_tab" value="tab-classes" />
+		<?php endif; ?>
+<?php else : ?>
+	<input type="hidden" name="boot_tab" value="tab-classes-calendar" />
+<?php endif; ?>
+	<input type="hidden" name="action" value="dsmclient"/>
+<?php if ($_SESSION['dsm_client_attrs'] && $_SESSION['dsm_client_attrs']['class_code']) : ?>
+		<input type="hidden" id="filter_class_code" name="filter[class_code]" value="<?=$_SESSION['dsm_client_attrs']['class_code']?>" />
+<?php endif; ?>
+<?php if ($_SESSION['dsm_client_attrs'] && $_SESSION['dsm_client_attrs']['class_name'] && $filters->name) : ?>
+	<?php foreach ($filters->name as $name) : ?>
+		 <?=($name->label == $_SESSION['dsm_client_attrs']['class_name']) ? '<input type="hidden" id="filter_class_name" name="filter[class_name]" value="'.$name->value.'"/>' : '' ?>
+	<?php endforeach; ?>
+<?php elseif (DSM_OC_CLASS_FILTER_NAME == '1' &&  !$_SESSION['dsm_client_attrs']['class_code']) : ?>
+<div class="form-group">
+	<select name="filter[class_name]" id="filter_class_name" class="form-control">
+		<?php foreach ($filters->name as $name) : ?>
+			<option value="<?=$name->value?>" <?=($name->value == $_POST['filter']['class_name']) ? 'selected="selected"' : '' ?>><?=$name->label?></option>
+		<?php endforeach; ?>
+	</select>
+</div>
+<?php endif; ?>
+<?php if ($_SESSION['dsm_client_attrs'] && $_SESSION['dsm_client_attrs']['class_level'] && $filters->level) : ?>
+	<?php foreach ($filters->level as $level) : ?>
+		 <?=($level->label == $_SESSION['dsm_client_attrs']['class_level']) ? '<input type="hidden" id="filter_class_level" name="filter[class_level]" value="'.$level->value.'"/>' : '' ?>
+	<?php endforeach; ?>
+<?php elseif (DSM_OC_CLASS_FILTER_LEVEL == '1' &&  !$_SESSION['dsm_client_attrs']['class_code']) : ?>
+<div class="form-group">
+	<select name="filter[class_level]" id="filter_class_level" class="form-control">
+		<?php foreach ($filters->level as $level) : ?>
+			<option value="<?=$level->value?>" <?=($level->value == $_POST['filter']['class_level']) ? 'selected="selected"' : '' ?>><?=$level->label?></option>
+		<?php endforeach; ?>
+	</select>
+</div>
+<?php endif; ?>
+<?php if ($_SESSION['dsm_client_attrs'] && $_SESSION['dsm_client_attrs']['class_location'] && $filters->location) : ?>
+	<?php foreach ($filters->location as $location) : ?>
+		 <?=($location->label == $_SESSION['dsm_client_attrs']['class_location']) ? '<input type="hidden" id="filter_class_location" name="filter[class_location]" value="'.$location->value.'"/>' : '' ?>
+	<?php endforeach; ?>
+<?php elseif (DSM_OC_CLASS_FILTER_LOCATION == '1' &&  !$_SESSION['dsm_client_attrs']['class_code']) : ?>
+<div class="form-group">
+	<select name="filter[class_location]" class="form-control" id="filter_class_location">
+		<?php foreach ($filters->location as $location) : ?>
+			<option value="<?=$location->value?>" <?=($location->value == $_POST['filter']['class_location']) ? 'selected="selected"' : '' ?>><?=$location->label?></option>
+		<?php endforeach; ?>	
+	</select>
+</div>
+<?php endif; ?>
+<?php if ($_SESSION['dsm_client_attrs'] && $_SESSION['dsm_client_attrs']['class_program'] && $filters->program) : ?>
+	<?php foreach ($filters->program as $program) : ?>
+		 <?=($program->label == $_SESSION['dsm_client_attrs']['class_program']) ? '<input type="hidden" id="filter_class_program" name="filter[class_program]" value="'.$program->label.'"/>' : '' ?>
+	<?php endforeach; ?>
+<?php elseif (DSM_OC_CLASS_FILTER_PROGRAM == '1' && !$_SESSION['dsm_client_attrs']['class_code']) : ?>
+<div class="form-group">
+	<select name="filter[class_program]" class="form-control" id="filter_class_program">
+		<?php foreach ($filters->program as $program) : ?>
+			<option value="<?=($program->value) ? $program->label : "" ?>" <?=($program->label == $_POST['filter']['class_program']) ? 'selected="selected"' : '' ?>><?=$program->label?></option>
+		<?php endforeach; ?>
+	</select>
+</div>
+<?php endif; ?>
+</form>
+<br/>
