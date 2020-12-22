@@ -73,7 +73,11 @@ namespace DanceStudioManager;
 										<td><span style="white-space: nowrap;"><?=$schedule->DAY?></span></td>
 										<td><span style="white-space: nowrap;"><?=$schedule->START_TIME?></span> - <span style="white-space: nowrap;padding: 12px;"><?=$schedule->END_TIME?></span></td>
 										<td>
-										<?php if (App::GetClient()->GetController('auth')->isLogged()): ?>
+										<?php if ($schedule->M_STATUS == 'Full'): ?>
+											<button class="btn btn-warning " type="button" style="<?=((!empty($schedule->M_STATUS_COLOR)) ? 'background-color:'.$schedule->M_STATUS_COLOR.';' : '')?><?=((!empty($schedule->M_STATUS_TEXT_COLOR)) ? 'color:'.$schedule->M_STATUS_TEXT_COLOR.';': '')?><?=((!empty($schedule->M_STATUS_BORDER_COLOR)) ? 'border-color:'.$schedule->M_STATUS_BORDER_COLOR.';' : '')?>">
+												<span><?=end(explode(",",$schedule->title))?> Full</span>
+											</button>
+										<?php elseif (App::GetClient()->GetController('auth')->isLogged()): ?>
 											<?php if ($schedule->MAX_STUDENTS <= ($schedule->STUDENTS_QUANTITY) && DSM_OC_ALLOW_WAIT_LIST == "1"): ?>
 												<a href="#tab-class-registration-<?=$class->ID?>"  dsm_class_id="<?=$class->ID?>" dsm_schedule_id="<?=$schedule->ID?>" title="Add to Wait List" class="btn btn-success dsm_ajax_tab">
 																<i class="fa fa-plus-circle"></i> <?=end(explode(",",$schedule->title))?> Add to Wait List  </a>

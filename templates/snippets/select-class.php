@@ -29,8 +29,7 @@ namespace DanceStudioManager;
 				<div class="label label-success">Enrolled</div>
 			<?php endif;*/ ?>
 		</h4>
-		
-		<?php if ($student['prerequisites_complete'] && DSM_OC_ALLOW_WAIT_LIST == "1" && $class['SCHEDULE']['WAIT_LIST'] == "1" && $class['SCHEDULE']['MAX_STUDENTS'] <= ($class['SCHEDULE']['STUDENTS_QUANTITY']) && false) : ?>
+		<?php if ($student['prerequisites_complete'] && DSM_OC_ALLOW_WAIT_LIST == "1" && $class['SCHEDULE']['WAIT_LIST'] == "1" && $class['SCHEDULE']['MAX_STUDENTS'] <= ($class['SCHEDULE']['STUDENTS_QUANTITY'])) : ?>
 			<div class="alert alert-warning"> Class is full. Student will be added to Wait List.</div>
 		<?php endif; ?>
 		
