@@ -19,7 +19,7 @@ function dsm_location_sort($a, $b) {
 	return strcmp($a->LOCATION,$b->LOCATION);
 }
 function dsm_class_schedules_sort($a, $b) {
-	return strtotime($a->title) - strtotime($b->title);
+	return strtotime($a->data[0]->START_DATE) - strtotime($b->data[0]->START_DATE);
 }
 
 function dsm_array_map($func, $arr)
