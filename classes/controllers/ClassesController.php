@@ -10,10 +10,12 @@ class ClassesController extends BaseController
 	
 	public function GetClassesList($filter = array())
 	{
-		$dsm_classes_list =  get_transient( 'dsm_classes_list');
+		if (get_option('dsm_class_cache') == '1')
+			$dsm_classes_list =  get_transient( 'dsm_classes_list');
 		if(empty($dsm_classes_list)) {
 			$dsm_classes_list = parent::GetList("classes/list");
-			set_transient( 'dsm_classes_list', $dsm_classes_list, 24 * HOUR_IN_SECONDS );
+				if (get_option('dsm_class_cache') == '1')
+					set_transient( 'dsm_classes_list', $dsm_classes_list, 24 * HOUR_IN_SECONDS );
 		}
 		
 		$filters = $this->GetFilters();
@@ -55,10 +57,12 @@ class ClassesController extends BaseController
 	
 	public function GetClasses($filter = array())
 	{
-		//$dsm_classes =  get_transient( 'dsm_classes' );
+		if (get_option('dsm_class_cache') == '1')
+			$dsm_classes =  get_transient( 'dsm_classes' );
 		if (empty($dsm_classes)) {
 			$dsm_classes = parent::GetList("classes/?limit=100000");
-			//set_transient( 'dsm_classes', $dsm_classes, 6 * HOUR_IN_SECONDS );
+			if (get_option('dsm_class_cache') == '1')
+				set_transient( 'dsm_classes', $dsm_classes, 6 * HOUR_IN_SECONDS );
 		}
 
 		//Filter Schedules
@@ -98,11 +102,12 @@ class ClassesController extends BaseController
 			$id = $data['class_id'];
 		else
 			$id =  $data;
-		
-		$dsm_class_info =  get_transient( 'dsm_class_'.$id );
+		if (get_option('dsm_class_cache') == '1')
+			$dsm_class_info =  get_transient( 'dsm_class_'.$id );
 		if(empty($dsm_class_info)) {
 			$dsm_class_info = parent::GetList("classes/".$id);
-			set_transient( 'dsm_class_'.$id, $dsm_class_info, 6 * HOUR_IN_SECONDS );
+			if (get_option('dsm_class_cache') == '1')
+				set_transient( 'dsm_class_'.$id, $dsm_class_info, 6 * HOUR_IN_SECONDS );
 		}
 		
 	 return parent::GetList("classes/$id");

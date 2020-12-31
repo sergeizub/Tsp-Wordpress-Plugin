@@ -19,6 +19,7 @@ class Settings
         register_setting( 'dsm_api_settings', 'dsm_api_version');
         register_setting( 'dsm_api_settings', 'dsm_api_username');
         register_setting( 'dsm_api_settings', 'dsm_api_password');
+        register_setting( 'dsm_api_settings', 'dsm_class_cache');
     }
     
     public function InitPage()
@@ -38,7 +39,7 @@ class Settings
     if (!empty($_POST['clear_cache'])) {
         delete_expired_transients( true );
         $dsm_classes_list = App::GetApi()->GetList("classes/list");
-        set_transient( 'dsm_classes_list', $dsm_classes_list, 24 * HOUR_IN_SECONDS );
+        set_transient( 'dsm_classes_list', $dsm_classes_list, 6 * HOUR_IN_SECONDS );
     }
 ?>
     <div class="wrap">
@@ -63,7 +64,7 @@ class Settings
                 <select name="dsm_api_version">
                 <?php
                     foreach(App::GetApi()->GetApiVersionList() as $k=>$v):
-                        echo '<option name="'.$v.'" '.((get_option('dsm_api_version') == $v) ? 'selected="selected"' : '').'>'.$v.'</option>';
+                        echo '<option value="'.$v.'" '.((get_option('dsm_api_version') == $v) ? 'selected="selected"' : '').'>'.$v.'</option>';
                     endforeach;
                 ?>
                 </select>
@@ -77,14 +78,26 @@ class Settings
         <th scope="row">DSM Admin Password</th>
         <td><input type="text" name="dsm_api_password" value="<?php echo esc_attr( get_option('dsm_api_password') ); ?>" placeholder="Password" /></td>
         </tr>
+         <th scope="row">DSM Class Cache Enabled</th>
+            <td>
+                <select name="dsm_class_cache">
+                <?php
+                    echo '<option value="0" '.((get_option('dsm_class_cache') == '0') ? 'selected="selected"' : '').'>No</option>';
+                    echo '<option value="1" '.((get_option('dsm_class_cache') == '1') ? 'selected="selected"' : '').'>Yes</option>';
+                ?>
+                </select>
+            </td>
+        </tr>
     </table>
     
     <?php submit_button(); ?>
 
 </form>
+<?php if (get_option('dsm_class_cache') == '1'): ?>
 <form method="post" >
      <input id="clear_class_cache" type="submit" name="clear_cache" value="Reset Class Cache" class="button" >
 </form>
+<?php endif; ?>
 </div>
     <?php
     }
