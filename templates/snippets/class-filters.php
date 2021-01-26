@@ -1,6 +1,8 @@
 <?php
 namespace DanceStudioManager;
-$filters = App::GetClient()->GetController('classes')->GetFilters();
+
+if (!$filters)
+	$filters = App::GetClient()->GetController('classes')->GetFilters();
 ?>
 <script>
 	jQuery(function() {
