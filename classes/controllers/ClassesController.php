@@ -8,51 +8,17 @@ class ClassesController extends BaseController
       parent::__construct();
     }
 	
-	public function GetClassesList($filter = array())
-	{
-		$dsm_classes_list = parent::GetList("classes/list");
-		
-		$filters = $this->GetFilters();
-		$programs = $programs_rev = array();
-		foreach ($filters->name as $name) 
-			$names[$name->value] = $name->label;
-		foreach ($filters->level as $level) 
-			$levels[$level->value] = $level->label;
-		foreach ($filters->location as $location) 
-			$locations[$location->value] = $location->label;
-		foreach ($filters->program as $program) {
-			$programs_rev[$program->label] = $program->value;
-		}
-		$dsm_classes_list->programs_rev = $programs_rev;
-
-		
-		
-		//Filter Classes
-		if(!empty($filter)) {
-			$filter = dsm_array_map('html_entity_decode', $filter);
-			foreach ($dsm_classes_list->groupclasses as $k_class => $class) {
-				if ((!empty($filter['class_code']) && is_array($filter['class_code']) && !in_array($class->CODE, $filter['class_code']))
-							|| (!empty($filter['class_code']) && !is_array($filter['class_code']) && $filter['class_code'] != $class->CODE)
-							|| (!empty($filter['class_name']) && is_array($filter['class_name']) && !in_array($class->NAME, $filter['class_name']))
-							|| (!empty($filter['class_name']) && !is_array($filter['class_name']) && $names[$filter['class_name']] != $class->NAME && $filter['class_name'] != $class->NAME)
-							|| (!empty($filter['class_level']) && is_array($filter['class_level']) && !in_array($class->LEVEL, $filter['class_level']))
-							|| (!empty($filter['class_level']) && !is_array($filter['class_level']) && $levels[$filter['class_level']] != $class->LEVEL  && $filter['class_level'] != $class->LEVEL)
-							|| (!empty($filter['class_location']) && is_array($filter['class_location']) && !in_array($class->LOCATION, $filter['class_location']))
-							|| (!empty($filter['class_location']) && !is_array($filter['class_location']) && $locations[$filter['class_location']] != $class->LOCATION && $filter['class_location'] != $class->LOCATION)
-							|| (!empty($filter['class_program']) && is_array($filter['class_program']) && !in_array($class->PROGRAM, $filter['class_program']))
-							|| (!empty($filter['class_program']) && !is_array($filter['class_program']) && $filter['class_program'] != $class->PROGRAM)
-							)
-						unset($dsm_classes_list->groupclasses[$k_class]);
-			}
-		}
-
-		return $dsm_classes_list;
-	}
-	
 	public function GetClasses($filter = array())
 	{
-		$dsm_classes = parent::GetList("classes/?limit=100000");
-
+		//Prepare filter for Api - ignore array values
+		foreach ($filter as $k_filter => $v_filter) {
+			if (!is_array($v_filter) && !empty($v_filter))
+				$data[$k_filter] = $v_filter;
+		}
+		
+		$data['limit'] = '100000';
+		$dsm_classes = parent::GetList('classes/?'.http_build_query($data));
+		
 		//Filter Schedules
 		if(!empty($filter)) {
 			$filter = dsm_array_map('html_entity_decode', $filter);
@@ -78,10 +44,31 @@ class ClassesController extends BaseController
 		return $dsm_classes;
 	}
 	
-	public function GetClassesData($data) {
+	public function GetClassesData($filter)
+	{
+		//Prepare filter for Api - ignore array values
+		foreach ($filter as $k_filter => $v_filter) {
+			if (!is_array($v_filter) && !empty($v_filter))
+				$data[$k_filter] = $v_filter;
+		}
+		
 		$data['dsm_action'] = 'classes/data';
-		$dsm_classes_data = parent::GetList($data);
-		return $dsm_classes_data;
+		$dsm_classes = parent::GetList($data);
+
+		//Filter Schedules
+		if(!empty($filter)) {
+			$filter = dsm_array_map('html_entity_decode', $filter);
+			foreach ($dsm_classes->groupclasses as $k_groupclass => $groupclass) {
+				if ((!empty($filter['class_code']) && is_array($filter['class_code']) && !in_array($groupclass->CODE, $filter['class_code']))
+					|| (!empty($filter['class_name']) && is_array($filter['class_name']) && !in_array($groupclass->NAME, $filter['class_name']))
+					|| (!empty($filter['class_level']) && is_array($filter['class_level']) && !in_array($groupclass->LEVEL, $filter['class_level']))
+					|| (!empty($filter['class_location']) && is_array($filter['class_location']) && !in_array($groupclass->LOCATION, $filter['class_location']))
+					|| (!empty($filter['class_program']) && is_array($filter['class_program']) && !in_array($groupclass->PROGRAM, $filter['class_program']))
+					)
+					unset($dsm_classes->groupclasses[$k_groupclass]);
+			}
+		}
+		return $dsm_classes;
 	}
 	
 	public function ClassesCalendar($data)
@@ -131,23 +118,6 @@ class ClassesController extends BaseController
 		$data['dsm_action'] = 'classes';
 		$dsm_classes_list = parent::GetList($data);
 		return $dsm_classes_list;
-	}
-	
-	public function GetCollection()
-	{
-		
-		$schedules_list = $this->GetClasses();
-	
-		if ($schedules_list == false)
-			return false;
-		
-		$calsses_list = array();
-		foreach ($schedules_list->schedules as $a=>$b)
-			foreach ($b->data as $c => $d) 
-					if (!isset($calsses_list[$d->CLASS_ID]))
-						$calsses_list[$d->CLASS_ID] = $d;
-		
-		return $calsses_list;
 	}
 	
 	public function RegisterWithPurchasedItem($data)

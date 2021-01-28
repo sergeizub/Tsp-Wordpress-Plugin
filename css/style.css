@@ -151,6 +151,7 @@ div.tab-content span {
 #current-date {
 	display: inline-block; 
 	height: 22px;
+    width: 240px;
 }
 #current-date input[name=currentdate] {
 	border: 0 !important;
