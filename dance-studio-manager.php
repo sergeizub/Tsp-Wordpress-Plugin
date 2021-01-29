@@ -31,4 +31,14 @@ function dsm_array_map($func, $arr)
   return $ret;
 }
 
+
+function dsm_body_class( $classes ) {
+    global $post;
+    if( isset($post->post_content) && has_shortcode( $post->post_content, 'dsm_client' ) ) {
+        $classes [] = 'dsm_body';
+    }
+    return $classes ;
+}
+add_filter( 'body_class', 'dsm_body_class' );
+
 $dsm_app = new DanceStudioManager\App();

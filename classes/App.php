@@ -29,25 +29,25 @@ class App
         add_action('wp_enqueue_scripts', function ($hook)
             {
                
-                wp_enqueue_style( 'bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' );
-                wp_enqueue_style( 'datetimepicker', '//clients.dancestudiomanager.com/libs/bootstrap-3.3.7/css/bootstrap-datetimepicker.min.css' );
-                wp_enqueue_style( 'fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
-                wp_enqueue_style(  'dsm_style', plugins_url('../css/style.css',__FILE__ ));
-                wp_enqueue_style(  'dsm_style_united', plugins_url('../css/style-united.css',__FILE__ ));
-                wp_enqueue_style(  'fullcalendar', '//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css');
+                wp_register_style( 'dsm_css_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' );
+                wp_register_style( 'dsm_datetimepicker', '//clients.dancestudiomanager.com/libs/bootstrap-3.3.7/css/bootstrap-datetimepicker.min.css' );
+                wp_register_style( 'dsm_fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
+                wp_register_style(  'dsm_style', plugins_url('../css/style.css',__FILE__ ));
+                wp_register_style(  'dsm_style_united', plugins_url('../css/style-united.css',__FILE__ ));
+                wp_register_style(  'dsm_fullcalendar', '//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css');
                 
-                wp_enqueue_script( 'bootstrap','//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', array('jquery'));
-                wp_enqueue_script( 'momentjs','//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js', array('jquery'));
-                wp_enqueue_script( 'signature_pad',plugins_url('../js/signature_pad/index.js',__FILE__ ), array('jquery'), time());
-                wp_enqueue_script( 'dsmfunctionjs',plugins_url('../js/functions.js',__FILE__ ), array('jquery'), time());
+                wp_register_script( 'dsm_js_bootstrap','//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', array('jquery'));
+                wp_register_script( 'dsm_momentjs','//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js', array('jquery'));
+                wp_register_script( 'dsm_signature_pad',plugins_url('../js/signature_pad/index.js',__FILE__ ), array('jquery'), time());
+                wp_register_script( 'dsmfunctionjs',plugins_url('../js/functions.js',__FILE__ ), array('jquery'), time());
                 
                 wp_localize_script( 'dsmfunctionjs', 'dsmajax', 
                     array(
                         'url' => admin_url('admin-ajax.php')
                     )
                 );  
-                wp_enqueue_script( 'datetimepicker','//clients.dancestudiomanager.com/libs/bootstrap-3.3.7/js/bootstrap-datetimepicker.min.js', array('jquery'));
-                wp_enqueue_script( 'fullcalendar','//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js', array('jquery'));
+                wp_register_script( 'dsm_datetimepicker','//clients.dancestudiomanager.com/libs/bootstrap-3.3.7/js/bootstrap-datetimepicker.min.js', array('jquery'));
+                wp_register_script( 'dsm_fullcalendar','//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js', array('jquery'));
             }, 20);
         
         
@@ -59,6 +59,20 @@ class App
             });
         
         add_shortcode('dsm_classes_list', function ( $atts ) {
+            
+            wp_enqueue_style('dsm_css_bootstrap');
+            wp_enqueue_style('dsm_datetimepicker');
+            wp_enqueue_style('dsm_fontawesome');
+            wp_enqueue_style('dsm_style');
+            wp_enqueue_style('dsm_style_united');
+            wp_enqueue_style('dsm_fullcalendar');
+            
+            wp_enqueue_script('dsm_js_bootstrap');
+            wp_enqueue_script('dsm_momentjs');
+            wp_enqueue_script('dsm_signature_pad');
+            wp_enqueue_script('dsmfunctionjs');
+            wp_enqueue_script('dsm_datetimepicker');
+            wp_enqueue_script('dsm_fullcalendar');
             
             $args = array(
                 'before_widget' => '<div class="box widget">',
@@ -76,6 +90,20 @@ class App
         
         add_shortcode('dsm_calendar', function ( $atts ) {
             
+            wp_enqueue_style('dsm_css_bootstrap');
+            wp_enqueue_style('dsm_datetimepicker');
+            wp_enqueue_style('dsm_fontawesome');
+            wp_enqueue_style('dsm_style');
+            wp_enqueue_style('dsm_style_united');
+            wp_enqueue_style('dsm_fullcalendar');
+            
+            wp_enqueue_script('dsm_js_bootstrap');
+            wp_enqueue_script('dsm_momentjs');
+            wp_enqueue_script('dsm_signature_pad');
+            wp_enqueue_script('dsmfunctionjs');
+            wp_enqueue_script('dsm_datetimepicker');
+            wp_enqueue_script('dsm_fullcalendar');
+            
             $args = array(
                 'before_widget' => '<div class="box widget">',
                 'after_widget'  => '</div>',
@@ -91,6 +119,20 @@ class App
         
         add_shortcode('dsm_register', function ( $atts ) {
             
+            wp_enqueue_style('dsm_css_bootstrap');
+            wp_enqueue_style('dsm_datetimepicker');
+            wp_enqueue_style('dsm_fontawesome');
+            wp_enqueue_style('dsm_style');
+            wp_enqueue_style('dsm_style_united');
+            wp_enqueue_style('dsm_fullcalendar');
+            
+            wp_enqueue_script('dsm_js_bootstrap');
+            wp_enqueue_script('dsm_momentjs');
+            wp_enqueue_script('dsm_signature_pad');
+            wp_enqueue_script('dsmfunctionjs');
+            wp_enqueue_script('dsm_datetimepicker');
+            wp_enqueue_script('dsm_fullcalendar');
+            
             $args = array(
                 'before_widget' => '<div class="box widget">',
                 'after_widget'  => '</div>',
@@ -104,7 +146,23 @@ class App
             return   $output;
         });
         
-        add_shortcode('dsm_client', function ( $atts ){
+        add_shortcode('dsm_client', function ( $atts ) {
+            
+            wp_enqueue_style('dsm_css_bootstrap');
+            wp_enqueue_style('dsm_datetimepicker');
+            wp_enqueue_style('dsm_fontawesome');
+            wp_enqueue_style('dsm_style');
+            wp_enqueue_style('dsm_style_united');
+            wp_enqueue_style('dsm_fullcalendar');
+            
+            wp_enqueue_script('dsm_js_bootstrap');
+            wp_enqueue_script('dsm_momentjs');
+            wp_enqueue_script('dsm_signature_pad');
+            wp_enqueue_script('dsmfunctionjs');
+            wp_enqueue_script('dsm_datetimepicker');
+            wp_enqueue_script('dsm_fullcalendar');
+
+            
             unset($_SESSION['dsm_client_attrs']);
             foreach ($atts as $k_att => $att) {
                 if ($k_att == 'class_genre')
