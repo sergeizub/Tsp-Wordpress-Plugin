@@ -37,7 +37,8 @@ if (!$filters)
 			<input type="hidden" name="boot_tab" value="tab-classes" />
 		<?php endif; ?>
 <?php else : ?>
-	<input type="hidden" name="boot_tab" value="tab-classes-calendar" />
+	<?php echo '<input type="hidden" name="boot_tab" value="tab-classes-calendar" />';?>
+	<input type="hidden" name="boot_tab" value="tab-classes" />
 <?php endif; ?>
 	<input type="hidden" name="action" value="dsmclient"/>
 <?php if ($_SESSION['dsm_client_attrs'] && $_SESSION['dsm_client_attrs']['class_code']) : ?>

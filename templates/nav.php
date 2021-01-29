@@ -13,7 +13,7 @@ jQuery(function() {
 var show_login_alert = '<?=DSM_OC_SHOW_LOGIN_ALERT?>';
 </script>
 <ul class="nav nav-pills">
-		<?php if (DSM_OC_USE_CLASSES_LIST_VIEW == "1" ) : ?>
+		<?php if (DSM_OC_USE_CLASSES_LIST_VIEW == "1" || $_SESSION['dsm_client_attrs']['view'] == "List") : ?>
 			<?php if (DSM_OC_CLASS_LIST_TYPE == 'list_by_program' || DSM_OC_CLASS_LIST_TYPE == 'list_by_program_table' || $_SESSION['dsm_client_attrs']['view'] == "List" ) : ?>
 				<li><a href="#tab-classes-list" data-toggle="tab" class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>
 			<?php else : ?>
@@ -21,7 +21,8 @@ var show_login_alert = '<?=DSM_OC_SHOW_LOGIN_ALERT?>';
 				 <li><a href="#tab-classes" data-toggle="tab" class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>
 			<?php endif; ?>
 		<?php else : ?>
-			<li><a href="#tab-classes-calendar" data-toggle="tab"  class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>
+			<?php //echo '<li><a href="#tab-classes-calendar" data-toggle="tab"  class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>';?>
+				  <li><a href="#tab-classes" data-toggle="tab" class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>
 		<?php endif; ?>
     <li><a href="#tab-auth-register" data-toggle="tab" class="dsm_ajax_tab"><i class="fa fa-user"></i> Sign In / Create Account</a></li>
 </ul>
