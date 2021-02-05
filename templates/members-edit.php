@@ -43,7 +43,6 @@ else {
 </div>	
 	<? endif;
 	$user_form =  App::GetClient()->GetController('members')->GetUserForm();
-	
 	if (is_array($user_form)) : ?>
 	<div id="tab-members-edit" class="tab-pane">
 	<div class="dsm-header"><h2>Edit Profile</h2></div>

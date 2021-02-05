@@ -2,7 +2,6 @@
 namespace DanceStudioManager;
 class CalendarWidget extends \WP_Widget
 {
-
 	public function __construct()
 	{
 		parent::__construct( "dsm_calendar", 'DSM Calendar' );
@@ -11,7 +10,6 @@ class CalendarWidget extends \WP_Widget
 	public function form( $instance )
 	{
 		
-          
 	}
 
 	public function update( $new_instance, $old_instance )
@@ -25,5 +23,4 @@ class CalendarWidget extends \WP_Widget
 		App::GetTemplate()->Load(  'classes-calendar.php' );
 		echo '</div>';
 	}
-
 }

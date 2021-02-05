@@ -14,7 +14,6 @@ if ( ! defined( 'WPINC' ) ) {
 define('DSM_PHPDATE', 'M j, Y');
 require_once( trailingslashit( dirname( __FILE__ ) ) . 'autoloader.php' );
 
-
 function dsm_location_sort($a, $b) {
 	return strcmp($a->LOCATION,$b->LOCATION);
 }
@@ -30,7 +29,6 @@ function dsm_array_map($func, $arr)
 
   return $ret;
 }
-
 
 function dsm_body_class( $classes ) {
     global $post;

@@ -1,12 +1,12 @@
 <?php
 namespace DanceStudioManager;
 
-	$class_id = App::GetApi()->GetIdParam();
+   $class_id = App::GetApi()->GetIdParam();
 ?>
 <div id="tab-classes-calendar" class="tab-pane">
 <?php
 if (!empty($class_id)) :
-	App::GetTemplate()->Load('class-registration.php');
+   App::GetTemplate()->Load('class-registration.php');
 else :
 	include plugin_dir_path( __FILE__ ) . 'snippets/class-filters.php'; 
    if ($_SESSION['dsm_client_attrs']["start_date"] && strtotime($_SESSION['dsm_client_attrs']["start_date"]) > strtotime(DSM_PHPDATE))
@@ -61,7 +61,6 @@ else :
 
 	function SchedulesList(date)
 	{
-		
 		jQuery('#dsm_loading').show();
 		jQuery('#schedules-container').html('');
 		
@@ -138,7 +137,6 @@ else :
 		    if (data.current_date != '' && data.current_date != undefined)
 				jQuery('#current-date input[name=currentdate]').val(data.current_date);
 			
-			
 			jQuery('#dsm-tab-content .dsm_ajax_tab').on('click', function(e) {
 				e.preventDefault();
 				dsm_ajax_click(this);
@@ -164,6 +162,5 @@ else :
 		<div class="panel-body" id="schedules-container"></div>
 	</div>
 	<?
-	
 endif; ?>
 </div>

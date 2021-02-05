@@ -6,7 +6,6 @@ if (!empty($selected_account))
 	$payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(array('selected_account' => $selected_account));
 else
 	$payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts();
-
 ?>
 <div id="tab-checkout-cart" class="tab-pane">
     <div class="page-header">

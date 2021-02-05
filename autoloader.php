@@ -2,7 +2,6 @@
 
 spl_autoload_register( 'dsm_namespace_autoload' );
 
-
 function dsm_namespace_autoload( $class_name )
 {
     if ( false === strpos( $class_name, 'DanceStudioManager' ))

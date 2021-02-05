@@ -36,26 +36,6 @@ class AuthController extends BaseController
 		$error_fields = array();
 		if ($result->success == true) {
 			
-			/*if (!empty($result->token))
-					$this->SetAuthToken($result->token);
-			
-			foreach ($data['subscribe'] as $id => $signed) {
-				$waiwer_data = array();
-				$member = App::GetClient()->GetController('members')->GetUserData();
-				$waiwer_data['dsm_action'] = 'members/waivers/'.$member['ID'];
-				if ($signed == '1') {
-					$waiwer_data['id']  = $id;
-					$waiwer_data['signature']  = $data['signature'][$id];
-					echo '<pre>';
-					print_r($waiwer_data);
-					echo '</pre>';
-					$waiver_result = parent::Submit($waiwer_data);
-					echo '<pre>';
-					print_r($waiver_result);
-					echo '</pre>';
-				}
-			}*/
-			
 			$login_param = array("username" => $data["USERNAME"],"password" => $data["PASSWORD"]);
 			if ($data['class_id'])
 				$login_param['class_id'] = $data['class_id'];
@@ -102,7 +82,6 @@ class AuthController extends BaseController
 			exit();
 		}
 			
-			
 		return $response;
 	}
 	
@@ -123,7 +102,6 @@ class AuthController extends BaseController
 	
 	public function GetAuthToken()
 	{
-		
 		if (!empty($_SESSION['dsm_auth_token']))
 			return $_SESSION['dsm_auth_token'];
 		else {
@@ -221,12 +199,10 @@ class AuthController extends BaseController
 				define('DSM_'.$k, $v);
 	}	
 	
-	
 	public function GetRegisterForm()
 	{
 		$profile = parent::GetList("auth/register");
 		$form = $profile->form;
 		return $form;
 	}
-
 }

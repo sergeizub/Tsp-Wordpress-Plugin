@@ -52,7 +52,6 @@ usort($register_fields, function ($a, $b) use ($order) {
 		return 0;
 });
 
-	
 $error_fields = array();
 if (is_array($register_fields)) :
 	?>
@@ -192,12 +191,7 @@ if (is_array($register_fields)) :
 			}
 			echo '</div></div>';
 		}
-		//echo '<div class="form-group">';
-		//foreach ($waivers->data as $w_data)
-			//include plugin_dir_path( __FILE__ ) . 'snippets/agreements-to-sign.php';
-
-		//echo '</div>';
-
+		
 		echo '<input type="hidden" name="action" value="dsmclient"/>';
 		echo '<input type="hidden" name="obj" value="auth"/>';
 		echo '<input type="hidden" name="method" value="Submit"/>';

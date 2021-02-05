@@ -2,7 +2,6 @@
 namespace DanceStudioManager;
 class GroupclassesWidget extends \WP_Widget
 {
-
 	public function __construct()
 	{
 		parent::__construct( "dsm_classes_list", 'DSM GroupClasses' );
@@ -25,5 +24,4 @@ class GroupclassesWidget extends \WP_Widget
 		App::GetTemplate()->Load(  'classes-list.php' );
 		echo '</div>';
 	}
-
 }

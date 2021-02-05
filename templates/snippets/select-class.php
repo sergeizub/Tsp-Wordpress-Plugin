@@ -32,7 +32,6 @@ namespace DanceStudioManager;
 		<?php if ($student['prerequisites_complete'] && DSM_OC_ALLOW_WAIT_LIST == "1" && $class['SCHEDULE']['WAIT_LIST'] == "1" && $class['SCHEDULE']['MAX_STUDENTS'] <= ($class['SCHEDULE']['STUDENTS_QUANTITY'])) : ?>
 			<div class="alert alert-warning"> Class is full. Student will be added to Wait List.</div>
 		<?php endif; ?>
-		
 		<?php if (DSM_OC_CLASS_LIST_AVAILABLE_SLOTS == '1' && false): ?>
 			<p><?= (($class['MAX_STUDENTS'] - $class['STUDENTS_QUANTITY']) > 0) ? ($class['MAX_STUDENTS'] - $class['STUDENTS_QUANTITY']) :'0'?> out of <?=$class['MAX_STUDENTS']?>  slots available</p>
 		<? endif ;?>

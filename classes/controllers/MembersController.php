@@ -3,7 +3,6 @@ namespace DanceStudioManager;
 
 class MembersController extends BaseController
 {
-	
     public function __construct()
     {
       parent::__construct();
@@ -68,14 +67,12 @@ class MembersController extends BaseController
 		return $result;
 	}
 	
-	
 	public function DeleteStudent($data)
 	{
 		$data['dsm_action'] = 'members/student/'.$data['student_id'];
 		return parent::Delete($data);
 	}
 	
-
 	public function GetName()
 	{
 		$profile = $this->GetUserData();

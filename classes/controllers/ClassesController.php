@@ -7,7 +7,7 @@ class ClassesController extends BaseController
     {
       parent::__construct();
     }
-	
+
 	public function GetClasses($filter = array())
 	{
 		//Prepare filter for Api - ignore array values
@@ -15,10 +15,10 @@ class ClassesController extends BaseController
 			if (!is_array($v_filter) && !empty($v_filter))
 				$data[$k_filter] = $v_filter;
 		}
-		
+
 		$data['limit'] = '100000';
 		$dsm_classes = parent::GetList('classes/?'.http_build_query($data));
-		
+
 		//Filter Schedules
 		if(!empty($filter)) {
 			$filter = dsm_array_map('html_entity_decode', $filter);
@@ -43,7 +43,7 @@ class ClassesController extends BaseController
 		}
 		return $dsm_classes;
 	}
-	
+
 	public function GetClassesData($filter)
 	{
 		//Prepare filter for Api - ignore array values
@@ -51,7 +51,7 @@ class ClassesController extends BaseController
 			if (!is_array($v_filter) && !empty($v_filter))
 				$data[$k_filter] = $v_filter;
 		}
-		
+
 		$data['dsm_action'] = 'classes/data';
 		$dsm_classes = parent::GetList($data);
 
@@ -70,13 +70,13 @@ class ClassesController extends BaseController
 		}
 		return $dsm_classes;
 	}
-	
+
 	public function ClassesCalendar($data)
 	{
 		$data['dsm_action'] = 'classes-calendar';
 		return parent::Submit($data);
 	}
-	
+
 	public function GetInfo($data)
 	{
 		if(is_array($data) && !empty($data['class_id']))
@@ -90,10 +90,10 @@ class ClassesController extends BaseController
 			if (get_option('dsm_class_cache') == '1')
 				set_transient( 'dsm_class_'.$id, $dsm_class_info, 6 * HOUR_IN_SECONDS );
 		}
-		
+
 	 return parent::GetList("classes/$id");
 	}
-	
+
 	public function GetScheduleInfo($class_id,$schedule_id)
 	{
 		if ($class_id && $schedule_id)
@@ -101,25 +101,25 @@ class ClassesController extends BaseController
 		else
 			return false;
 	}
-	
+
 	public function GetFilters()
 	{
 	 return parent::GetList("classes/filters");
 	}
-	
+
 	public function GetAvailableSchedules($data)
 	{
 		$data['dsm_action'] = 'classes/available-schedules';
 		return parent::GetList($data);
 	}
-	
+
 	public function SubmitFilter($data)
 	{
 		$data['dsm_action'] = 'classes';
 		$dsm_classes_list = parent::GetList($data);
 		return $dsm_classes_list;
 	}
-	
+
 	public function RegisterWithPurchasedItem($data)
 	{
 		$data['dsm_action'] = 'classes/register-purchased';

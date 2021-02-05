@@ -3,14 +3,11 @@ namespace DanceStudioManager;
 
 class Settings
 {
-   
-    
     public function __construct()
     {
         add_action( 'admin_init', array( $this, 'Init' ) );
         add_action( 'admin_menu', array( $this, 'InitPage' ) );
     }
-    
     
     public function Init()
     {

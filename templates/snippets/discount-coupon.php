@@ -24,5 +24,4 @@
 		    </div>
 			<input type="hidden" name="method" value="AddDiscount"/>
 	<?php endif; ?>
-
 <?php endif; ?>

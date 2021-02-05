@@ -52,7 +52,7 @@
                     })
                 }
             });
-            
+
             jQuery(document).on('click', '.resign_<?=$w_data->ID?>', function() {
                 var signatureBox = jQuery('.signature_<?=$w_data->ID?>').children();
                 jQuery(signatureBox[1]).show();
@@ -100,11 +100,11 @@
                             checking this box, I agree to the use of my signature for the purpose of showing that I
                             agree to the terms.</i></label>
                 </div>
-               
+
             </div>
         </div>
     </div>
-	
+
 <!-- Modal -->
 <div class="modal fade" id="myWaiver" tabindex="-1" role="dialog" aria-labelledby="myWaiver" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
@@ -122,6 +122,3 @@
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-
-
-

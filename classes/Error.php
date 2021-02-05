@@ -19,5 +19,4 @@ class Error
 		echo '<br/>';
         echo '<div class="alert alert-success" role="alert">Success: '.$msg.'</div>';
     }
-	
 }

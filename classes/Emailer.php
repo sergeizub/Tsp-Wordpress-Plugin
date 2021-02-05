@@ -3,7 +3,6 @@ namespace DanceStudioManager;
 
 class Emailer
 {
-	
     public function __construct()
     {
        add_filter( 'wp_mail_content_type', function($content_type){
@@ -18,7 +17,6 @@ class Emailer
 		if (is_array($fields))
 			foreach ($fields as $field)
 				$labels[$field->name] = $field->label;
-		
 		
 		$message = "Congratulations! Your account was registered successfully. <br /><br />";
 		$message .=  "Please check your personal information:<br />";
@@ -36,7 +34,6 @@ class Emailer
 		
 		$subject = "New Account";
 		
-
 		if (!empty($family['EMAIL']))
 			$emails[] = $family['EMAIL'];
 
@@ -47,5 +44,4 @@ class Emailer
 			wp_mail( $emails, $subject, $message);
 		}
 	}
-
 }

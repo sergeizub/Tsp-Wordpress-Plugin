@@ -2,7 +2,6 @@
 namespace DanceStudioManager;
 class RegisterWidget extends \WP_Widget
 {
-
 	public function __construct()
 	{
 		parent::__construct( "dsm_register", 'DSM Register' );
@@ -23,5 +22,4 @@ class RegisterWidget extends \WP_Widget
 	{
 		App::GetTemplate()->Load(  'auth-register.php' );
 	}
-
 }

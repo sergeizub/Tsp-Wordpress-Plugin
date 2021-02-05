@@ -3,7 +3,6 @@ namespace DanceStudioManager;
 
 class Template
 {
-	
     public function __construct()
     {
 		
@@ -28,7 +27,6 @@ class Template
 			<? endif; ?>
 			<?
             load_template(plugin_dir_path( __FILE__ ) . '../templates/'. $file);
-			
 		 }
 	}
 }

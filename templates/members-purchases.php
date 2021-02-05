@@ -1,4 +1,4 @@
-<?
+<?php
 namespace DanceStudioManager;
 $result = App::GetClient()->GetController('members')->GetPurchases();
 ?>

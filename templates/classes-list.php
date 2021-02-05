@@ -26,19 +26,19 @@ foreach ($classes_tabs as $k => $v_array) {
         <?php foreach ($classes_tabs as $key => $item): ?>
 		<?php reset($classes_tabs);?>
 		<li role="presentation" class="<?=($key === key($classes_tabs) ? 'active' : '')?>">
-			<a href="#tab<?=$key?>" aria-controls="<?=$programs[$key]?>" 
+			<a href="#tab<?=$key?>" aria-controls="<?=$programs[$key]?>"
 				role="tab" data-toggle="tab" data-program_id="<?=$key?>"><?=$programs[$key]?></a>
 		</li>
 		<?php endforeach; ?>
 	</ul>
-</div> 
+</div>
 <div class="tab-content classes-list">
 		<?php foreach ($classes_tabs as $key => $item): ?>
 			<?php reset($classes_tabs);?>
 			<div role="tabpanel" class="tab-pane <?=($key === key($classes_tabs) ? 'active' : '')?>" id="tab<?=$key?>">
-			<div class="tab-content">	
+			<div class="tab-content">
 			<div class="get-page" data-relation="categories" data-relation_id="<?=$key?>"></div>
-			<?php 
+			<?php
 				include plugin_dir_path( __FILE__ ) . 'snippets/select-class-table.php';
 			?>
 			</div>

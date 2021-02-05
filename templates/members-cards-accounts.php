@@ -1,4 +1,4 @@
-<?
+<?php
 namespace DanceStudioManager;
 $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts();
 ?>
