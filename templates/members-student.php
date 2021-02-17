@@ -62,7 +62,7 @@ else {
 							<input type="text" class="form-control" name="'.$field->name.'"
 								value="'.((isset($student_data[$field->name]) && $student_data[$field->name] != '0000-00-00') ?  $dsm_day->format(DSM_PHPDATE) : '').'"
 								'.((isset($field->required) && $field->required == true) ? 'required' : '').'
-								placeholder="'.$field->label.'">
+								placeholder="'.$field->label.'" readonly="readonly">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 						</div>';
 						unset($dsm_day);

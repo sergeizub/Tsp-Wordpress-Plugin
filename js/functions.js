@@ -102,6 +102,7 @@ jQuery(function () {
 function InputDateInit() {
     jQuery('.input-group.date').datetimepicker({
         showClear: true,
+        ignoreReadonly: true,
         format: window.dtp_date
     });
 }
