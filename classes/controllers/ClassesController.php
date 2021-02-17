@@ -51,10 +51,12 @@ class ClassesController extends BaseController
 			if (!is_array($v_filter) && !empty($v_filter))
 				$data[$k_filter] = $v_filter;
 		}
-
+		if($data['class_code'])
+			$data['class_code'] = htmlspecialchars_decode($data['class_code']);
+		
 		$data['dsm_action'] = 'classes/data';
 		$dsm_classes = parent::GetList($data);
-
+		
 		//Filter Schedules
 		if(!empty($filter)) {
 			$filter = dsm_array_map('html_entity_decode', $filter);
