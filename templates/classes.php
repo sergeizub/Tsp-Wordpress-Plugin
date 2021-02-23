@@ -34,11 +34,23 @@ else :
 	if (jQuery("#filter_class_program").length  && jQuery("#filter_class_program").val() != "0" && jQuery("#filter_class_program").val() != "") {
        class_filter.class_program = jQuery("#filter_class_program").val();
     }
-	jQuery(function() {	
-		SchedulesList('<?=$date_now?>');
-	
+	var schedule_week;
+	jQuery(function() {
+   <?php if($_SESSION['dsm_client_attrs']["week"] == "true") : ?>
+		 schedule_week = 1;
+		 SchedulesList(moment().day(<?=DSM_CALENDAR_START_DAY?>).format('dddd, ' + window.dtp_date));
+   <?php else: ?>
+		 schedule_week = 0;
+		 SchedulesList('<?=$date_now?>');
+   <?php endif; ?>
 		jQuery(document).on("click", "#today-schedules", function() {
+			schedule_week = 0;
 			SchedulesList('<?=$date_now?>');
+		});
+		
+		jQuery(document).on("click", "#week-schedules", function() {
+			schedule_week = 1;
+			SchedulesList(moment().day(<?=DSM_CALENDAR_START_DAY?>).format('dddd, ' + window.dtp_date));
 		});		
 	
 		jQuery(document).on("click", "#next-date", function() {
@@ -64,7 +76,7 @@ else :
 		jQuery('#dsm_loading').show();
 		jQuery('#schedules-container').html('');
 		
-	jQuery.post(dsmajax.url, { action : 'dsmclient', boot_tab: 'classes' , type: 'json', start: date, filter: JSON.stringify(class_filter) },
+	jQuery.post(dsmajax.url, { action : 'dsmclient', boot_tab: 'classes' , type: 'json', start: date, filter: JSON.stringify(class_filter), schedule_week: schedule_week},
 		function(data) 
 		{
 			if (data.schedules != '' && data.schedules != undefined) {
@@ -126,7 +138,7 @@ else :
 				});
 		    }
 		    else
-		    	s ='<div class="alert alert-warning">There are no classes on ' + date + '</div>';
+			  s ='<div class="alert alert-warning">There are no classes on ' + data.current_date + '</div>';
 		    
 		    jQuery('#schedules-container').html(s);
 		    
@@ -148,10 +160,21 @@ else :
     );	
 }
 </script>
+<style>
+<?php if($_SESSION['dsm_client_attrs']["week"] == "true"): ?>
+#current-date {
+	min-width: 60%;
+}
+<?php endif; ?>
+</style>
+
 	<div class="panel panel-default ">
 		<div class="panel-heading">
 			<h3 class="panel-title text-center">
-				<a href="#" id="today-schedules" class="btn btn-default pull-left hidden-xs" data-start="">Today</a>
+			   <?php if($_SESSION['dsm_client_attrs']["week"] == "true") : ?>
+				  <a href="#" id="week-schedules" class="btn btn-default pull-left hidden-xs" style="margin-right:12px;" data-start="">Week</a>
+			   <?php endif; ?>
+				  <a href="#" id="today-schedules" class="btn btn-default pull-left hidden-xs" data-start="">Today</a>
 				<a href="#" id="prev-date" class="btn btn-default" data-start=""><i class="fa fa-caret-left"></i></a>
 				<span id="current-date" class="input-group" title="Click to change date">
 					<input type="text" class="form-control" name="currentdate" value="" style="">

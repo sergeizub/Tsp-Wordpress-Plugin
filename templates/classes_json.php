@@ -13,13 +13,25 @@ else
 
 $i = 0;
 $current_date = new DateTime($_REQUEST['start']);
+$end_date = new DateTime($_REQUEST['start']);
 $day = new DateTime($_REQUEST['start']);
-$data = [
+
+if ($_REQUEST['schedule_week'] == "1") {
+	$data = [
+			'schedules' => [],
+			'current_date' => $day->format('l, '.DSM_PHPDATE). ' - ' .$day->modify('+ 6 day')->format('l, '.DSM_PHPDATE),
+			'prev_date' => $day->modify('- 13 day')->format(DSM_PHPDATE),
+			'next_date' => $day->modify('+ 14 day')->format(DSM_PHPDATE)
+		];
+	$end_date->modify('+ 7 day');
+} else {
+	$data = [
 			'schedules' => [],
 			'current_date' => $day->format('l, '.DSM_PHPDATE),
 			'prev_date' => $day->modify('- 1 day')->format(DSM_PHPDATE),
 			'next_date' => $day->modify('+ 2 day')->format(DSM_PHPDATE)
 		];
+}
 
 foreach ($classes_list->schedules as $schedules) {
     if (is_array($schedules->data)) {
@@ -28,9 +40,12 @@ foreach ($classes_list->schedules as $schedules) {
 			if ($schedule_start->format(DSM_PHPDATE) == $current_date->format(DSM_PHPDATE)){
 				$data['schedules'][$i] = $schedule;
 			}
+			elseif ($_REQUEST['schedule_week'] == "1" && $schedule_start >= $current_date &&  $schedule_start < $end_date) {
+				$data['schedules'][$i] = $schedule;
+			}
             $i++;
 		}
-    }
+	}
 }
 
 usort($data['schedules'], 'dsm_location_sort');
