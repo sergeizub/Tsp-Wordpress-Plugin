@@ -110,7 +110,10 @@ else :
 					if (OC_CLASS_LIST_AVAILABLE_SLOTS == '1') var slots = '<p>' + av_slots + ' out of ' + v.MAX_STUDENTS + ' slots available</p>'; else var slots = '';
 					if (OC_CLASS_LIST_CLASS_LOCATION == '1' && v.LOCATION !== null) var location = '<h4>' + v.LOCATION + '</h4>'; else var location = '';
 					<?php if (App::GetClient()->GetController('auth')->isLogged()) : ?>
-					if (v.MEMBER_SCHEDULE_STATUS == '0') {
+					if (v.M_STATUS == 'Cancelled') {
+                        button = '<div class="btn btn-danger text-center">Cancelled</div>';
+                    }
+					else if (v.MEMBER_SCHEDULE_STATUS == '0') {
 						button = '<div class="alert alert-success text-center">Booked</div>';
 					}					
 					else if (v.MEMBER_SCHEDULE_STATUS == '1') {
@@ -129,7 +132,12 @@ else :
 						button = '<a class="btn btn-success btn-lg ' + fclass + ' dsm_ajax_tab" href="#tab-class-registration-' + v.CLASS_ID + '"  dsm_schedule_id="'+v.ID+'" title="Book Now">Book Now</a>';
 					}
 					<?php else: ?>
-					 button = '<button class="btn btn-success btn-lg ' + fclass + ' btn-login-alert " title="Book Now" dsm_class_id="'+v.CLASS_ID+'" dsm_schedule_id="'+v.ID+'">Book Now</button>';
+					if (v.M_STATUS == 'Cancelled') {
+                        button = '<div class="btn btn-danger text-center">Cancelled</div>';
+                    }
+					else {
+						button = '<button class="btn btn-success btn-lg ' + fclass + ' btn-login-alert " title="Book Now" dsm_class_id="'+v.CLASS_ID+'" dsm_schedule_id="'+v.ID+'">Book Now</button>';
+					}
 					 <?php endif; ?>
 					s += '<div class="schedule" style="border-left: 30px solid #' + v.COLOR + ';"><h4>' + v.START_DATE + '  <small>' + v.START_TIME + ' - ' + v.END_TIME + '</small></h4>'+
 					'<div class="row"><div class="col-md-9"><a href="#tab-classes" class="dsm_ajax_tab" dsm_obj="classes" dsm_method="GetInfo" dsm_class_id="' + v.CLASS_ID + '" ><h3>'+ listid + ' ' + code + ' ' + genre + ' ' + level + 
