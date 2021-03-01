@@ -7,8 +7,14 @@ else
 	$classes_list = App::GetClient()->GetController('classes')->GetClassesData($_REQUEST['filter']);
 
 foreach ($classes_list->groupclasses as $class) {
-    $classes_tabs[$class->PROGRAM_ID][] =  $class;
-	$programs[$class->PROGRAM_ID] = $class->PROGRAM;
+	if ($_SESSION['dsm_client_attrs']['class_code']) {
+		$classes_tabs['class_code'][] =  $class;
+		$programs['class_code'] = $_SESSION['dsm_client_attrs']['class_code'];
+	}
+	else {
+		$classes_tabs[$class->PROGRAM_ID][] =  $class;
+		$programs[$class->PROGRAM_ID] = $class->PROGRAM;
+	}
 }
 
 //Sort By Location Asc
