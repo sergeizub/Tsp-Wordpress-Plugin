@@ -9,7 +9,10 @@ else
 foreach ($classes_list->groupclasses as $class) {
 	if ($_SESSION['dsm_client_attrs']['class_code']) {
 		$classes_tabs['class_code'][] =  $class;
-		$programs['class_code'] = $_SESSION['dsm_client_attrs']['class_code'];
+		if (is_array($_SESSION['dsm_client_attrs']['class_code']))
+			$programs['class_code'] = implode(", ",$_SESSION['dsm_client_attrs']['class_code']);
+		else
+			$programs['class_code'] = $_SESSION['dsm_client_attrs']['class_code'];
 	}
 	else {
 		$classes_tabs[$class->PROGRAM_ID][] =  $class;
@@ -21,7 +24,6 @@ foreach ($classes_list->groupclasses as $class) {
 foreach ($classes_tabs as $k => $v_array) {
 	usort($classes_tabs[$k], 'dsm_location_sort');
 }
-
 ?>
 <div id="tab-classes-list" class="tab-pane">
 	<?php $filters = (!empty($classes_list->filters) ? $classes_list->filters : false); ?>
