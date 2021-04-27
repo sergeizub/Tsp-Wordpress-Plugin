@@ -12,6 +12,7 @@ if (!empty($_POST['last_name']))
 else if (!empty($user_data) && isset($user_data->LASTNAME))
 	$last_name = $user_data->LASTNAME;
 
+$payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts();
 ?>
 <?php if (DSM_OC_SHOPPING_CART_PAYPAL == '1') : ?>
 	<div class="row">
