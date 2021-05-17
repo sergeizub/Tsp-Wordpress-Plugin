@@ -16,6 +16,7 @@ class Settings
         register_setting( 'dsm_api_settings', 'dsm_api_version');
         register_setting( 'dsm_api_settings', 'dsm_api_username');
         register_setting( 'dsm_api_settings', 'dsm_api_password');
+        register_setting( 'dsm_api_settings', 'dsm_private_lesson_section');
         //register_setting( 'dsm_api_settings', 'dsm_class_cache');
     }
     
@@ -74,6 +75,17 @@ class Settings
         <tr valign="top">
         <th scope="row">DSM Admin Password</th>
         <td><input type="text" name="dsm_api_password" value="<?php echo esc_attr( get_option('dsm_api_password') ); ?>" placeholder="Password" /></td>
+        </tr>
+        <tr valign="top">
+        <th scope="row">DSM Enable Private Lessons Section</th>
+            <td>
+                <select name="dsm_private_lesson_section">
+                <?php
+                    echo '<option value="0" '.((get_option('dsm_private_lesson_section') == '0') ? 'selected="selected"' : '').'>No</option>';
+                    echo '<option value="1" '.((get_option('dsm_private_lesson_section') == '1') ? 'selected="selected"' : '').'>Yes</option>';
+                ?>
+                </select>
+            </td>
         </tr>
     </table>
     <?php submit_button(); ?>

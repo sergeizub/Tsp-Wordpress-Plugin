@@ -135,6 +135,16 @@ class MembersController extends BaseController
 	{
 		return parent::GetList("members/student");
 	}
+    
+    public function GetMyClasses()
+	{
+		return parent::GetList("classes/my");
+	}
+    
+    public function GetPrivateLessonsTotals()
+	{
+		return parent::GetList("members/private-lessons-totals");
+	}
 	
 	public function GetPayments()
 	{

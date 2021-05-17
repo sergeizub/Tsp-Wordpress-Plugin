@@ -33,6 +33,10 @@ jQuery(function() {
 			<ul class="dropdown-menu">
 				<li><a href="#tab-members-edit" class="dsm_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>
 				<li><a href="#tab-members-student" class="dsm_ajax_tab"><i class="fa fa-child"></i>  Add Related Student</a></li>
+				<li><a href="#tab-members-classes" class="dsm_ajax_tab"><i class="fa fa-list"></i> Classes</a></li>
+				<?php if (get_option('dsm_private_lesson_section') == '1'): ?>
+				<li><a href="#tab-members-private-lessons" class="dsm_ajax_tab"><i class="fa fa-user-circle"></i>  Private Lessons</a></li>
+				<?php endif; ?>
 				<li><a href="#tab-members-charges" class="dsm_ajax_tab"><i class="fa fa-dollar"></i> Charges</a></li>
 				<li><a href="#tab-members-purchases" class="dsm_ajax_tab"><i class="fa fa-shopping-cart"></i> Purchases</a></li>
 				<?php if (DSM_OC_LEDGER_SHOW_PAYMENTS == "1"): ?>
