@@ -23,13 +23,16 @@ jQuery(function() {
 			
 		 <?php //echo '<li><a href="#tab-classes-calendar" data-toggle="tab" class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>'; ?>
 	<?php endif; ?>
+	<?php if (DSM_OC_SHOW_SALES_ITEMS == "1"): ?>
+		<li><a href="#tab-checkout-sales-items" class="dsm_ajax_tab"><i class="fa fa-cube"></i> <?=DSM_OC_SALES_ITEMS_SECTION_TITLE?></a></li>
+	<?php endif; ?>
 	<?php if (DSM_OC_SHOPPING_CART_ENABLED  == '1') : ?>	
 			<li>
 				<a href="#tab-checkout-cart" data-toggle="tab" class="dsm_ajax_tab" ><i class="fa fa-shopping-cart"></i> Cart</a>
 			</li>
 	<?php endif; ?>
 	<li class="dropdown" id="m-dd">
-			<a href="#" data-toggle="dropdown"><i class="fa fa-users"></i> <?=App::GetClient()->GetController('members')->GetName();?><span class="caret"></span></a>
+		<a href="#" data-toggle="dropdown"><i class="fa fa-users"></i> <?=App::GetClient()->GetController('members')->GetName();?><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li><a href="#tab-members-edit" class="dsm_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>
 				<li><a href="#tab-members-student" class="dsm_ajax_tab"><i class="fa fa-child"></i>  Add Related Student</a></li>

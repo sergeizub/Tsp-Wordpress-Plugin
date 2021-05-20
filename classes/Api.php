@@ -177,9 +177,11 @@ class Api
 			return true;
 		}
 		else {
+            if (!empty($response->message)) {
+				App::GetError()->Success($response->message);
+			}
 			if (!empty($response->token))
 				$this->token = $response->token;
-
 			return $response;
 		}
 	}

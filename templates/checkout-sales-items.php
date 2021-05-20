@@ -1,0 +1,61 @@
+<?php
+namespace DanceStudioManager;
+
+$items = App::GetClient()->GetController('checkout')->GetSalesItems();
+$sales_item_id = App::GetApi()->GetIdParam();
+$sales_products = $items['sales_items'];
+$categories = $items['categories'];
+?>
+<div id="tab-sales-items" class="tab-pane">
+<?php if (empty($sales_item_id)) : ?>
+	<h2 class="page-header"><?=DSM_OC_SALES_ITEMS_SECTION_TITLE?></h2>
+<?php if (!empty($sales_products)) : ?>
+	<?php foreach ($sales_products as $category_id=>$products) : ?>
+	<table class="table table-striped table-condensed table-hover">
+		<thead>
+			<tr>
+				<th width="25%">Name</th>
+				<th>Description</th>
+				<th class="text-right">Price</th>
+				<th width="10%"></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php foreach ($products as $product) : ?>
+			<tr>
+			<td><?=$product['NAME']?></td>
+			<td>
+				<?=$product['DESCRIPTION']?>
+				<?=((DSM_IGNORE_ITEMS_AVAILABLE_QUANTITY === '0' && $product['AVAILABLE_QUANTITY'] && $product['AVAILABLE_QUANTITY'] > 0) ? '<div class="label label-warning">Only '.$product['AVAILABLE_QUANTITY'].' items available</div>' : '')?>
+			</td>
+			<td class="text-right"><?=DSM_CURRENCY_SIGN?><?=$product['PRICE']?></td>
+			<td class="text-right">
+			<?php if (DSM_OC_SHOPPING_CART_ENABLED == '1') : ?>
+				<?php if ($product['SALE_STARTED']) : ?>
+				
+					<?php if ($product['SALE_STARTED'] > 0 || DSM_IGNORE_ITEMS_AVAILABLE_QUANTITY == '1') : ?>	
+						<a href="#tab-checkout-sales-items-<?=$product['ID']?>" title="Buy" class="btn btn-success dsm_ajax_tab"><i class="fa fa-shopping-cart"></i> Buy</a>
+					<?php else: ?>
+						<div class="label label-default">Sold</div>
+					<?php endif; ?>
+				<?php else: ?>
+					<div class="label label-warning">Sale starts <?=$product['SALE_START_DATE']?></div>
+				<?php endif; ?>
+			<?php endif; ?>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+		</tbody>
+	</table>
+	<?php endforeach; ?>
+<?php else: ?>
+	<div class="alert alert-warning">No records found</div>
+<?php endif; ?>
+<?php else: ?>
+	<h3 class="page-header">Select item for student</h3>
+	<?php include plugin_dir_path( __FILE__ ) . 'snippets/sales-item-details.php'; ?>
+	
+	<br/><br/>
+	<a type="button" class="btn btn-primary geturl checkout dsm_ajax_tab" href="#tab-checkout-cart"><i class="fa fa-shopping-cart"></i> Checkout</a>
+<?php endif; ?>
+</div>

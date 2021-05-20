@@ -97,6 +97,80 @@ jQuery(function () {
 		}, 700);
 	});
     
+    jQuery(document).on('click', ".quantity button.btn-number", function(e) {
+		e.preventDefault();
+
+		var fieldName = jQuery(this).data('field');
+		var type = jQuery(this).attr('data-type');
+		var input = jQuery("input[name='" + fieldName + "']");
+		var currentVal = parseInt(input.val());
+		if (!isNaN(currentVal)) {
+			if (type == 'minus') {
+
+				if (currentVal > input.attr('min')) {
+					input.val(currentVal - 1).change();
+				}
+				if (parseInt(input.val()) == input.attr('min')) {
+					jQuery(this).attr('disabled', true);
+				}
+
+			} else if (type == 'plus') {
+
+				if (currentVal < input.attr('max')) {
+					input.val(currentVal + 1).change();
+				}
+				if (parseInt(input.val()) == input.attr('max')) {
+					jQuery(this).attr('disabled', true);
+				}
+
+			}
+		} else {
+			input.val(0);
+		}
+	});
+    
+    jQuery(document).on('focusin', ".quantity .dsm_sales-item-quantity", function() {
+		jQuery(this).data('oldValue', jQuery(this).val());
+	});
+	
+	jQuery(document).on('change', ".quantity .dsm_sales-item-quantity", function() {
+		var minValue = parseInt(jQuery(this).attr('min'));
+		var maxValue = parseInt(jQuery(this).attr('max'));
+		var valueCurrent = parseInt(jQuery(this).val());
+
+		var name = jQuery(this).attr('name');
+		if (valueCurrent >= minValue) {
+			jQuery(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+		} else {
+			alert('Sorry, the minimum value was reached');
+			jQuery(this).val(jQuery(this).data('oldValue'));
+		}
+		if (valueCurrent <= maxValue) {
+			jQuery(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+		} else {
+			alert('Sorry, the maximum value was reached');
+			jQuery(this).val(jQuery(this).data('oldValue'));
+		}
+
+        jQuery('#'+name).attr('dsm_quantity',jQuery(this).val());
+	});
+	
+	jQuery(document).on('keydown', ".quantity .dsm_sales-item-quantity", function(e) {
+		// Allow: backspace, delete, tab, escape, enter and .
+		if (jQuery.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+			// Allow: Ctrl+A
+			(e.keyCode == 65 && e.ctrlKey === true) ||
+			// Allow: home, end, left, right
+			(e.keyCode >= 35 && e.keyCode <= 39)) {
+			// let it happen, don't do anything
+			return;
+		}
+		// Ensure that it is a number and stop the keypress
+		if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+			e.preventDefault();
+		}
+	});
+    
 });
 
 function InputDateInit() {

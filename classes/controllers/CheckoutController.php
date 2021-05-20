@@ -70,4 +70,23 @@ class CheckoutController extends BaseController
 		$data['dsm_action'] = 'checkout/discount';
 		return parent::Delete($data);
 	}
+    
+    public function GetSalesItems()
+	{
+	 return  json_decode(json_encode(parent::GetList("checkout/sales-items")),true);
+	}
+    
+    public function GetSalesItemInfo($sales_item_id)
+	{
+		if ($sales_item_id)
+			return json_decode(json_encode(parent::GetList("checkout/sales-items?id=".$sales_item_id)),true);
+		else
+			return false;
+	}
+    
+    public function SubmitSalesItem($data)
+	{
+		$data['dsm_action'] = 'checkout/sales-items';
+		return parent::Submit($data);
+	}
 }

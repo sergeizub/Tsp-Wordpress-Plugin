@@ -1,6 +1,10 @@
 html {
     font-size:  inherit !important;
 }
+.dsm_sales-item-quantity {
+	text-align: center;
+	width: 60px !important;
+}
 .dsm_body {
 	background: #faf9fb !important;
     
