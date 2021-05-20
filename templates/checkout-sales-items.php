@@ -11,6 +11,7 @@ $categories = $items['categories'];
 	<h2 class="page-header"><?=DSM_OC_SALES_ITEMS_SECTION_TITLE?></h2>
 <?php if (!empty($sales_products)) : ?>
 	<?php foreach ($sales_products as $category_id=>$products) : ?>
+	<h3><?=$categories[$category_id]?></h3>
 	<table class="table table-striped table-condensed table-hover">
 		<thead>
 			<tr>
