@@ -52,9 +52,11 @@ class Settings
         <td><input type="text" name="dsm_api_url" value="<?php echo esc_attr( get_option('dsm_api_url') ); ?>" placeholder="https://clients.dancestudiomanager.com/"/></td>
         </tr>
         
+        <!--
         <th scope="row">DSM Api Key</th>
         <td><input type="text" name="dsm_api_key" value="<?php echo esc_attr( get_option('dsm_api_key') ); ?>" /></td>
         </tr>
+        -->
         
         <tr valign="top">
         <th scope="row">DSM Api Version</th>
