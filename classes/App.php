@@ -19,37 +19,33 @@ class App
         self::$settings = new Settings();
         self::$emailer = new Emailer();
 
-        add_action('admin_enqueue_scripts', function ($hook)
-            {
+        add_action('admin_enqueue_scripts', function ($hook) {
                 wp_enqueue_style('dsm_admin', plugins_url('../css/admin.css',__FILE__ ));
             });
 
-        add_action('wp_enqueue_scripts', function ($hook)
-            {
+        add_action('wp_enqueue_scripts', function ($hook) {
+                wp_register_style( 'dsm_css_bootstrap', plugins_url('../assets/bootstrap-3.3.7/css/bootstrap.min.css',__FILE__) );
+                wp_register_style( 'dsm_datetimepicker', plugins_url('../assets/bootstrap-3.3.7/css/bootstrap-datetimepicker.min.css',__FILE__) );
+                wp_register_style( 'dsm_fontawesome', plugins_url('../assets/font-awesome-4.7.0/css/font-awesome.min.css',__FILE__) );
+                wp_register_style( 'dsm_style', plugins_url('../assets/css/style.css',__FILE__ ) );
+                wp_register_style( 'dsm_style_united', plugins_url('../assets/css/style-united.css',__FILE__ ) );
+                wp_register_style( 'dsm_fullcalendar', plugins_url('../assets/fullcalendar-3.9.0/fullcalendar.min.css',__FILE__) );
 
-                wp_register_style( 'dsm_css_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' );
-                wp_register_style( 'dsm_datetimepicker', '//clients.dancestudiomanager.com/libs/bootstrap-3.3.7/css/bootstrap-datetimepicker.min.css' );
-                wp_register_style( 'dsm_fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
-                wp_register_style(  'dsm_style', plugins_url('../css/style.css',__FILE__ ));
-                wp_register_style(  'dsm_style_united', plugins_url('../css/style-united.css',__FILE__ ));
-                wp_register_style(  'dsm_fullcalendar', '//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css');
-
-                wp_register_script( 'dsm_js_bootstrap','//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', array('jquery'));
-                wp_register_script( 'dsm_momentjs','//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js', array('jquery'));
-                wp_register_script( 'dsm_signature_pad',plugins_url('../js/signature_pad/index.js',__FILE__ ), array('jquery'), time());
-                wp_register_script( 'dsmfunctionjs',plugins_url('../js/functions.js',__FILE__ ), array('jquery'), time());
+                wp_register_script( 'dsm_js_bootstrap', plugins_url('../assets/bootstrap-3.3.7/js/bootstrap.min.js',__FILE__) , array('jquery'));
+                wp_register_script( 'dsm_momentjs', plugins_url('../assets/js/moment.js/2.20.1/moment.min.js',__FILE__) , array('jquery'));
+                wp_register_script( 'dsm_signature_pad', plugins_url('../assets/js/signature_pad/index.js',__FILE__ ) , array('jquery'), time());
+                wp_register_script( 'dsmfunctionjs', plugins_url('../assets/js/functions.js',__FILE__ ) , array('jquery') , time());
 
                 wp_localize_script( 'dsmfunctionjs', 'dsmajax',
                     array(
                         'url' => admin_url('admin-ajax.php')
                     )
                 );
-                wp_register_script( 'dsm_datetimepicker','//clients.dancestudiomanager.com/libs/bootstrap-3.3.7/js/bootstrap-datetimepicker.min.js', array('jquery'));
-                wp_register_script( 'dsm_fullcalendar','//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js', array('jquery'));
+                wp_register_script( 'dsm_datetimepicker', plugins_url('../assets/bootstrap-3.3.7/js/bootstrap-datetimepicker.min.js',__FILE__) , array('jquery'));
+                wp_register_script( 'dsm_fullcalendar', plugins_url('../assets/fullcalendar-3.9.0/fullcalendar.min.js',__FILE__) , array('jquery'));
             }, 20);
 
-        add_action( 'widgets_init', function ()
-            {
+        add_action( 'widgets_init', function () {
                 register_widget( 'DanceStudioManager\GroupclassesWidget' );
                 register_widget( 'DanceStudioManager\RegisterWidget' );
                 register_widget( 'DanceStudioManager\CalendarWidget' );
