@@ -1,11 +1,13 @@
 <?php
 /*
 Plugin Name: Dance Studio Manager
-Plugin URI: https://www.dancestudiomanager.com/
 Description: Plugin for Dance Studio Manager.
 Version: 1.0
+Requires at least: 5
+Requires PHP: 5.6
 Author: DSM
 Author URI: https://www.dancestudiomanager.com/
+License: GPL v2 or later
 */
 
 if ( ! defined( 'WPINC' ) ) {
