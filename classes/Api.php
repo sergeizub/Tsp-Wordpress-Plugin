@@ -67,7 +67,7 @@ class Api
 			$this->token = $auth_token;
 
 		if (!empty($this->token))
-			return "Authorization:Bearer ".$this->token;
+			return "Bearer ".$this->token;
 		else
 			return false;
     }
@@ -119,33 +119,23 @@ class Api
 
 		$post_action = str_replace('_','/',$post['dsm_action']);
 
-		$ch = curl_init();
 		if ($post['dsm_action'] != 'auth/login' && $post['dsm_action'] != 'auth/register')
 			$authorization_token = App::GetApi()->GetAuthorizationToken();
 
 		if($post_action == 'members/edit' && !empty($this->GetIdParam()))
 			$post_action .= '/'.$this->GetIdParam();
-
-		$httpheader = array('Content-Type: application/json');
-
-		if (!empty($this->api_key))
-			array_push($httpheader, 'x-api-key: '.$this->api_key);
-
+        
+        $httpheader = array('Content-Type' => 'application/json');
+        
+        if (!empty($this->api_key))
+                $httpheader += ['x-api-key' => $this->api_key];
+			
 		if (!empty($authorization_token))
-			array_push($httpheader, $authorization_token);
-
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
-
-		curl_setopt($ch, CURLOPT_URL, $this->url."api/".$this->api_version.'/'.$post_action);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($ch, CURLOPT_HEADER, FALSE);
-		curl_setopt($ch, CURLOPT_POST, TRUE);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
-
-		$response = json_decode(curl_exec($ch));
-
-		curl_close($ch);
-
+                $httpheader += ['Authorization' => $authorization_token];
+            
+        $result = wp_remote_post( $this->url."api/".$this->api_version.'/'.$post_action , array( 'body' => json_encode($post), 'headers' => $httpheader ));
+        $response = json_decode(wp_remote_retrieve_body($result));
+        
 		if (!empty($response->error)) {
 			App::GetError()->Show($response->error);
 			return false;
@@ -197,27 +187,18 @@ class Api
 		$post_action = str_replace('_','/',$post['dsm_action']);
 		unset($post['dsm_action']);
 
-		$ch = curl_init();
 		$authorization_token = App::GetApi()->GetAuthorizationToken();
-
-		$httpheader = array('Content-Type: application/json');
-
-		if (!empty($this->api_key))
-			array_push($httpheader, 'x-api-key: '.$this->api_key);
-
+        
+        $httpheader = array('Content-Type' => 'application/json');
+        
+        if (!empty($this->api_key))
+                $httpheader += ['x-api-key' => $this->api_key];
+			
 		if (!empty($authorization_token))
-			array_push($httpheader, $authorization_token);
-
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
-		curl_setopt($ch, CURLOPT_URL, $this->url."api/".$this->api_version.'/'.$post_action);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($ch, CURLOPT_HEADER, FALSE);
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
-
-		$response = json_decode(curl_exec($ch));
-
-		curl_close($ch);
+                $httpheader += ['Authorization' => $authorization_token];
+                
+        $result = wp_remote_request( $this->url."api/".$this->api_version.'/'.$post_action , array( 'body' => json_encode($post), 'method' => 'DELETE', 'headers' => $httpheader ));
+        $response = json_decode(wp_remote_retrieve_body($result));
 
 		if (!empty($response->error)) {
 			App::GetError()->Show($response->error);
@@ -251,8 +232,6 @@ class Api
 		if (!$this->ValidateDSMUrl())
 			return false;
 
-		$ch = curl_init();
-
 		if (empty($get))
 			return false;
 		elseif (is_array($get)) {
@@ -272,23 +251,18 @@ class Api
 
 		if($action == 'members/edit' && !empty($this->GetIdParam()))
 			$action .= '/'.$this->GetIdParam();
-
-		$httpheader = array('Content-Type: application/json');
-
-		if (!empty($this->api_key))
-			array_push($httpheader, 'x-api-key: '.$this->api_key);
-
+        
+        $httpheader = array('Content-Type' => 'application/json');
+        
+        if (!empty($this->api_key))
+                $httpheader += ['x-api-key' => $this->api_key];
+			
 		if (!empty($authorization_token))
-			array_push($httpheader, $authorization_token);
-
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
-		curl_setopt($ch, CURLOPT_URL, $this->url."api/".$this->api_version."/".$action);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($ch, CURLOPT_HEADER, FALSE);
-
-		$response = json_decode(curl_exec($ch));
-
-		curl_close($ch);
+                $httpheader += ['Authorization' => $authorization_token];
+			 
+        $result = wp_remote_get( $this->url."api/".$this->api_version."/".$action , array( 'headers' => $httpheader ));
+		$response = json_decode(wp_remote_retrieve_body($result));
+      
 		if (!empty($response->error)) {
 			App::GetError()->Show($response->error);
 			return false;
