@@ -3,8 +3,8 @@
 	        <div class="form-group">
 		        <label class="col-sm-5 control-label">Applied Discount Coupon</label>
 		        <label class="col-sm-4 control-label">
-		            <i><?=$cart['discount_coupon']['COUPON_CODE'];?>
-		            <?=$cart['discount_coupon']['DISCOUNT_VALUE'];?> (<?=($cart['discount_coupon']['DISCOUNT_TYPE'] == 'percentage') ? '%' : DSM_CURRENCY_SIGN ?>)</i>
+		            <i><?php echo $cart['discount_coupon']['COUPON_CODE']; ?>
+		            <?php echo $cart['discount_coupon']['DISCOUNT_VALUE']; ?> (<?php echo (($cart['discount_coupon']['DISCOUNT_TYPE'] == 'percentage') ? '%' : DSM_CURRENCY_SIGN); ?>)</i>
 		        </label>
 		        <div class="col-sm-3">		            
 		            <button type="submit" class="btn btn-warning" id="remove-discount"><i class="fa fa-minus-circle"></i> Remove</button>

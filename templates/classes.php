@@ -38,19 +38,19 @@ else :
 	jQuery(function() {
    <?php if($_SESSION['dsm_client_attrs']["week"] == "true") : ?>
 		 schedule_week = 1;
-		 SchedulesList(moment().day(<?=DSM_CALENDAR_START_DAY?>).format('dddd, ' + window.dtp_date));
+		 SchedulesList(moment().day(<?php echo DSM_CALENDAR_START_DAY; ?>).format('dddd, ' + window.dtp_date));
    <?php else: ?>
 		 schedule_week = 0;
-		 SchedulesList('<?=$date_now?>');
+		 SchedulesList('<?php echo $date_now; ?>');
    <?php endif; ?>
 		jQuery(document).on("click", "#today-schedules", function() {
 			schedule_week = 0;
-			SchedulesList('<?=$date_now?>');
+			SchedulesList('<?php echo $date_now; ?>');
 		});
 		
 		jQuery(document).on("click", "#week-schedules", function() {
 			schedule_week = 1;
-			SchedulesList(moment().day(<?=DSM_CALENDAR_START_DAY?>).format('dddd, ' + window.dtp_date));
+			SchedulesList(moment().day(<?php echo DSM_CALENDAR_START_DAY; ?>).format('dddd, ' + window.dtp_date));
 		});		
 	
 		jQuery(document).on("click", "#next-date", function() {
@@ -87,15 +87,15 @@ else :
 					var login = '1';
 					
 					if (v.COLOR == '') v.COLOR = 'cccccc';
-					var OC_CLASS_LIST_CLASS_ID = '<?=DSM_OC_CLASS_LIST_CLASS_ID?>';
-					var OC_CLASS_LIST_CLASS_CODE = '<?=DSM_OC_CLASS_LIST_CLASS_CODE?>';
-					var OC_CLASS_LIST_CLASS_NAME = '<?=DSM_OC_CLASS_LIST_CLASS_NAME?>';
-					var OC_CLASS_LIST_CLASS_LEVEL = '<?=DSM_OC_CLASS_LIST_CLASS_LEVEL?>';
-					var OC_CLASS_LIST_CLASS_DESCRIPTION = '<?=DSM_OC_CLASS_LIST_CLASS_DESCRIPTION?>';
-					var OC_CLASS_LIST_CLASS_AGE = '<?=DSM_OC_CLASS_LIST_CLASS_AGE?>';
-					var OC_CLASS_LIST_AVAILABLE_SLOTS = '<?=DSM_OC_CLASS_LIST_AVAILABLE_SLOTS?>';
-					var OC_CLASS_LIST_CLASS_LOCATION = '<?=DSM_OC_CLASS_LIST_CLASS_LOCATION?>';
-					var OC_ALLOW_WAIT_LIST = '<?=DSM_OC_ALLOW_WAIT_LIST?>';
+					var OC_CLASS_LIST_CLASS_ID = '<?php echo DSM_OC_CLASS_LIST_CLASS_ID; ?>';
+					var OC_CLASS_LIST_CLASS_CODE = '<?php echo DSM_OC_CLASS_LIST_CLASS_CODE; ?>';
+					var OC_CLASS_LIST_CLASS_NAME = '<?php echo DSM_OC_CLASS_LIST_CLASS_NAME; ?>';
+					var OC_CLASS_LIST_CLASS_LEVEL = '<?php echo DSM_OC_CLASS_LIST_CLASS_LEVEL; ?>';
+					var OC_CLASS_LIST_CLASS_DESCRIPTION = '<?php echo DSM_OC_CLASS_LIST_CLASS_DESCRIPTION; ?>';
+					var OC_CLASS_LIST_CLASS_AGE = '<?php echo DSM_OC_CLASS_LIST_CLASS_AGE; ?>';
+					var OC_CLASS_LIST_AVAILABLE_SLOTS = '<?php echo DSM_OC_CLASS_LIST_AVAILABLE_SLOTS; ?>';
+					var OC_CLASS_LIST_CLASS_LOCATION = '<?php echo DSM_OC_CLASS_LIST_CLASS_LOCATION; ?>';
+					var OC_ALLOW_WAIT_LIST = '<?php echo DSM_OC_ALLOW_WAIT_LIST; ?>';
 					
 					fclass = 'book-now';
 					if (OC_CLASS_LIST_CLASS_ID == '1') var listid = '<div class="label label-default">' + v.CLASS_ID + '</div>'; else var listid = '';

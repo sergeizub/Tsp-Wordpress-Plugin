@@ -10,7 +10,7 @@ jQuery(function() {
 	dsm_ajax_click(jQuery('.default_tab'));
 });
 
-var show_login_alert = '<?=DSM_OC_SHOW_LOGIN_ALERT?>';
+var show_login_alert = '<?php echo DSM_OC_SHOW_LOGIN_ALERT; ?>';
 </script>
 <ul class="nav nav-pills">
 		<?php if (DSM_OC_USE_CLASSES_LIST_VIEW == "1" || $_SESSION['dsm_client_attrs']['view'] == "List") : ?>

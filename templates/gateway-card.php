@@ -20,44 +20,44 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 			<div class="form-group">
 				<label class="col-sm-5 control-label"><span class="text-warning">*</span> First Name</label>
 				<div class="col-sm-7">
-					<input class="form-control" type="text" name="first_name" maxlength="50" value="<?=$first_name?>">
+					<input class="form-control" type="text" name="first_name" maxlength="50" value="<?php echo $first_name; ?>">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-5 control-label"><span class="text-warning">*</span> Last Name</label>
 				<div class="col-sm-7">
-					<input class="form-control" type="text" name="last_name" maxlength="50" value="<?=$last_name?>">
+					<input class="form-control" type="text" name="last_name" maxlength="50" value="<?php echo $last_name; ?>">
 				</div>
 			</div>		
 			<div class="form-group">
 				<label class="col-sm-5 control-label"><span class="text-warning">*</span> Card Number</label>
 				<div class="col-sm-7">
-					<input class="form-control" type="text" name="card_number" value="<?=$_POST['card_number']?>">
+					<input class="form-control" type="text" name="card_number" value="<?php echo $_POST['card_number']; ?>">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-5 control-label"><span class="text-warning">*</span> Card Expiration (MMYY)</label>
 				<div class="col-xs-3">
-					<input class="form-control" type="text" name="card_expiration" maxlength="4" value="<?=$_POST['card_expiration']?>">
+					<input class="form-control" type="text" name="card_expiration" maxlength="4" value="<?php echo $_POST['card_expiration']; ?>">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-5 control-label"><span class="text-warning">*</span> Card Verification (CVV2)</label>
 				<div class="col-xs-3">
-					<input class="form-control" type="text" name="card_verification" maxlength="4" value="<?=$_POST['card_verification']?>">
+					<input class="form-control" type="text" name="card_verification" maxlength="4" value="<?php echo $_POST['card_verification']; ?>">
 				</div>
 			</div>
 			<br>
 			<div class="form-group">
 				<label class="col-sm-5 control-label"></label>
 				<div class="col-sm-7">
-					<input type="checkbox" name="auto_payment" <?=($_POST['auto_payment'] == 'on') ? 'checked="checked"' : '' ?>> agree to enroll in automatic regular payment
+					<input type="checkbox" name="auto_payment" <?php echo (($_POST['auto_payment'] == 'on') ? 'checked="checked"' : ''); ?>> agree to enroll in automatic regular payment
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-5 control-label">Description</label>
 				<div class="col-sm-7">
-					<input class="form-control" type="text" name="description" maxlength="255" value="<?=$_POST['description']?>" />
+					<input class="form-control" type="text" name="description" maxlength="255" value="<?php echo $_POST['description']; ?>" />
 				</div>      
 			</div>
 			<input type="hidden" name="action" value="dsmclient"/>

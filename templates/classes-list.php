@@ -33,9 +33,9 @@ foreach ($classes_tabs as $k => $v_array) {
 	<ul class="nav nav-tabs" role="tablist">
         <?php foreach ($classes_tabs as $key => $item): ?>
 		<?php reset($classes_tabs);?>
-		<li role="presentation" class="<?=($key === key($classes_tabs) ? 'active' : '')?>">
-			<a href="#tab<?=$key?>" aria-controls="<?=$programs[$key]?>"
-				role="tab" data-toggle="tab" data-program_id="<?=$key?>"><?=$programs[$key]?></a>
+		<li role="presentation" class="<?php echo ($key === key($classes_tabs) ? 'active' : ''); ?>">
+			<a href="#tab<?php echo $key; ?>" aria-controls="<?php echo $programs[$key]; ?>"
+				role="tab" data-toggle="tab" data-program_id="<?php echo $key; ?>"><?php echo $programs[$key]; ?></a>
 		</li>
 		<?php endforeach; ?>
 	</ul>
@@ -43,9 +43,9 @@ foreach ($classes_tabs as $k => $v_array) {
 <div class="tab-content classes-list">
 		<?php foreach ($classes_tabs as $key => $item): ?>
 			<?php reset($classes_tabs);?>
-			<div role="tabpanel" class="tab-pane <?=($key === key($classes_tabs) ? 'active' : '')?>" id="tab<?=$key?>">
+			<div role="tabpanel" class="tab-pane <?php echo ($key === key($classes_tabs) ? 'active' : ''); ?>" id="tab<?php echo $key; ?>">
 			<div class="tab-content">
-			<div class="get-page" data-relation="categories" data-relation_id="<?=$key?>"></div>
+			<div class="get-page" data-relation="categories" data-relation_id="<?php echo $key; ?>"></div>
 			<?php
 				include plugin_dir_path( __FILE__ ) . 'snippets/select-class-table.php';
 			?>

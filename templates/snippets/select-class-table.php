@@ -23,35 +23,35 @@ namespace DanceStudioManager;
                     <tr>
                         <td>
 							<h4>
-							<?php if (DSM_OC_CLASS_LIST_CLASS_ID == '1') { ?><div class="label label-default"><?=$class->ID?></div><?php } ?>
-                            <?= (DSM_OC_CLASS_LIST_CLASS_CODE == '1') ? $class->CODE.' ' : '' ?>
-                            <?= (DSM_OC_CLASS_LIST_CLASS_NAME == '1') ? $class->NAME.' ' : '' ?>
-                            <?= (DSM_OC_CLASS_LIST_CLASS_LEVEL == '1') ? $class->LEVEL : '' ?>
+							<?php if (DSM_OC_CLASS_LIST_CLASS_ID == '1') { ?><div class="label label-default"><?php echo $class->ID; ?></div><?php } ?>
+                            <?php echo (DSM_OC_CLASS_LIST_CLASS_CODE == '1') ? $class->CODE.' ' : ''; ?>
+                            <?php echo (DSM_OC_CLASS_LIST_CLASS_NAME == '1') ? $class->NAME.' ' : ''; ?>
+                            <?php echo (DSM_OC_CLASS_LIST_CLASS_LEVEL == '1') ? $class->LEVEL : ''; ?>
 							</h4>
 						</td>
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_AGE == '1') { ?><td class="text-center"><?=$class->MIN_AGE?> - <?=$class->MAX_AGE?></td><?php } ?>
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_LEVEL == '1') { ?><td class="text-center"><?=$class->LEVEL?></td><?php } ?>
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_LOCATION == '1') { ?><td class="text-center"><h4><?=$class->LOCATION?></td><?php } ?></h4>  
+                        <?php if (DSM_OC_CLASS_LIST_CLASS_AGE == '1') { ?><td class="text-center"><?php echo $class->MIN_AGE; ?> - <?php echo $class->MAX_AGE; ?></td><?php } ?>
+                        <?php if (DSM_OC_CLASS_LIST_CLASS_LEVEL == '1') { ?><td class="text-center"><?php echo $class->LEVEL; ?></td><?php } ?>
+                        <?php if (DSM_OC_CLASS_LIST_CLASS_LOCATION == '1') { ?><td class="text-center"><h4><?php echo $class->LOCATION; ?></td><?php } ?></h4>  
                         <?php if (DSM_OC_CLASS_LIST_CLASS_INSTRUCTOR == '1') { ?>
                         <td class="text-center">
-                            <?=$class->INSTRUCTOR?>
+                            <?php echo $class->INSTRUCTOR; ?>
                         </td>
                         <?php } ?>
                         <?php if (DSM_OC_CLASS_LIST_CLASS_DATES == '1') { ?>
                         <td>
-							<span style="white-space: nowrap;"><?=$class->CLASS_START?></span> - <span style="white-space: nowrap;"><?=$class->CLASS_END?></span>
+							<span style="white-space: nowrap;"><?php echo $class->CLASS_START; ?></span> - <span style="white-space: nowrap;"><?php echo $class->CLASS_END; ?></span>
 						</td>
                         <?php } ?>
                         <?php if (DSM_OC_CLASS_LIST_CLASS_PRICE == '1') { ?>
                         <td>
                             <?php if ($class->PAYMENT_METHOD == "sales_packages") : ?>
                             <ul class="gc list-unstyled">
-			                	<li><b><?=DSM_CURRENCY_SIGN?><?=$class->SALES_ITEM_PRICE?></b> <?=$class->SALES_ITEM?></li>
+			                	<li><b><?php echo DSM_CURRENCY_SIGN; ?><?php echo $class->SALES_ITEM_PRICE; ?></b> <?php echo $class->SALES_ITEM; ?></li>
                         	</ul>
                             <?php else: ?>
-                                <?=$class->PRICING?>
+                                <?php echo $class->PRICING; ?>
                                 <?php if (DSM_OC_CLASS_REG_FEE_ENABLED == '1' && $class->REG_FEE > 0 ) { ?>
-									<br /><small>(Reg. fee <?=DSM_CURRENCY_SIGN?><?=$class->REG_FEE?>)</small>
+									<br /><small>(Reg. fee <?php echo DSM_CURRENCY_SIGN; ?><?php echo $class->REG_FEE; ?>)</small>
 								<?php } ?>
                             <?php endif; ?>
 	                    </td>
@@ -70,24 +70,24 @@ namespace DanceStudioManager;
 								<tbody>
 									<?php foreach($class->SCHEDULES as $schedule): ?>
 									<tr>
-										<td><span style="white-space: nowrap;"><?=$schedule->DAY?></span></td>
-										<td><span style="white-space: nowrap;"><?=$schedule->START_TIME?></span> - <span style="white-space: nowrap;padding: 12px;"><?=$schedule->END_TIME?></span></td>
+										<td><span style="white-space: nowrap;"><?php echo $schedule->DAY; ?></span></td>
+										<td><span style="white-space: nowrap;"><?php echo $schedule->START_TIME; ?></span> - <span style="white-space: nowrap;padding: 12px;"><?php echo $schedule->END_TIME; ?></span></td>
 										<td>
 										<?php if ($schedule->M_STATUS != 'Book Now'): ?>
-											<button class="btn btn-warning " type="button" style="<?=((!empty($schedule->M_STATUS_COLOR)) ? 'background-color:'.$schedule->M_STATUS_COLOR.';' : '')?><?=((!empty($schedule->M_STATUS_TEXT_COLOR)) ? 'color:'.$schedule->M_STATUS_TEXT_COLOR.';': '')?><?=((!empty($schedule->M_STATUS_BORDER_COLOR)) ? 'border-color:'.$schedule->M_STATUS_BORDER_COLOR.';' : '')?>">
-												<span><?=$schedule->TITLE?> <?=$schedule->M_STATUS?></span>
+											<button class="btn btn-warning " type="button" style="<?php echo ((!empty($schedule->M_STATUS_COLOR)) ? 'background-color:'.$schedule->M_STATUS_COLOR.';' : ''); ?><?php echo ((!empty($schedule->M_STATUS_TEXT_COLOR)) ? 'color:'.$schedule->M_STATUS_TEXT_COLOR.';': ''); ?><?php echo ((!empty($schedule->M_STATUS_BORDER_COLOR)) ? 'border-color:'.$schedule->M_STATUS_BORDER_COLOR.';' : ''); ?>">
+												<span><?php echo $schedule->TITLE; ?> <?php echo $schedule->M_STATUS; ?></span>
 											</button>
 										<?php elseif (App::GetClient()->GetController('auth')->isLogged()): ?>
 											<?php if ($schedule->MAX_STUDENTS <= ($schedule->NUM_STUDENTS) && DSM_OC_ALLOW_WAIT_LIST == "1"): ?>
-												<a href="#tab-class-registration-<?=$class->ID?>"  dsm_class_id="<?=$class->ID?>" dsm_schedule_id="<?=$schedule->ID?>" title="Add to Wait List" class="btn btn-success dsm_ajax_tab">
-																<i class="fa fa-plus-circle"></i> <?=$schedule->TITLE?> Add to Wait List  </a>
+												<a href="#tab-class-registration-<?php echo $class->ID; ?>"  dsm_class_id="<?php echo $class->ID; ?>" dsm_schedule_id="<?php echo $schedule->ID; ?>" title="Add to Wait List" class="btn btn-success dsm_ajax_tab">
+																<i class="fa fa-plus-circle"></i> <?php echo $schedule->TITLE;?> Add to Wait List  </a>
 											<?php else: ?>
-												<a href="#tab-class-registration-<?=$class->ID?>" dsm_class_id="<?=$class->ID?>" dsm_schedule_id="<?=$schedule->ID?>" title="Register" class="btn btn-success dsm_ajax_tab">
-																<i class="fa fa-plus-circle"></i> <?=$schedule->TITLE?> Register </a>
+												<a href="#tab-class-registration-<?php echo $class->ID; ?>" dsm_class_id="<?php echo $class->ID; ?>" dsm_schedule_id="<?php echo $schedule->ID;?>" title="Register" class="btn btn-success dsm_ajax_tab">
+																<i class="fa fa-plus-circle"></i> <?php echo $schedule->TITLE; ?> Register </a>
 											<?php endif; ?>
 										<?php else: ?>
-											<button class="btn btn-success btn-login-alert" type="button" dsm_class_id="<?=$class->ID?>" dsm_schedule_id="<?=$schedule->ID?>">
-												<span><i class="fa fa-plus-circle"></i> <?=$schedule->TITLE?> Register</span>
+											<button class="btn btn-success btn-login-alert" type="button" dsm_class_id="<?php echo $class->ID; ?>" dsm_schedule_id="<?php echo $schedule->ID; ?>">
+												<span><i class="fa fa-plus-circle"></i> <?php echo $schedule->TITLE?> Register</span>
 											</button>		
 										<?php endif; ?>
 										</td>
@@ -98,10 +98,10 @@ namespace DanceStudioManager;
 							<?php else: ?>
 								<?php if (App::GetClient()->GetController('auth')->isLogged()): ?>
 									<?php if ($class->MAX_STUDENTS <= ($class->STUDENTS_QUANTITY) && DSM_OC_ALLOW_WAIT_LIST == "1"): ?>
-										<a href="#tab-class-registration-<?=$class->ID?>" title="Add to Wait List" class="btn btn-success dsm_ajax_tab">
+										<a href="#tab-class-registration-<?php echo $class->ID; ?>" title="Add to Wait List" class="btn btn-success dsm_ajax_tab">
 																<i class="fa fa-plus-circle"></i> Add to Wait List</a>
 									<?php else: ?>
-										<a href="#tab-class-registration-<?=$class->ID?>" title="Register" class="btn btn-success dsm_ajax_tab">
+										<a href="#tab-class-registration-<?php echo $class->ID; ?>" title="Register" class="btn btn-success dsm_ajax_tab">
 																<i class="fa fa-plus-circle"></i> Register</a>
 									<?php endif; ?>
 								<?php else: ?>

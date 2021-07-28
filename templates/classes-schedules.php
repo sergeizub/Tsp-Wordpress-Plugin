@@ -13,12 +13,12 @@ foreach ($schedules_list->schedules as $k => $v) {
 			?>
                 <div class="schedule" style="border-left: 30px solid silver;">
 					<h3>
-						<?=$data->CODE;?>
-						<?=$data->NAME;?>
-						<?=$data->LEVEL;?>
+						<?php echo $data->CODE; ?>
+						<?php echo $data->NAME; ?>
+						<?php echo $data->LEVEL; ?>
 					</h3>
-					<p>Age: <?=$data->MIN_AGE;?> - <?=$data->MAX_AGE;?></p>
-					<h4><?=$data->LOCATION;?></h4>
+					<p>Age: <?php echo $data->MIN_AGE; ?> - <?php echo $data->MAX_AGE; ?></p>
+					<h4><?php echo $data->LOCATION; ?></h4>
 				</div>
 			<?
 				$class_header = '1';
@@ -31,8 +31,8 @@ foreach ($schedules_list->schedules as $k => $v) {
 			$end_time = date("g:i A",strtotime($data->START));
 		?>
 		<div class="schedule" style="border-left: 30px solid silver;">
-			<h4><?=$start_date;?> <?= (!empty($end_date) && $start_date != $end_date) ? '- '.$end_date : ''; ?>
-				<small><?=($start_time.' - '.$end_time);?></small>
+			<h4><?php echo $start_date; ?> <?php echo ((!empty($end_date) && $start_date != $end_date) ? '- '.$end_date : ''); ?>
+				<small><?php echo ($start_time.' - '.$end_time); ?></small>
 			</h4>
 		</div>
 		<?php

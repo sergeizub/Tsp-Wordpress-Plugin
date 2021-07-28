@@ -14,19 +14,19 @@ $my_classes = json_decode(json_encode(App::GetClient()->GetController('members')
 			<th class="text-right">Coaching</th>
 		</tr>
 		<tr>
-			<th class="text-right">Purchased <?=$private_lessons_totals['units']?></th>
-			<td id="private_lessons_purchased" class="text-right"><?=$private_lessons_totals['private_lessons']['purchased']?></td>
-			<td id="coaching_purchased" class="text-right"><?=$private_lessons_totals['coaching']['purchased']?></td>
+			<th class="text-right">Purchased <?php echo $private_lessons_totals['units']; ?></th>
+			<td id="private_lessons_purchased" class="text-right"><?php echo $private_lessons_totals['private_lessons']['purchased']; ?></td>
+			<td id="coaching_purchased" class="text-right"><?php echo $private_lessons_totals['coaching']['purchased']; ?></td>
 		</tr>
 		<tr>
-			<th class="text-right">Completed <?=$private_lessons_totals['units']?></th>
-			<td id="private_lessons_completed" class="text-right"><?=$private_lessons_totals['private_lessons']['completed']?></td>
-			<td id="coaching_completed" class="text-right"><?=$private_lessons_totals['coaching']['completed']?></td>
+			<th class="text-right">Completed <?php echo $private_lessons_totals['units']; ?></th>
+			<td id="private_lessons_completed" class="text-right"><?php echo $private_lessons_totals['private_lessons']['completed']; ?></td>
+			<td id="coaching_completed" class="text-right"><?php echo $private_lessons_totals['coaching']['completed']; ?></td>
 		</tr>
 		<tr>
-			<th class="text-right">Remaining <?=$private_lessons_totals['units']?></th>
-			<td id="private_lessons_remaining" class="text-right"><?=$private_lessons_totals['private_lessons']['remaining']?></td>
-			<td id="coaching_remaining" class="text-right"><?=$private_lessons_totals['coaching']['remaining']?></td>
+			<th class="text-right">Remaining <?php echo $private_lessons_totals['units']; ?></th>
+			<td id="private_lessons_remaining" class="text-right"><?php echo $private_lessons_totals['private_lessons']['remaining']; ?></td>
+			<td id="coaching_remaining" class="text-right"><?php echo $private_lessons_totals['coaching']['remaining']; ?></td>
 		</tr>
 	</table>
 	<?php endif; ?>
@@ -46,10 +46,10 @@ $my_classes = json_decode(json_encode(App::GetClient()->GetController('members')
 			<? foreach ($my_classes['schedules'] as $schedule) : ?>
 			<tr>
 				<td>
-				<?=$schedule['data'][0]['STUDENT']?>
+				<?php echo $schedule['data'][0]['STUDENT']; ?>
 				</td>
-				<td><?=$schedule['data'][0]['INSTRUCTOR']?></td>
-				<td><?=$schedule['data'][0]['DATEF']?> <?=$schedule['data'][0]['STARTF']?></td>
+				<td><?php echo $schedule['data'][0]['INSTRUCTOR']; ?></td>
+				<td><?php echo $schedule['data'][0]['DATEF']; ?> <?php echo $schedule['data'][0]['STARTF']; ?></td>
 				<td>
 				<?php
 					$start = strtotime($schedule['data'][0]['STARTF']);
@@ -58,7 +58,7 @@ $my_classes = json_decode(json_encode(App::GetClient()->GetController('members')
 				?>
 				</td>
 				<td>
-					<?=$schedule['data'][0]['STATUS']?>
+					<?php echo $schedule['data'][0]['STATUS']; ?>
 				</td>
 			</tr>
 			<? endforeach; ?>

@@ -24,10 +24,10 @@ if (!empty($class_full_info->items)) {
 
 ?>
 <?php foreach($groupclasses as $groupclass): ?>
-	Code: <?=$groupclass['CODE']?><br>
-	Genre: <?=$groupclass['NAME']?><br>
-	Level: <?=$groupclass['LEVEL']?><br>
-	Location: <?=$groupclass['LOCATION']?><br>
+	Code: <?php echo $groupclass['CODE']; ?><br>
+	Genre: <?php echo $groupclass['NAME']; ?><br>
+	Level: <?php echo $groupclass['LEVEL']; ?><br>
+	Location: <?php echo $groupclass['LOCATION']; ?><br>
 	<?php
 	if ($schedule_id)
 		$label_schedule = $schedule_id;
@@ -43,21 +43,21 @@ if (!empty($class_full_info->items)) {
 		?>
 	<?php endif; ?>
 	<?php if (DSM_OC_CLASS_SHOW_INSTRUCTOR == 1): ?>
-		Instructor: <?=$groupclass['INSTRUCTOR']?><br />
-		<?= ($groupclass['INSTRUCTOR2'] > 0 ) ? $groupclass['INSTRUCTOR2'].'<br />' : '' ?>
-		<?= ($groupclass['INSTRUCTOR3'] > 0 ) ? $groupclass['INSTRUCTOR3'].'<br />' : '' ?>
+		Instructor: <?php echo $groupclass['INSTRUCTOR']; ?><br />
+		<?php echo (($groupclass['INSTRUCTOR2'] > 0 ) ? $groupclass['INSTRUCTOR2'].'<br />' : ''); ?>
+		<?php echo (($groupclass['INSTRUCTOR3'] > 0 ) ? $groupclass['INSTRUCTOR3'].'<br />' : ''); ?>
 		<br />
 	<?php else: ?>
 		<br />
 	<?php endif; ?>
 
-	<?= (DSM_OC_CLASS_SHOW_MAX_STUDENTS == 1 ) ? 'Max. Students: '.$groupclass['MAX_STUDENTS'].'<br />' : '' ?>
-	<?= ($groupclass['MIN_AGE'] > 0 &&  $groupclass['MAX_AGE'] < 100) ? 'Age: '.$groupclass['MIN_AGE'].'-'.$groupclass['MAX_AGE'].'<br />' : '' ?>
+	<?php echo ((DSM_OC_CLASS_SHOW_MAX_STUDENTS == 1 ) ? 'Max. Students: '.$groupclass['MAX_STUDENTS'].'<br />' : ''); ?>
+	<?php echo (($groupclass['MIN_AGE'] > 0 &&  $groupclass['MAX_AGE'] < 100) ? 'Age: '.$groupclass['MIN_AGE'].'-'.$groupclass['MAX_AGE'].'<br />' : ''); ?>
 	<br />
-	<?= ($groupclass['DESCRIPTION']) ? '<br /><p>'.$groupclass['DESCRIPTION'].'</p>' : '' ?>
-	<?= ($groupclass['PAGES']) ? '<div>'.str_replace('[:pg:]','<br /><br />',$groupclass['PAGES']).'</div>' : '' ?>
-	<?= ($schedule_id) ? '<input type="hidden" id="selected_schedule_id" value="'.$schedule_id.'">' : '' ?>
-	<?= ($groupclass['SCHEDULE_ID'] && empty($schedule_id)) ? '<input type="hidden" id="selected_schedule_id" value="'.$class['SCHEDULE_ID'].'">' : '' ?>
+	<?php echo (($groupclass['DESCRIPTION']) ? '<br /><p>'.$groupclass['DESCRIPTION'].'</p>' : ''); ?>
+	<?php echo (($groupclass['PAGES']) ? '<div>'.str_replace('[:pg:]','<br /><br />',$groupclass['PAGES']).'</div>' : ''); ?>
+	<?php echo (($schedule_id) ? '<input type="hidden" id="selected_schedule_id" value="'.$schedule_id.'">' : ''); ?>
+	<?php echo (($groupclass['SCHEDULE_ID'] && empty($schedule_id)) ? '<input type="hidden" id="selected_schedule_id" value="'.$class['SCHEDULE_ID'].'">' : ''); ?>
 	
 	<?php foreach ($items as $student): ?>
 		<?php include plugin_dir_path( __FILE__ ) . 'select-class.php'; ?>

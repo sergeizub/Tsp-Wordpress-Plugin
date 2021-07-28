@@ -22,13 +22,13 @@ else {
   <div class="col-sm-6">
      <ul class="list-group">
 		<? foreach ($related_students->family as $student): ?>
-		<li class="list-group-item"><i class="fa fa-user"></i> <?=$student->FIRSTNAME?> <?=$student->LASTNAME?>
+		<li class="list-group-item"><i class="fa fa-user"></i> <?php echo $student->FIRSTNAME; ?> <?php echo $student->LASTNAME; ?>
 			<div class="pull-right">
 				<? if ($student->PARENT_ID > 0 && DSM_OC_RELATED_STUDENTS_ALLOW_EDIT_ARCHIVE == '1') : ?>
-				<a href="#tab-members-edit-<?=$student->ID?>" class="dsm_ajax_tab btn btn-primary btn-xs geturl">
+				<a href="#tab-members-edit-<?php echo $student->ID; ?>" class="dsm_ajax_tab btn btn-primary btn-xs geturl">
 				  <i class="fa fa-pencil"></i> Edit
 				</a>
-				<button type="button" dsm_obj="members" dsm_method="DeleteStudent" dsm_student_id="<?=$student->ID?>"
+				<button type="button" dsm_obj="members" dsm_method="DeleteStudent" dsm_student_id="<?php echo $student->ID; ?>"
 				    href="#tab-members-edit"
 					onclick="if (confirm('Are you sure you want to archive student?')) { dsm_ajax_click(this) };return false;"
 					class="btn btn-danger btn-xs">

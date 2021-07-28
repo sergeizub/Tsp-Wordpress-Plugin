@@ -6,7 +6,7 @@ jQuery(function() {
     jQuery('.dsm_ajax_tab').click(function() {
 		return dsm_ajax_click(this);
     });
-	<?=App::GetClient()->NavRedirect();?>
+	<?php echo App::GetClient()->NavRedirect(); ?>
 });
 </script>
 <div>
@@ -24,7 +24,7 @@ jQuery(function() {
 		 <?php //echo '<li><a href="#tab-classes-calendar" data-toggle="tab" class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>'; ?>
 	<?php endif; ?>
 	<?php if (DSM_OC_SHOW_SALES_ITEMS == "1"): ?>
-		<li><a href="#tab-checkout-sales-items" class="dsm_ajax_tab"><i class="fa fa-cube"></i> <?=DSM_OC_SALES_ITEMS_SECTION_TITLE?></a></li>
+		<li><a href="#tab-checkout-sales-items" class="dsm_ajax_tab"><i class="fa fa-cube"></i> <?php echo DSM_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
 	<?php endif; ?>
 	<?php if (DSM_OC_SHOPPING_CART_ENABLED  == '1') : ?>	
 			<li>
@@ -32,7 +32,7 @@ jQuery(function() {
 			</li>
 	<?php endif; ?>
 	<li class="dropdown" id="m-dd">
-		<a href="#" data-toggle="dropdown"><i class="fa fa-users"></i> <?=App::GetClient()->GetController('members')->GetName();?><span class="caret"></span></a>
+		<a href="#" data-toggle="dropdown"><i class="fa fa-users"></i> <?php echo App::GetClient()->GetController('members')->GetName(); ?><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li><a href="#tab-members-edit" class="dsm_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>
 				<li><a href="#tab-members-student" class="dsm_ajax_tab"><i class="fa fa-child"></i>  Add Related Student</a></li>

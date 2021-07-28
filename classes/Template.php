@@ -17,7 +17,7 @@ class Template
 			<script>
 				jQuery(function() {
 				<? if ($tab): ?>
-					jQuery('.nav-pills a[href="#<?=$tab?>"]').tab('show');
+					jQuery('.nav-pills a[href="#<?php echo $tab; ?>"]').tab('show');
 				<? else: ?>
 					jQuery('.nav-pills a:first').tab('show');
 				<? endif; ?>

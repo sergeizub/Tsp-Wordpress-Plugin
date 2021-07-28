@@ -13,19 +13,19 @@ $result = App::GetClient()->GetController('members')->GetPayments();
 				<th>Type</th>
 				<th>Check #</th>
 				<th>Notes</th>
-				<th style="text-align:right" width="90">Paid, <?=DSM_CURRENCY_SIGN?></th>
+				<th style="text-align:right" width="90">Paid, <?php echo DSM_CURRENCY_SIGN; ?></th>
 			</tr>
 		</thead>
 		<tbody>
 		<? if (!empty($result->payments)) : ?>
 			<? foreach ($result->payments as $payment) : ?>
 			<tr>
-				<td><?=$payment->DATE;?></td>
-				<td><?=$payment->NAME;?></td>
-				<td><?=$payment->TYPE_NAME;?></td>
-				<td><?=$payment->RECEIPT_NUMBER;?></td>
-				<td><?=$payment->PAYMENT_NOTES;?></td>
-				<td><?=$payment->AMOUNT_PAID;?></td>
+				<td><?php echo $payment->DATE; ?></td>
+				<td><?php echo $payment->NAME; ?></td>
+				<td><?php echo $payment->TYPE_NAME; ?></td>
+				<td><?php echo $payment->RECEIPT_NUMBER; ?></td>
+				<td><?php echo $payment->PAYMENT_NOTES; ?></td>
+				<td><?php echo $payment->AMOUNT_PAID; ?></td>
 			</tr>
 			<? endforeach; ?>
 		<? else: ?>

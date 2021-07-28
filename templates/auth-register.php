@@ -66,54 +66,54 @@ if (is_array($register_fields)) :
 		foreach ($register_fields as $k_field => $field) {
 			if ($field->name == 'PASSWORD') { ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label"><?=((isset($field->required) && $field->required == true) ? '<span style="color: red;">*</span>' : '')?> <?=$field->label?></label>
-						<div class="col-sm-3 <?=((in_array($field->name,$error_fields)) ? 'has-error' : '')?>">
+					<label class="col-sm-3 control-label"><?php echo ((isset($field->required) && $field->required == true) ? '<span style="color: red;">*</span>' : ''); ?> <?php echo $field->label; ?></label>
+						<div class="col-sm-3 <?php echo ((in_array($field->name,$error_fields)) ? 'has-error' : ''); ?>">
 							<input type="password" class="form-control" maxlength="32"
-								   name="<?=$field->name?>"
-								   <?=((isset($field->required) && $field->required == true) ? 'required' : '')?>
-								   placeholder="<?=$field->label?>">
+								   name="<?php echo $field->name; ?>"
+								   <?php echo ((isset($field->required) && $field->required == true) ? 'required' : ''); ?>
+								   placeholder="<?php echo $field->label; ?>">
 						</div>     
 						<div class="col-sm-3">
 							<input type="password" class="form-control" maxlength="32" name="PASSWORD2" placeholder="Repeat Password">
 		<? } else if ($field->name == 'FIRSTNAME') { ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label"><?=((isset($field->required) && $field->required == true) ? '<span style="color: red;">*</span>' : '')?> <?=$field->label?></label>
-						<div class="col-sm-3 <?=((in_array($field->name,$error_fields)) ? 'has-error' : '')?>">
+					<label class="col-sm-3 control-label"><?php echo ((isset($field->required) && $field->required == true) ? '<span style="color: red;">*</span>' : ''); ?> <?php echo $field->label; ?></label>
+						<div class="col-sm-3 <?php echo ((in_array($field->name,$error_fields)) ? 'has-error' : ''); ?>">
 							<input type="text" class="form-control" maxlength="64"
-								   name="<?=$field->name?>"
-								    value="<?=(isset($_POST[$field->name]) ? $_POST[$field->name] : '')?>"
-								   <?=((isset($field->required) && $field->required == true) ? 'required' : '')?>
-								   placeholder="<?=$field->label?>">
+								   name="<?php echo $field->name; ?>"
+								    value="<?php echo (isset($_POST[$field->name]) ? $_POST[$field->name] : ''); ?>"
+								   <?php echo ((isset($field->required) && $field->required == true) ? 'required' : ''); ?>
+								   placeholder="<?php echo $field->label; ?>">
 						</div>     
 						<div class="col-sm-3">
-							<input type="text" class="form-control" maxlength="64" name="LASTNAME"  value="<?=(isset($_POST['LASTNAME']) ? $_POST['LASTNAME'] : '')?>" placeholder="Last Name" required/>
+							<input type="text" class="form-control" maxlength="64" name="LASTNAME"  value="<?php echo (isset($_POST['LASTNAME']) ? $_POST['LASTNAME'] : ''); ?>" placeholder="Last Name" required/>
 		<? } else if ($field->name == 'BIRTHDAY') { ?>
 				<?
 					if (isset($_POST[$field->name]) && $_POST[$field->name] != '0000-00-00')
 						$dsm_day = new DateTime($_POST[$field->name]);
 				?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label"><?=((isset($field->required) && $field->required == true) ? '<span style="color: red;">*</span>' : '')?> <?=$field->label?>
-					<? if (DSM_OC_GENDER_ENABLED == "1"):?>, &nbsp;<?=(DSM_OC_REQ_GENDER == '1') ? '<span style="color: red;">*</span>' : ''?>Gender</label><? endif; ?>
-						<div class="col-sm-3 <?=((in_array($field->name,$error_fields)) ? 'has-error' : '')?>">
+					<label class="col-sm-3 control-label"><?php echo ((isset($field->required) && $field->required == true) ? '<span style="color: red;">*</span>' : ''); ?> <?php echo $field->label; ?>
+					<? if (DSM_OC_GENDER_ENABLED == "1"):?>, &nbsp;<?php echo ((DSM_OC_REQ_GENDER == '1') ? '<span style="color: red;">*</span>' : ''); ?>Gender</label><? endif; ?>
+						<div class="col-sm-3 <?php echo ((in_array($field->name,$error_fields)) ? 'has-error' : ''); ?>">
 							<div class="input-group date">
 								<input type="text" class="form-control" maxlength="64"
-								   name="<?=$field->name?>"
-								   value="<?=((isset($_POST[$field->name]) && $_POST[$field->name] != '0000-00-00') ?  $dsm_day->format(DSM_PHPDATE) : '')?>"
-								   <?=((isset($field->required) && $field->required == true) ? 'required' : '')?>
-								   placeholder="<?=$field->label?>" readonly="readonly">
+								   name="<?php echo $field->name; ?>"
+								   value="<?php echo ((isset($_POST[$field->name]) && $_POST[$field->name] != '0000-00-00') ?  $dsm_day->format(DSM_PHPDATE) : ''); ?>"
+								   <?php echo ((isset($field->required) && $field->required == true) ? 'required' : ''); ?>
+								   placeholder="<?php echo $field->label; ?>" readonly="readonly">
 								   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<? if (DSM_OC_GENDER_ENABLED) : ?>
-									<select name="GENDER" class="form-control" <?=((DSM_OC_REQ_GENDER == '1') ? 'required' : '')?>>
+									<select name="GENDER" class="form-control" <?php echo ((DSM_OC_REQ_GENDER == '1') ? 'required' : ''); ?>>
 								<? if (is_array($register_fields[$k_field+1]->values)): ?>
 									<?  foreach ($register_fields[$k_field+1]->values as $v): ?>
-									<option value="<?=$v->value?>"
+									<option value="<?php echo $v->value; ?>"
 										class="form-control option"
-										<?=((isset($_POST['GENDER']) && $_POST['GENDER'] == $v->value) ? 'selected="selected"' : '')?>
-										><?=$v->option?>
+										<?php echo ((isset($_POST['GENDER']) && $_POST['GENDER'] == $v->value) ? 'selected="selected"' : ''); ?>
+										><?php echo $v->option; ?>
 									</option>
 									<? endforeach; ?>
 								<? endif; ?>
@@ -123,14 +123,14 @@ if (is_array($register_fields)) :
 					  || ($field->name == 'PHONE2' && DSM_MEMBERS_PHONE2_ENABLED == '1')
 					  || ($field->name == 'PHONE3' && DSM_MEMBERS_PHONE3_ENABLED == '1')) { ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label"><?=(( $field->name == 'PHONE1' && DSM_OC_REQ_PHONE1 == '1' || ($field->name == 'PHONE2' && DSM_OC_REQ_PHONE2 == '1')) ? '<span style="color: red;">*</span>' : '')?> <?=$field->label?></label>
-						<div class="col-sm-3 <?=((in_array($field->name,$error_fields)) ? 'has-error' : '')?>">
-							<input type="text" class="form-control" maxlength="20" id="<?=$field->name?>" name="<?=$field->name?>"  value="<?=(isset($_POST[$field->name]) ? $_POST[$field->name] : '')?>" placeholder="<?=$field->label?>"
-							 <?=(( $field->name == 'PHONE1' && DSM_OC_REQ_PHONE1 == '1' || ($field->name == 'PHONE2' && DSM_OC_REQ_PHONE2 == '1')) ? 'required' : '')?>
+					<label class="col-sm-3 control-label"><?php echo (( $field->name == 'PHONE1' && DSM_OC_REQ_PHONE1 == '1' || ($field->name == 'PHONE2' && DSM_OC_REQ_PHONE2 == '1')) ? '<span style="color: red;">*</span>' : ''); ?> <?php echo $field->label; ?></label>
+						<div class="col-sm-3 <?php echo ((in_array($field->name,$error_fields)) ? 'has-error' : ''); ?>">
+							<input type="text" class="form-control" maxlength="20" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>"  value="<?php echo (isset($_POST[$field->name]) ? $_POST[$field->name] : ''); ?>" placeholder="<?php echo $field->label; ?>"
+							 <?php echo (( $field->name == 'PHONE1' && DSM_OC_REQ_PHONE1 == '1' || ($field->name == 'PHONE2' && DSM_OC_REQ_PHONE2 == '1')) ? 'required' : ''); ?>
 							>
 						</div>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" maxlength="128" name="<?=$field->name?>_NOTES" value="<?=(isset($_POST[$field->name.'_NOTES']) ? $_POST[$field->name.'_NOTES'] : '')?>" placeholder="Phone Notes">
+							<input type="text" class="form-control" maxlength="128" name="<?php echo $field->name; ?>_NOTES" value="<?php echo (isset($_POST[$field->name.'_NOTES']) ? $_POST[$field->name.'_NOTES'] : ''); ?>" placeholder="Phone Notes">
 
 		<? } else if ($field->name == 'PASSWORD2' || $field->name == 'LASTNAME' || $field->name == 'GENDER'
 					|| $field->name == 'PHONE1_NOTES' || $field->name == 'PHONE2_NOTES' || $field->name == 'PHONE3_NOTES'

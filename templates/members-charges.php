@@ -14,19 +14,19 @@ $result = App::GetClient()->GetController('members')->GetCharges();
 				<th>Category</th>
 				<th>Class</th>
 				<th>Notes</th>
-				<th style="text-align:right" width="90">Charged, <?=DSM_CURRENCY_SIGN?></th>
+				<th style="text-align:right" width="90">Charged, <?php echo DSM_CURRENCY_SIGN; ?></th>
 			</tr>
 		</thead>
 		<tbody>
 		<? if (!empty($result->charges)) : ?>
 			<? foreach ($result->charges as $charge) : ?>
 			<tr>
-				<td><?=$charge->DATE;?></td>
-				<td><?=$charge->NAME;?></td>
-				<td><?=$charge->CATEGORY_NAME;?></td>
-				<td><?=$charge->CLASS;?></td>
-				<td><?=$charge->CHARGE_NOTES;?></td>
-				<td><?=$charge->AMOUNT_CHARGED;?></td>
+				<td><?php echo $charge->DATE; ?></td>
+				<td><?php echo $charge->NAME; ?></td>
+				<td><?php echo $charge->CATEGORY_NAME; ?></td>
+				<td><?php echo $charge->CLASS; ?></td>
+				<td><?php echo $charge->CHARGE_NOTES; ?></td>
+				<td><?php echo $charge->AMOUNT_CHARGED; ?></td>
 			</tr>
 			<? endforeach; ?>
 		<? else: ?>

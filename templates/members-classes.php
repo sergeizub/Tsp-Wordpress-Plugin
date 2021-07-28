@@ -54,8 +54,8 @@ function SchedulesSection(section_id)
 <?php foreach ($students as $student) : ?>
 <div class="panel panel-primary">
 <div class="panel-heading">
-	<?=( ($student['item']['GENDER'] == 'F') ? '<i class="fa fa-female"></i>&nbsp;' : ( ($student['item']['GENDER'] == 'M') ? '<i class="fa fa-male"></i>&nbsp;' : '' ) )?>
-	<?=( (!empty($student['item']['BIRTHDAY_MONTH']) && $student['item']['CURRENT_MONTH'] == $student['item']['BIRTHDAY_MONTH']) ? '<i class="fa fa-birthday-cake"></i>&nbsp;' : '' ) ?> <?=$student['item']['FIRSTNAME'].' '.$student['item']['LASTNAME']?>  
+	<?php echo ( ($student['item']['GENDER'] == 'F') ? '<i class="fa fa-female"></i>&nbsp;' : ( ($student['item']['GENDER'] == 'M') ? '<i class="fa fa-male"></i>&nbsp;' : '' ) ); ?>
+	<?php echo ( (!empty($student['item']['BIRTHDAY_MONTH']) && $student['item']['CURRENT_MONTH'] == $student['item']['BIRTHDAY_MONTH']) ? '<i class="fa fa-birthday-cake"></i>&nbsp;' : '' ); ?> <?php echo $student['item']['FIRSTNAME'].' '.$student['item']['LASTNAME']; ?>  
 </div>
 <div class="panel-body">
     <?php if (count($student['classes']) > 0) : ?>
@@ -66,50 +66,50 @@ function SchedulesSection(section_id)
     	<th>Description</th>
 		<?php if (DSM_MAIN_DISCOUNT === 'MULTI_CLASS' || DSM_MAIN_DISCOUNT === 'HOURLY_DISCOUNTS') : ?>
     	<th>Discount</th>
-    	<th class="text-right">Amount, <?=((defined("DSM_CURRENCY_SIGN")) ? DSM_CURRENCY_SIGN : '')?></th>
+    	<th class="text-right">Amount, <?php echo ((defined("DSM_CURRENCY_SIGN")) ? DSM_CURRENCY_SIGN : ''); ?></th>
     	<?php endif; ?>
-    	<th class="text-center"><?=((defined("DSM_OC_CLASS_LIST_ACTION_LABEL")) ? DSM_OC_CLASS_LIST_ACTION_LABEL : 'Action')?></th>
+    	<th class="text-center"><?php echo ((defined("DSM_OC_CLASS_LIST_ACTION_LABEL")) ? DSM_OC_CLASS_LIST_ACTION_LABEL : 'Action'); ?></th>
     </tr>
 	</thead>
 	<tbody>
 	<?php foreach($student['classes'] as $class) : ?>
-    <tr data-class_id="<?=$class['CLASS_ID']?>" class="class-row">
+    <tr data-class_id="<?php echo $class['CLASS_ID']; ?>" class="class-row">
     	<td>
-			<?=$class['CLASS_NAME']?>
+			<?php echo $class['CLASS_NAME'];?>
     	<td>
-			<?=( (count($class['CLASS_SCHEDULES']) && $class['PAYMENT_METHOD'] === 'billing_schedule' > 0 && $class['STATUS_IN_CLASS'] == '1' &&  (DSM_MAIN_DISCOUNT === 'MULTI_CLASS' || DSM_MAIN_DISCOUNT === 'HOURLY_DISCOUNTS')) ? $class['tuition_description'] : '')?>
-        	<?=( ($class['CLASS_TYPE'] === 'private') ? 'Completed '.$class['LESSONS_COMPLETED'].' of '.$class['LESSONS_PURCHASED'].' hours. Remaining hours: '.$class['LESSONS_REMAINING'] : '' )?>
+			<?php echo ( (count($class['CLASS_SCHEDULES']) && $class['PAYMENT_METHOD'] === 'billing_schedule' > 0 && $class['STATUS_IN_CLASS'] == '1' &&  (DSM_MAIN_DISCOUNT === 'MULTI_CLASS' || DSM_MAIN_DISCOUNT === 'HOURLY_DISCOUNTS')) ? $class['tuition_description'] : ''); ?>
+        	<?php echo ( ($class['CLASS_TYPE'] === 'private') ? 'Completed '.$class['LESSONS_COMPLETED'].' of '.$class['LESSONS_PURCHASED'].' hours. Remaining hours: '.$class['LESSONS_REMAINING'] : '' ); ?>
         </td>
     	<?php if (DSM_MAIN_DISCOUNT === 'MULTI_CLASS' || DSM_MAIN_DISCOUNT === 'HOURLY_DISCOUNTS') : ?>
     	<td>
-			<?=( (count($class['CLASS_SCHEDULES']) && $class['PAYMENT_METHOD'] === 'billing_schedule' > 0 && $class['STATUS_IN_CLASS'] == '1') ? $class['discount_description'] : '' )?>
+			<?php echo ( (count($class['CLASS_SCHEDULES']) && $class['PAYMENT_METHOD'] === 'billing_schedule' > 0 && $class['STATUS_IN_CLASS'] == '1') ? $class['discount_description'] : '' ); ?>
     	</td>
     	<td class="text-right">
-			<?=( (count($class['CLASS_SCHEDULES']) && $class['PAYMENT_METHOD'] === 'billing_schedule' > 0 && $class['STATUS_IN_CLASS'] == '1') ? $class['tuition_amount'] : '' )?>
+			<?php echo ( (count($class['CLASS_SCHEDULES']) && $class['PAYMENT_METHOD'] === 'billing_schedule' > 0 && $class['STATUS_IN_CLASS'] == '1') ? $class['tuition_amount'] : '' ); ?>
     	</td>
     	<?php endif; ?>
     	<td class="text-right">
-        	<button class="btn btn-primary btn-sm" onclick="javascript:SchedulesSection('schedules_<?=$class['MEMBER_ID']?>_<?=$class['ID']?>')" title="Schedules" style="width: 130px;">
-        		<i class="fa fa-calendar-day"></i> Schedules (<?=count($class['CLASS_SCHEDULES']);?>)
+        	<button class="btn btn-primary btn-sm" onclick="javascript:SchedulesSection('schedules_<?php echo $class['MEMBER_ID']; ?>_<?php echo $class['ID']; ?>')" title="Schedules" style="width: 130px;">
+        		<i class="fa fa-calendar-day"></i> Schedules (<?php echo count($class['CLASS_SCHEDULES']); ?>)
         	</button>
     	</td>
     </tr>
-    <tr id="schedules_<?=$class['MEMBER_ID']?>_<?=$class['ID']?>" class="schedules hidden class-row" data-class_id="<?=$class['ID']?>">
+    <tr id="schedules_<?php echo $class['MEMBER_ID']; ?>_<?php echo $class['ID']; ?>" class="schedules hidden class-row" data-class_id="<?php echo $class['ID']; ?>">
         <td colspan="3">
 			<?php if ($class['CLASS_SCHEDULES']) : ?>
 			<table class="table table-striped table-condensed table-hover">
 			<tr>
 				<th>Schedule</th>
 				<?php if (defined('DSM_OC_HIDE_ATTENDANCE') && DSM_OC_HIDE_ATTENDANCE != '1') : ?>
-				<th><?=( ($class['CLASS_TYPE'] === 'private' || DSM_ATTENDANCE_STATUS_LATE === '1') ? 'Status' : 'Present' )?></th>
+				<th><?php echo ( ($class['CLASS_TYPE'] === 'private' || DSM_ATTENDANCE_STATUS_LATE === '1') ? 'Status' : 'Present' ); ?></th>
 				<?php endif; ?>
-				<?=( ($class['PAYMENT_METHOD'] == 'sales_packages' && $class['CLASS_TYPE'] != 'private') ? '<th>Assigned Purchase</th>' : '' )?>
+				<?php echo ( ($class['PAYMENT_METHOD'] == 'sales_packages' && $class['CLASS_TYPE'] != 'private') ? '<th>Assigned Purchase</th>' : '' ); ?>
 			</tr>
 			<?php foreach($class['CLASS_SCHEDULES'] as $schedule) : ?>
 			<tr>
-				<td><?=$schedule['STARTF']?> - <?=$schedule['ENDF']?></td>
-				<?=( (defined('DSM_OC_HIDE_ATTENDANCE') && DSM_OC_HIDE_ATTENDANCE != '1') ? '<td id="pls_'.$schedule['ID'].'_'.$class['MEMBER_ID'].'">'.$schedule['PRESENT'].'</td>' : '' )?>
-				<?=( ($class['PAYMENT_METHOD'] == 'sales_packages' && $class['CLASS_TYPE'] != 'private') ? '<td><span class="purchase">'.$schedule['PURCHASE'].'</span></td>' : '' )?>
+				<td><?php echo $schedule['STARTF']; ?> - <?php echo $schedule['ENDF']; ?></td>
+				<?php echo ( (defined('DSM_OC_HIDE_ATTENDANCE') && DSM_OC_HIDE_ATTENDANCE != '1') ? '<td id="pls_'.$schedule['ID'].'_'.$class['MEMBER_ID'].'">'.$schedule['PRESENT'].'</td>' : '' ); ?>
+				<?php echo ( ($class['PAYMENT_METHOD'] == 'sales_packages' && $class['CLASS_TYPE'] != 'private') ? '<td><span class="purchase">'.$schedule['PURCHASE'].'</span></td>' : '' ); ?>
 			</tr>
 			<?php endforeach; ?>
 			</table>

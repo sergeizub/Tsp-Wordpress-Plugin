@@ -20,38 +20,38 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 				<div class="form-group">
 					<label class="col-sm-5 control-label"><span class="text-warning">*</span> First Name</label>
 					<div class="col-sm-7">
-						<input class="form-control" type="text" name="first_name" maxlength="50" value="<?=$first_name?>">
+						<input class="form-control" type="text" name="first_name" maxlength="50" value="<?php echo $first_name; ?>">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-5 control-label"><span class="text-warning">*</span> Last Name</label>
 					<div class="col-sm-7">
-						<input class="form-control" type="text" name="last_name" maxlength="50" value="<?=$last_name?>">
+						<input class="form-control" type="text" name="last_name" maxlength="50" value="<?php echo $last_name; ?>">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-5 control-label"><span class="text-warning">*</span> Bank Account Number</label>
 					<div class="col-sm-7">
-						<input class="form-control" type="text" name="bank_account_number" value="<?=$_POST['bank_account_number']?>">
+						<input class="form-control" type="text" name="bank_account_number" value="<?php echo $_POST['bank_account_number']; ?>">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-5 control-label"><span class="text-warning">*</span> <?=(DSM_DSM_DATE_FORMAT == 'AU' && DSM_PAYMENT_SYSTEM == 'quickpay') ? 'BSB' : 'Bank Routing Number' ?></label>
+					<label class="col-sm-5 control-label"><span class="text-warning">*</span> <?php echo ((DSM_DSM_DATE_FORMAT == 'AU' && DSM_PAYMENT_SYSTEM == 'quickpay') ? 'BSB' : 'Bank Routing Number'); ?></label>
 					<div class="col-sm-7">
-						<input class="form-control" type="text" name="bank_routing_number" value="<?=$_POST['bank_routing_number']?>">
+						<input class="form-control" type="text" name="bank_routing_number" value="<?php echo $_POST['bank_routing_number']; ?>">
 					</div>
 				</div>
 				<br>
 				<div class="form-group">
 					<label class="col-sm-5 control-label">Auto Payment</label>
 					<div class="col-sm-7">
-						<input type="checkbox" name="auto_payment" <?=($_POST['auto_payment'] == 'on') ? 'checked="checked"' : '' ?>> agree to enroll in automatic regular payment	
+						<input type="checkbox" name="auto_payment" <?php echo (($_POST['auto_payment'] == 'on') ? 'checked="checked"' : ''); ?>> agree to enroll in automatic regular payment	
 					</div>      
 				</div>	
 				<div class="form-group">
 					<label class="col-sm-5 control-label">Description</label>
 					<div class="col-sm-7">
-						<input class="form-control" type="text" name="description" maxlength="255" value="<?=$_POST['description']?>" />
+						<input class="form-control" type="text" name="description" maxlength="255" value="<?php echo $_POST['description']); ?>" />
 					</div>      
 				</div>
 				<input type="hidden" name="action" value="dsmclient"/>

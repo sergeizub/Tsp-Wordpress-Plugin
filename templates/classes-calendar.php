@@ -19,13 +19,13 @@ jQuery(function() {
 			center: 'title',
 			right: 'month,agendaWeek'
 		},
-		defaultView: '<?= ((defined('DSM_OC_DEFAULT_CALENDAR_VIEW')) ? DSM_OC_DEFAULT_CALENDAR_VIEW : 'agendaDay' ) ?>',
+		defaultView: '<?php echo ((defined('DSM_OC_DEFAULT_CALENDAR_VIEW')) ? DSM_OC_DEFAULT_CALENDAR_VIEW : 'agendaDay' ); ?>',
         height: 'auto',
 		allDaySlot: false,
 		slotMinutes: 15,
-		timeFormat: '<?=DSM_CALENDARTIME?>',
-        minTime: '<?=(DSM_CALENDAR_START_TIME) ? DSM_CALENDAR_START_TIME  : '6:00' ?>',
-        maxTime: '<?=(DSM_CALENDAR_END_TIME) ? DSM_CALENDAR_END_TIME  : '24:00' ?>',
+		timeFormat: '<?php echo DSM_CALENDARTIME; ?>',
+        minTime: '<?php echo ((DSM_CALENDAR_START_TIME) ? DSM_CALENDAR_START_TIME  : '6:00'); ?>',
+        maxTime: '<?php echo ((DSM_CALENDAR_END_TIME) ? DSM_CALENDAR_END_TIME  : '24:00'); ?>',
 		editable: false,
 		defaultDate: localStorage.getItem('cal_offset'),					
 		loading: function(bool) {

@@ -22,15 +22,15 @@ else {
 </script>
 <? if (is_array($student->form)) :
 	?>
-	<div id="<?= (!empty($student_id) ? 'members_edit_'.$student_id : 'tab-members-student') ?>" class="<?= (!empty($student_id) ? '' : 'tab-pane') ?>">
-	<div class="dsm-header"><h2><?= (!empty($student_id) ? 'Edit' : 'Create') ?> Student</h2></div>
+	<div id="<?php echo ((!empty($student_id) ? 'members_edit_'.$student_id : 'tab-members-student')); ?>" class="<?php echo (!empty($student_id) ? '' : 'tab-pane'); ?>">
+	<div class="dsm-header"><h2><?php echo (!empty($student_id) ? 'Edit' : 'Create'); ?> Student</h2></div>
 	<?php if (DSM_REGISTRATION_FEE_ENABLED && DSM_REGISTRATION_MAX) : ?>
         <div class="alert alert-warning text-center">
-            Registering first <?=DSM_REGISTRATION_MAX?> student(s) will cost <?=DSM_CURRENCY_SIGN?><?=DSM_REGISTRATION_FEE?> each. <?=((DSM_REGISTRATION_FEE_OVER_MAX == 0 && DSM_REGISTRATION_FAMILY_FEE > 0) ? 'Max family registration fee '.DSM_CURRENCY_SIGN.DSM_REGISTRATION_FAMILY_FEE : 'All other students will cost '.DSM_CURRENCY_SIGN.DSM_REGISTRATION_FEE_OVER_MAX.' each.')?>
+            Registering first <?php echo DSM_REGISTRATION_MAX; ?> student(s) will cost <?php echo DSM_CURRENCY_SIGN; ?><?php echo DSM_REGISTRATION_FEE; ?> each. <?php echo ((DSM_REGISTRATION_FEE_OVER_MAX == 0 && DSM_REGISTRATION_FAMILY_FEE > 0) ? 'Max family registration fee '.DSM_CURRENCY_SIGN.DSM_REGISTRATION_FAMILY_FEE : 'All other students will cost '.DSM_CURRENCY_SIGN.DSM_REGISTRATION_FEE_OVER_MAX.' each.'); ?>
         </div>
 	<?php elseif (DSM_REGISTRATION_FEE_ENABLED && DSM_REGISTRATION_MAX == "0") : ?>
 		<div class="alert alert-warning text-center">
-            Registering students will cost <?=DSM_CURRENCY_SIGN?><?=DSM_REGISTRATION_FEE?>.
+            Registering students will cost <?php echo DSM_CURRENCY_SIGN; ?><?php echo DSM_REGISTRATION_FEE; ?>.
         </div>
     <? endif; ?>
 	<form class="form-horizontal" role="form" id="student-form" action="" method="post"> <?
