@@ -52,8 +52,8 @@ class Client
 				}
 				
 				if ($_REQUEST['boot_tab']) {
-					$this->tab = $_REQUEST['boot_tab'];
-					$tab = str_replace("#",'',$_REQUEST['boot_tab']);
+					$this->tab = sanitize_text_field($_REQUEST['boot_tab']);
+					$tab = str_replace("#",'',sanitize_text_field($_REQUEST['boot_tab']));
 					$tab = str_replace("tab-",'',$tab);
 					$tab_path = explode("-",$tab);
 					if (is_numeric($tab_path[count($tab_path)-1]))

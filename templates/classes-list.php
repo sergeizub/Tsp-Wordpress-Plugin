@@ -1,10 +1,14 @@
 <?php
 namespace DanceStudioManager;
 
+$filter = array();
+foreach($_REQUEST['filter'] as $k => $v)
+	$filter[$k] = sanitize_text_field($v);
+
 if(!empty($_SESSION['dsm_client_attrs']))
-	$classes_list = App::GetClient()->GetController('classes')->GetClassesData((array)$_SESSION['dsm_client_attrs'] + (array)$_REQUEST['filter']);
+	$classes_list = App::GetClient()->GetController('classes')->GetClassesData((array)$_SESSION['dsm_client_attrs'] + (array)$filter);
 else
-	$classes_list = App::GetClient()->GetController('classes')->GetClassesData($_REQUEST['filter']);
+	$classes_list = App::GetClient()->GetController('classes')->GetClassesData($filter);
 
 foreach ($classes_list->groupclasses as $class) {
 	if ($_SESSION['dsm_client_attrs']['class_code']) {

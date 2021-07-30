@@ -2,19 +2,23 @@
 namespace DanceStudioManager;
 use \DateTime;
 
-$add_data = array();
+$add_data = $filter = array();
+$add_data_start = sanitize_text_field($_REQUEST['start']);
+foreach($_REQUEST['filter'] as $k => $v)
+	$filter[$k] = sanitize_text_field($v);
+
 if(!empty($_REQUEST['start']))
-	$add_data['start'] = $_REQUEST['start'];
+	$add_data['start'] = $add_data_start;
 
 if(!empty($_SESSION['dsm_client_attrs']))
-	$classes_list = App::GetClient()->GetController('classes')->GetClasses((array)$_SESSION['dsm_client_attrs'] + json_decode(str_replace('\"','"',$_REQUEST['filter']),true) + $add_data);
+	$classes_list = App::GetClient()->GetController('classes')->GetClasses((array)$_SESSION['dsm_client_attrs'] + json_decode(str_replace('\"','"',$filter),true) + $add_data);
 else
-	$classes_list = App::GetClient()->GetController('classes')->GetClasses(json_decode(str_replace('\"','"',$_REQUEST['filter']),true) + $add_data);
+	$classes_list = App::GetClient()->GetController('classes')->GetClasses(json_decode(str_replace('\"','"',$filter),true) + $add_data);
 
 $i = 0;
-$current_date = new DateTime($_REQUEST['start']);
-$end_date = new DateTime($_REQUEST['start']);
-$day = new DateTime($_REQUEST['start']);
+$current_date = new DateTime($add_data_start);
+$end_date = new DateTime($add_data_start);
+$day = new DateTime($add_data_start);
 
 if ($_REQUEST['schedule_week'] == "1") {
 	$data = [
