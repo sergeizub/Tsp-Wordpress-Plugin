@@ -106,7 +106,7 @@ class Client
 				if ($k == 'boot_tab') continue;
 				$params .= " jQuery(redir_form).append( \"<input type='hidden' name='".$k."' value='".$v."' /> \");";
 			}
-			return "var redir_form = jQuery('<form></form>'); var redir_link = jQuery('<a href=\"#".$_SESSION['dsm_redirect']['boot_tab']."\"></a>'); ".$params.";dsm_ajax_click(redir_link,redir_form);";
+			return "var redir_form = jQuery('<form></form>'); var redir_link = jQuery('<a href=\"#".sanitize_text_field($_SESSION['dsm_redirect']['boot_tab'])."\"></a>'); ".$params.";dsm_ajax_click(redir_link,redir_form);";
 			
 		}
 		return "dsm_ajax_click(jQuery('.default_tab'))";

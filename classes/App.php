@@ -161,7 +161,11 @@ class App
                 if (strpos ( $att , '|') !== false)
                     $_SESSION['dsm_client_attrs'][$k_att] = explode('|',$att);
                 else
-                    $_SESSION['dsm_client_attrs'][$k_att] = $att;
+                    $_SESSION['dsm_client_attrs'][$k_att] = sanitize_text_field($att);
+                    
+                if (is_array($_SESSION['dsm_client_attrs'][$k_att]))
+                    foreach($_SESSION['dsm_client_attrs'][$k_att] as $k => $v)
+                        $_SESSION['dsm_client_attrs'][$k_att][$k] = sanitize_text_field($v);
             }
 
             ob_start();

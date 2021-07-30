@@ -4,19 +4,25 @@ namespace DanceStudioManager;
 $filter = array();
 foreach($_REQUEST['filter'] as $k => $v)
 	$filter[$k] = sanitize_text_field($v);
-
+	
+if (is_array($_SESSION['dsm_client_attrs']['class_code']))
+	foreach($_SESSION['dsm_client_attrs']['class_code'] as $k => $v)
+		$programs_class_code[$k] = sanitize_text_field($v);
+else
+	$programs_class_code = sanitize_text_field($_SESSION['dsm_client_attrs']['class_code']);
+	
 if(!empty($_SESSION['dsm_client_attrs']))
 	$classes_list = App::GetClient()->GetController('classes')->GetClassesData((array)$_SESSION['dsm_client_attrs'] + (array)$filter);
 else
 	$classes_list = App::GetClient()->GetController('classes')->GetClassesData($filter);
 
 foreach ($classes_list->groupclasses as $class) {
-	if ($_SESSION['dsm_client_attrs']['class_code']) {
+	if ($programs_class_code) {
 		$classes_tabs['class_code'][] =  $class;
-		if (is_array($_SESSION['dsm_client_attrs']['class_code']))
-			$programs['class_code'] = implode(", ",$_SESSION['dsm_client_attrs']['class_code']);
+		if ($programs_class_code)
+			$programs['class_code'] = implode(", ",$programs_class_code);
 		else
-			$programs['class_code'] = $_SESSION['dsm_client_attrs']['class_code'];
+			$programs['class_code'] = $programs_class_code;
 	}
 	else {
 		$classes_tabs[$class->PROGRAM_ID][] =  $class;

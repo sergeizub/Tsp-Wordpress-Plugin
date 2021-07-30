@@ -10,7 +10,7 @@ if (!empty($class_id)) :
 else :
 	include plugin_dir_path( __FILE__ ) . 'snippets/class-filters.php'; 
    if ($_SESSION['dsm_client_attrs']["start_date"] && strtotime($_SESSION['dsm_client_attrs']["start_date"]) > strtotime(DSM_PHPDATE))
-	  $date_now = date(DSM_PHPDATE, strtotime($_SESSION['dsm_client_attrs']["start_date"]));
+	  $date_now = date(DSM_PHPDATE, strtotime(sanitize_text_field($_SESSION['dsm_client_attrs']["start_date"])));
    else
 	  $date_now = date(DSM_PHPDATE);
 

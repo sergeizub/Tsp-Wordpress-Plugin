@@ -3,6 +3,15 @@ namespace DanceStudioManager;
 
 if (!$filters)
 	$filters = App::GetClient()->GetController('classes')->GetFilters();
+
+//Sanitize Dsm Client Attrs
+if (is_array($_SESSION['dsm_client_attrs']))
+	foreach($_SESSION['dsm_client_attrs'] as $k_att => $att)
+		if (is_array($att))
+			foreach($att as $k => $v)
+				$_SESSION['dsm_client_attrs'][$k_att][$k] = sanitize_text_field($v);
+		else
+			$_SESSION['dsm_client_attrs'][$k_att] = sanitize_text_field($att);
 ?>
 <script>
 	jQuery(function() {
