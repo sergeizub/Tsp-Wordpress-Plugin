@@ -2,7 +2,7 @@
 namespace DanceStudioManager;
 $groupclasses = array();
 $class_id = App::GetApi()->GetIdParam();
-$schedule_id = $_POST['schedule_id'];
+$schedule_id = sanitize_key($_POST['schedule_id']);
 
 if (!empty($schedule_id))
 	$class_full_info = App::GetClient()->GetController('classes')->GetScheduleInfo($class_id, $schedule_id);

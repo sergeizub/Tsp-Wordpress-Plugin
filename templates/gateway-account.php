@@ -3,12 +3,12 @@ namespace DanceStudioManager;
 $user_data = App::GetClient()->GetController('members')->GetUserData();
 
 if (!empty($_POST['first_name']))
-	$first_name = $_POST['first_name'];
+	$first_name = sanitize_text_field($_POST['first_name']);
 else if (!empty($user_data) && isset($user_data->FIRSTNAME))
 	$first_name = $user_data->FIRSTNAME;
 	
 if (!empty($_POST['last_name']))
-	$last_name = $_POST['last_name'];
+	$last_name = sanitize_text_field($_POST['last_name']);
 else if (!empty($user_data) && isset($user_data->LASTNAME))
 	$last_name = $user_data->LASTNAME;
 
@@ -32,13 +32,13 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 				<div class="form-group">
 					<label class="col-sm-5 control-label"><span class="text-warning">*</span> Bank Account Number</label>
 					<div class="col-sm-7">
-						<input class="form-control" type="text" name="bank_account_number" value="<?php echo $_POST['bank_account_number']; ?>">
+						<input class="form-control" type="text" name="bank_account_number" value="<?php echo sanitize_text_field($_POST['bank_account_number']); ?>">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-5 control-label"><span class="text-warning">*</span> <?php echo ((DSM_DSM_DATE_FORMAT == 'AU' && DSM_PAYMENT_SYSTEM == 'quickpay') ? 'BSB' : 'Bank Routing Number'); ?></label>
 					<div class="col-sm-7">
-						<input class="form-control" type="text" name="bank_routing_number" value="<?php echo $_POST['bank_routing_number']; ?>">
+						<input class="form-control" type="text" name="bank_routing_number" value="<?php echo sanitize_text_field($_POST['bank_routing_number']); ?>">
 					</div>
 				</div>
 				<br>
@@ -51,7 +51,7 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 				<div class="form-group">
 					<label class="col-sm-5 control-label">Description</label>
 					<div class="col-sm-7">
-						<input class="form-control" type="text" name="description" maxlength="255" value="<?php echo $_POST['description']); ?>" />
+						<input class="form-control" type="text" name="description" maxlength="255" value="<?php echo sanitize_textarea_field($_POST['description']); ?>" />
 					</div>      
 				</div>
 				<input type="hidden" name="action" value="dsmclient"/>

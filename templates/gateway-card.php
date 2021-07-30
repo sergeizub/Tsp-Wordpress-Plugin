@@ -3,12 +3,12 @@ namespace DanceStudioManager;
 $user_data = App::GetClient()->GetController('members')->GetUserData();
 
 if (!empty($_POST['first_name']))
-	$first_name = $_POST['first_name'];
+	$first_name = sanitize_text_field($_POST['first_name']);
 else if (!empty($user_data) && isset($user_data->FIRSTNAME))
 	$first_name = $user_data->FIRSTNAME;
 	
 if (!empty($_POST['last_name']))
-	$last_name = $_POST['last_name'];
+	$last_name = sanitize_text_field($_POST['last_name']);
 else if (!empty($user_data) && isset($user_data->LASTNAME))
 	$last_name = $user_data->LASTNAME;
 
@@ -32,19 +32,19 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 			<div class="form-group">
 				<label class="col-sm-5 control-label"><span class="text-warning">*</span> Card Number</label>
 				<div class="col-sm-7">
-					<input class="form-control" type="text" name="card_number" value="<?php echo $_POST['card_number']; ?>">
+					<input class="form-control" type="text" name="card_number" value="<?php echo sanitize_text_field($_POST['card_number']); ?>">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-5 control-label"><span class="text-warning">*</span> Card Expiration (MMYY)</label>
 				<div class="col-xs-3">
-					<input class="form-control" type="text" name="card_expiration" maxlength="4" value="<?php echo $_POST['card_expiration']; ?>">
+					<input class="form-control" type="text" name="card_expiration" maxlength="4" value="<?php echo sanitize_text_field($_POST['card_expiration']); ?>">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-5 control-label"><span class="text-warning">*</span> Card Verification (CVV2)</label>
 				<div class="col-xs-3">
-					<input class="form-control" type="text" name="card_verification" maxlength="4" value="<?php echo $_POST['card_verification']; ?>">
+					<input class="form-control" type="text" name="card_verification" maxlength="4" value="<?php echo sanitize_text_field($_POST['card_verification']); ?>">
 				</div>
 			</div>
 			<br>
@@ -57,7 +57,7 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 			<div class="form-group">
 				<label class="col-sm-5 control-label">Description</label>
 				<div class="col-sm-7">
-					<input class="form-control" type="text" name="description" maxlength="255" value="<?php echo $_POST['description']; ?>" />
+					<input class="form-control" type="text" name="description" maxlength="255" value="<?php echo sanitize_textarea_field($_POST['description']); ?>" />
 				</div>      
 			</div>
 			<input type="hidden" name="action" value="dsmclient"/>

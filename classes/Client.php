@@ -46,8 +46,8 @@ class Client
 			default :
 
 				if (!empty($_POST['obj']) && !empty($_POST['method'])) {
-					$obj = $_POST['obj'];
-					$method =  $_POST['method'];
+					$obj = sanitize_text_field($_POST['obj']);
+					$method =  sanitize_text_field($_POST['method']);
 					$this->GetController($obj)->$method($_POST);
 				}
 				
@@ -78,14 +78,14 @@ class Client
 		$this->tab = false;
 		App::GetTemplate()->Load(  'header.php' );
 		if (!empty($_POST['dsm_action'])) {
-				$obj = $_POST['obj'];
+				$obj = sanitize_text_field($_POST['obj']);
 				if (!empty($_POST['method'])){
-					$method = $_POST['method'];
+					$method = sanitize_text_field($_POST['method']);
 					$this->GetController($obj)->$method($_POST);
 				}
 				else
 					$this->GetController($obj)->Submit($_POST);
-				$this->tab = $_POST['boot_tab'];
+				$this->tab = sanitize_text_field($_POST['boot_tab']);
 		}
 		
 		if ($this->GetController('auth')->isLogged()) {
