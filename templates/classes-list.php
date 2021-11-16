@@ -19,7 +19,7 @@ else
 foreach ($classes_list->groupclasses as $class) {
 	if ($programs_class_code) {
 		$classes_tabs['class_code'][] =  $class;
-		if ($programs_class_code)
+		if (is_array($programs_class_code))
 			$programs['class_code'] = implode(", ",$programs_class_code);
 		else
 			$programs['class_code'] = $programs_class_code;

@@ -62,6 +62,7 @@ class ClassesController extends BaseController
 			$filter = dsm_array_map('html_entity_decode', $filter);
 			foreach ($dsm_classes->groupclasses as $k_groupclass => $groupclass) {
 				if ((!empty($filter['class_code']) && is_array($filter['class_code']) && !in_array($groupclass->CODE, $filter['class_code']))
+                    || (!empty($filter['class_code']) && !is_array($filter['class_code']) && $filter['class_code'] != $groupclass->CODE)
 					|| (!empty($filter['class_name']) && is_array($filter['class_name']) && !in_array($groupclass->NAME, $filter['class_name']))
 					|| (!empty($filter['class_level']) && is_array($filter['class_level']) && !in_array($groupclass->LEVEL, $filter['class_level']))
 					|| (!empty($filter['class_location']) && is_array($filter['class_location']) && !in_array($groupclass->LOCATION, $filter['class_location']))
