@@ -10,10 +10,14 @@ foreach($_REQUEST['filter'] as $k => $v)
 if(!empty($_REQUEST['start']))
 	$add_data['start'] = $add_data_start;
 
+$json_filter = json_decode(str_replace('\"','"',$filter),true);
+if(empty($json_filter))
+	$json_filter = array();
+
 if(!empty($_SESSION['dsm_client_attrs']))
-	$classes_list = App::GetClient()->GetController('classes')->GetClasses((array)$_SESSION['dsm_client_attrs'] + json_decode(str_replace('\"','"',$filter),true) + $add_data);
+	$classes_list = App::GetClient()->GetController('classes')->GetClasses((array)$_SESSION['dsm_client_attrs'] + $json_filter + $add_data);
 else
-	$classes_list = App::GetClient()->GetController('classes')->GetClasses(json_decode(str_replace('\"','"',$filter),true) + $add_data);
+	$classes_list = App::GetClient()->GetController('classes')->GetClasses($json_filter + $add_data);
 
 $i = 0;
 $current_date = new DateTime($add_data_start);

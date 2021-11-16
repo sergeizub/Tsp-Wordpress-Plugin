@@ -2,9 +2,11 @@
 namespace DanceStudioManager;
 
 $items = App::GetClient()->GetController('checkout')->GetSalesItems();
+
 $sales_item_id = App::GetApi()->GetIdParam();
-$sales_products = $items['sales_items'];
+$sales_products = $items['sales_items']['item'];
 $categories = $items['categories'];
+
 ?>
 <div id="tab-sales-items" class="tab-pane">
 <?php if (empty($sales_item_id)) : ?>
