@@ -4,7 +4,10 @@ namespace DanceStudioManager;
 $items = App::GetClient()->GetController('checkout')->GetSalesItems();
 
 $sales_item_id = App::GetApi()->GetIdParam();
-$sales_products = $items['sales_items']['item'];
+if (defined('DSM_OC_BUY_ITEM_PAGE_VIEW_TYPE') && DSM_OC_BUY_ITEM_PAGE_VIEW_TYPE == '1')
+	$sales_products = $items['sales_items']['item'];
+else
+	$sales_products = $items['sales_items'];
 $categories = $items['categories'];
 ?>
 <div id="tab-sales-items" class="tab-pane">
