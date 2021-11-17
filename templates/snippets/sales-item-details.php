@@ -4,9 +4,14 @@ namespace DanceStudioManager;
 $sales_item_id = App::GetApi()->GetIdParam();
 $sales_item_full_info = App::GetClient()->GetController('checkout')->GetSalesItemInfo($sales_item_id);
 
+$sales_item_id = App::GetApi()->GetIdParam();
+if (defined('DSM_OC_BUY_ITEM_PAGE_VIEW_TYPE') && DSM_OC_BUY_ITEM_PAGE_VIEW_TYPE == '1')
+	$sales_products = $sales_item_full_info['sales_items']['item'];
+else
+	$sales_products = $sales_item_full_info['sales_items'];
 ?>
-<?php if (!empty($sales_item_id) && !empty($sales_item_full_info['sales_items'])) : ?>
-<?php foreach ($sales_item_full_info['sales_items']['item'] as $category) : ?>
+<?php if (!empty($sales_item_id) && !empty($sales_products)) : ?>
+<?php foreach ($sales_products as $category) : ?>
 
 <?php foreach ($category as $sales_item) : ?>
 <div>
