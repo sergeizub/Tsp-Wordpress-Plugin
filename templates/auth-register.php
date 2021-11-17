@@ -198,6 +198,7 @@ if (is_array($register_fields)) :
 		echo '<input type="hidden" name="boot_tab" value="tab-auth-register"/>';
 		echo '<input type="hidden" name="class_id" value="'.sanitize_key($_POST['class_id']).'"/>';
 		echo '<input type="hidden" name="schedule_id" value="'.sanitize_key($_POST['schedule_id']).'"/>';
+		echo '<input type="hidden" name="sales-item_id" value="'.sanitize_key($_POST['sales-item_id']).'"/>';
 		echo '<div class="form-group"><div class="col-sm-offset-3 col-sm-6"><button type="submit" id="oc-auth-register-button" class="btn btn-primary">Create Account</button></div></div>';
 	?> </form>
 	</div>

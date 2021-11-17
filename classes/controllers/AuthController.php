@@ -41,7 +41,9 @@ class AuthController extends BaseController
 				$login_param['class_id'] = $data['class_id'];
 			if ($data['schedule_id'])
 				$login_param['schedule_id'] = $data['schedule_id'];
-			
+			if ($data['sales-item_id'])
+				$login_param['sales-item_id'] = $data['sales-item_id'];
+                
 			$this->Login($login_param);
 			
 			//App::GetError()->Success("User Registered. Please check your email with confirmation");
@@ -76,7 +78,10 @@ class AuthController extends BaseController
 			if (!empty($data['schedule_id']))
 				$_SESSION['dsm_redirect']['schedule_id'] = $data['schedule_id'];
 		}
-		
+        elseif (!empty($data['sales-item_id']))
+		{
+			$_SESSION['dsm_redirect']['boot_tab'] = 'checkout-sales-items-'.$data['sales-item_id'];
+		}
 		if ($response->token) {
 			echo true;
 			exit();

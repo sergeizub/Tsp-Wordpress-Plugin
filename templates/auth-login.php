@@ -16,6 +16,7 @@
 					<input type="hidden" name="method" value="Login"/>
 					<input type="hidden" name="class_id" value="<?php echo sanitize_key($_POST['class_id']); ?>"/>
 					<input type="hidden" name="schedule_id" value="<?php echo sanitize_key($_POST['schedule_id']); ?>"/>
+					<input type="hidden" name="sales-item_id" value="<?php echo sanitize_key($_POST['sales-item_id']); ?>"/>
 					<button class="btn btn-success" type="submit" id="cl_sign_in"><i class="fa fa-sign-in"></i> Sign In</button>
 																			</div>
 			</form>

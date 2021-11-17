@@ -6,7 +6,7 @@ $sales_item_full_info = App::GetClient()->GetController('checkout')->GetSalesIte
 
 ?>
 <?php if (!empty($sales_item_id) && !empty($sales_item_full_info['sales_items'])) : ?>
-<?php foreach ($sales_item_full_info['sales_items'] as $category) : ?>
+<?php foreach ($sales_item_full_info['sales_items']['item'] as $category) : ?>
 
 <?php foreach ($category as $sales_item) : ?>
 <div>

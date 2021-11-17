@@ -11,6 +11,11 @@ jQuery(function () {
             jQuery("a[href$='#tab-auth-register']").attr('dsm_schedule_id', jQuery(this).attr('dsm_schedule_id'));
          else
             jQuery("a[href$='#tab-auth-register']").removeAttr("dsm_schedule_id");
+            
+        if (jQuery(this).attr('dsm_sales-item_id')) 
+            jQuery("a[href$='#tab-auth-register']").attr('dsm_sales-item_id', jQuery(this).attr('dsm_sales-item_id'));  
+        else
+            jQuery("a[href$='#tab-auth-register']").removeAttr("dsm_sales-item_id");
         jQuery("a[href$='#tab-auth-register']").trigger("click");
 		//alert("Please login to continue");
 	});

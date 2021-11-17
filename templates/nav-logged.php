@@ -6,6 +6,9 @@ jQuery(function() {
     jQuery('.dsm_ajax_tab').click(function() {
 		return dsm_ajax_click(this);
     });
+	<?php if (!empty($_SESSION['dsm_client_attrs']['default_tab']) && empty($_SESSION['dsm_redirect']['boot_tab'])) :?>
+	dsm_ajax_click(jQuery('.default_tab'));
+	<?php endif; ?>
 	<?php echo App::GetClient()->NavRedirect(); ?>
 });
 </script>
@@ -13,18 +16,16 @@ jQuery(function() {
 <ul class="nav nav-pills">
 		<?php if (DSM_OC_USE_CLASSES_LIST_VIEW == "1" || $_SESSION['dsm_client_attrs']['view'] == "List") : ?>
 			<?php if (DSM_OC_CLASS_LIST_TYPE == 'list_by_program' || DSM_OC_CLASS_LIST_TYPE == 'list_by_program_table' || $_SESSION['dsm_client_attrs']['view'] == "List" ) : ?>
-				<li><a href="#tab-classes-list" data-toggle="tab" class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>
+				<li><a href="#tab-classes-list" data-toggle="tab" class="dsm_ajax_tab <?php if (($_SESSION['dsm_client_attrs']['default_tab']) == 'classes' || empty($_SESSION['dsm_client_attrs']['default_tab'])) echo 'default_tab'; ?>"><i class="fa fa-users"></i> Classes</a></li>
 			<?php else : ?>
-				 <li><a href="#tab-classes" data-toggle="tab" class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>
-			
+				 <li><a href="#tab-classes" data-toggle="tab" class="dsm_ajax_tab <?php if (($_SESSION['dsm_client_attrs']['default_tab']) == 'classes' || empty($_SESSION['dsm_client_attrs']['default_tab'])) echo 'default_tab'; ?>"><i class="fa fa-users"></i> Classes</a></li>
 			<?php endif; ?>
 		<?php else : ?>
 			<li><a href="#tab-classes" data-toggle="tab" class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>
-			
 		 <?php //echo '<li><a href="#tab-classes-calendar" data-toggle="tab" class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>'; ?>
 	<?php endif; ?>
-	<?php if (DSM_OC_SHOW_SALES_ITEMS == "1"): ?>
-		<li><a href="#tab-checkout-sales-items" class="dsm_ajax_tab"><i class="fa fa-cube"></i> <?php echo DSM_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
+	<?php if (DSM_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['dsm_client_attrs']['default_tab'] == 'sales-items'): ?>
+		<li><a href="#tab-checkout-sales-items" class="dsm_ajax_tab <?php if (($_SESSION['dsm_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?>"><i class="fa fa-cube"></i> <?php echo DSM_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
 	<?php endif; ?>
 	<?php if (DSM_OC_SHOPPING_CART_ENABLED  == '1') : ?>	
 			<li>
@@ -42,6 +43,7 @@ jQuery(function() {
 				<?php endif; ?>
 				<li><a href="#tab-members-charges" class="dsm_ajax_tab"><i class="fa fa-dollar"></i> Charges</a></li>
 				<li><a href="#tab-members-purchases" class="dsm_ajax_tab"><i class="fa fa-shopping-cart"></i> Purchases</a></li>
+				<li><a href="#tab-members-gift-cards" class="dsm_ajax_tab"><i class="fa fa-gift"></i> Gift Cards</a></li>
 				<?php if (DSM_OC_LEDGER_SHOW_PAYMENTS == "1"): ?>
 				<li><a href="#tab-members-payments" class="dsm_ajax_tab"><i class="fa fa-credit-card"></i> Payments</a></li>
 				<?php endif; ?>

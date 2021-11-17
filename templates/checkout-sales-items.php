@@ -6,13 +6,13 @@ $items = App::GetClient()->GetController('checkout')->GetSalesItems();
 $sales_item_id = App::GetApi()->GetIdParam();
 $sales_products = $items['sales_items']['item'];
 $categories = $items['categories'];
-
 ?>
 <div id="tab-sales-items" class="tab-pane">
 <?php if (empty($sales_item_id)) : ?>
 	<h2 class="page-header"><?php echo (DSM_OC_SALES_ITEMS_SECTION_TITLE); ?></h2>
 <?php if (!empty($sales_products)) : ?>
 	<?php foreach ($sales_products as $category_id=>$products) : ?>
+	<?php if(!empty($_SESSION['dsm_client_attrs']['si_category_id']) && $_SESSION['dsm_client_attrs']['si_category_id'] != $category_id) continue;?>
 	<h3><?php echo $categories[$category_id]; ?></h3>
 	<table class="table table-striped table-condensed table-hover">
 		<thead>
@@ -37,7 +37,11 @@ $categories = $items['categories'];
 				<?php if ($product['SALE_STARTED']) : ?>
 				
 					<?php if ($product['SALE_STARTED'] > 0 || DSM_IGNORE_ITEMS_AVAILABLE_QUANTITY == '1') : ?>	
-						<a href="#tab-checkout-sales-items-<?php echo $product['ID']; ?>" title="Buy" class="btn btn-success dsm_ajax_tab"><i class="fa fa-shopping-cart"></i> Buy</a>
+						<?php if (App::GetClient()->GetController('auth')->isLogged()): ?>
+							<a href="#tab-checkout-sales-items-<?php echo $product['ID']; ?>" title="Buy" class="btn btn-success dsm_ajax_tab"><i class="fa fa-shopping-cart"></i> Buy</a>
+						<?php else: ?>
+							<button dsm_sales-item_id="<?php echo $product['ID']; ?>" type="button" class="btn btn-success btn-login-alert"><i class="fa fa-shopping-cart"></i> Buy</button>
+						<?php endif; ?>
 					<?php else: ?>
 						<div class="label label-default">Sold</div>
 					<?php endif; ?>
@@ -62,3 +66,4 @@ $categories = $items['categories'];
 	<a type="button" class="btn btn-primary geturl checkout dsm_ajax_tab" href="#tab-checkout-cart"><i class="fa fa-shopping-cart"></i> Checkout</a>
 <?php endif; ?>
 </div>
+<?php if (strpos($_SESSION['dsm_redirect']['boot_tab'],'checkout-sales-items-') !== false) unset($_SESSION['dsm_redirect']['boot_tab']); ?>

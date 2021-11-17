@@ -169,6 +169,11 @@ class MembersController extends BaseController
 	 return parent::GetList("members/purchases");
 	}
 	
+    public function GetGiftCards()
+	{
+	 return parent::GetList("members/gift-cards");
+	}
+    
 	public function GetWaivers()
 	{
 	 return parent::GetList("members/waivers");
