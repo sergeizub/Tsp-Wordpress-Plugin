@@ -10,14 +10,13 @@ class CheckoutController extends BaseController
 	
 	public function Submit($data)
 	{
-		if (empty($data['token_id'])) {
+		if (empty($data['token_id']) && empty($data['use_account_credit'])) {
 			$result_card = App::GetClient()->GetController('gateway')->SubmitCard($data);
 			if ($result_card) {
 				if(!empty($data['selected_account']))
 					$payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(array('selected_account' => $data['selected_account']));
 				else
 					$payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts();
-
 				$payment_sources_end = end($payment_sources);
 				if(!empty($payment_sources_end['id']))
 					$data['token_id'] = $payment_sources_end['id'];

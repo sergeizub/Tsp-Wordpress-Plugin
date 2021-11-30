@@ -14,6 +14,10 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 
 $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts();
 ?>
+<script>
+	window.account_credit =  '<?php echo ($cart['balance'] * -1);?>';
+	window.cart_total = '<?php echo ($cart['total']);?>';
+</script>
 <?php if (DSM_OC_SHOPPING_CART_PAYPAL == '1') : ?>
 	<div class="row">
 		<div class="col-md-offset-6 col-sm-offset-5 col-md-5 col-sm-6 pt25">
@@ -70,6 +74,14 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 			            <input class="form-control" type="text" readonly="readonly" id="transaction_amount" name="transaction_amount" style="width:100px;" value="<?php echo $cart['total']; ?>">
 			        </div>
 			    </div>
+				<?php if ($cart['balance'] < 0):?>
+			    <div class="form-group row">
+			        <label class="col-sm-5 col-form-label"></label>
+			        <div class="col-sm-7">
+			            <input type="checkbox" id="use_account_credit" name="use_account_credit"> Use Account Credit (<?php echo DSM_CURRENCY_SIGN; echo $cart['balance'] * -1;?>)
+			        </div>
+			    </div>
+			   <? endif; ?>
 				<?php if (DSM_OC_PAY_AT_STUDIO == "1") : ?>
 			    <div class="form-group">
 			        <label class="col-sm-5 control-label"></label>
@@ -83,20 +95,13 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 					<label class="col-sm-5 control-label"></label>
 					<div class="col-sm-7">
 						<select class="form-control" name="token_id" id="source_selector">
-							<option value="0">Add New Card</option>
-							<?php foreach ($payment_sources as $token) : ?>
-							<option value="<?php echo $token['id']; ?>" <?php echo ((DSM_ENABLE_PAYMENT_ACCOUNT_2 == '1' && $selected_account == $token['account_id']) ? 'disabled="disabled"' : ''); ?>>
+							<option value="0">Add New Card</option> 
+							<?php foreach ($payment_sources as $token) : ?> 
+							<option value="<?php echo $token['id']; ?>" <?php echo ((!empty($selected_account) && !empty($token['account_id']) && $selected_account != $token['account_id']) ? 'disabled="disabled"' : ''); ?>>
 								<?php echo ((DSM_DSM_DATE_FORMAT == 'AU' && DSM_PAYMENT_SYSTEM == 'quickpay' && $token['tender_type'] == 'ACH') ? 'DD' : $token['tender_type']); ?> **** **** **** <?php echo $token['last4']; ?> <?php echo (($token['account']) ? '('.$token['account'].')': ''); ?>
 		                    </option>
 							<?php endforeach; ?>
 						</select>
-						<?php if (!empty($payment_sources)) : ?>
-						<script>
-							jQuery(function() {
-								jQuery('#source_selector').val('<?php echo $payment_sources[0]['id']; ?>').trigger('change');
-								});	
-						</script>
-						<?php endif; ?>
 		        </div>
 		    </div>
 			<div id="card_info">	

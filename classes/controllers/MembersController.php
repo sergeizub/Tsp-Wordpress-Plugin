@@ -72,6 +72,13 @@ class MembersController extends BaseController
 		$data['dsm_action'] = 'members/student/'.$data['student_id'];
 		return parent::Delete($data);
 	}
+    
+    public function RedeemGiftCard($data)
+	{
+        $data['dsm_action'] = 'members/gift-cards-redeem';
+		$result = parent::Submit($data);
+        return $result;
+    }
 	
 	public function GetName()
 	{

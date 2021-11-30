@@ -44,6 +44,27 @@ jQuery(function () {
         }
     });
     
+    jQuery(document).on('change', "#use_account_credit", function() {
+	    var account_credit = parseFloat(window.account_credit);
+	    var cart_total = parseFloat(window.cart_total);
+
+	    if (jQuery(this).prop('checked')) {
+		    if (account_credit-cart_total > 0) {
+		    	jQuery('#card_info').hide();
+		    	jQuery('#card_cvv_info').hide();
+		    	jQuery('#source_selector').hide();
+		    }
+		    var ta = cart_total-account_credit;
+		    if (ta < 0) ta = 0;
+		    jQuery("#transaction_amount").val(ta.toFixed(2));
+	    }
+	    else {
+	    	jQuery('#card_info').show();
+	    	jQuery('#card_cvv_info').show();
+	    	jQuery('#source_selector').show();
+	    	jQuery("#transaction_amount").val(cart_total.toFixed(2));
+	    }
+    });
 
     jQuery(document).on('click', "button.rwppi", function() {
 		jQuery('a.checkout').hide(); // hide Checkout button

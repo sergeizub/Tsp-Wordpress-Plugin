@@ -5,6 +5,24 @@ $gift_card_data = $result->data;
 ?>
 <div id="tab-members-purchases" class="tab-pane">
 	<h2 class="page-header">Gift Cards</h2>
+	<div class="col-12 row">
+		<form method="post"  action="index.php" class="form-horizontal" role="form" id="redeem-gift-card-form">
+		<input type="hidden" name="action" value="dsmclient"/>
+		<input type="hidden" name="obj" value="members"/>
+		<input type="hidden" name="method" value="RedeemGiftCard"/>
+		<input type="hidden" name="boot_tab" value="tab-members-gift-cards"/>
+		<label class="col-sm-6 col-form-label text-right">
+			Redeem Gift Card
+		</label>
+		<div class="col-sm-4">
+			<input type="text" name="code" id="redeem-gift-card-code" class="form-control" placeholder="Card Code" value="">
+		</div>
+		<div class="col-sm-2">
+			<button id="redeem-gift-card" class="btn btn-success" type="submit"><i class="fa fa-gift"></i> Submit</button>
+		</div>
+		</form>
+	</div>
+	<br/>
 	<div class="table-responsive">
 	<table class="table table-striped">
 		<thead>
