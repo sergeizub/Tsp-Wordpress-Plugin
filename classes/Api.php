@@ -260,7 +260,7 @@ class Api
 		if (!empty($authorization_token))
                 $httpheader += ['Authorization' => $authorization_token];
 			 
-        $result = wp_remote_get( $this->url."api/".$this->api_version."/".$action , array( 'headers' => $httpheader ));
+        $result = wp_remote_get( $this->url."api/".$this->api_version."/".$action , array( 'headers' => $httpheader,  'timeout' => 120 ));
 		$response = json_decode(wp_remote_retrieve_body($result));
       
 		if (!empty($response->error)) {
