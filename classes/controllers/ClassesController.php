@@ -64,9 +64,13 @@ class ClassesController extends BaseController
 				if ((!empty($filter['class_code']) && is_array($filter['class_code']) && !in_array($groupclass->CODE, $filter['class_code']))
                     || (!empty($filter['class_code']) && !is_array($filter['class_code']) && $filter['class_code'] != $groupclass->CODE)
 					|| (!empty($filter['class_name']) && is_array($filter['class_name']) && !in_array($groupclass->NAME, $filter['class_name']))
+                    || (!empty($filter['class_name']) && !is_array($filter['class_name']) && $filter['class_name'] != $groupclass->NAME)	
 					|| (!empty($filter['class_level']) && is_array($filter['class_level']) && !in_array($groupclass->LEVEL, $filter['class_level']))
+                    || (!empty($filter['class_level']) && !is_array($filter['class_level']) && $filter['class_level'] != $groupclass->LEVEL)
 					|| (!empty($filter['class_location']) && is_array($filter['class_location']) && !in_array($groupclass->LOCATION, $filter['class_location']))
+                    || (!empty($filter['class_location']) && !is_array($filter['class_location']) && $filter['class_location'] != $groupclass->LOCATION)
 					|| (!empty($filter['class_program']) && is_array($filter['class_program']) && !in_array($groupclass->PROGRAM, $filter['class_program']))
+                    || (!empty($filter['class_program']) && !is_array($filter['class_program']) && $filter['class_program'] != $groupclass->PROGRAM)
 					)
 					unset($dsm_classes->groupclasses[$k_groupclass]);
 			}
