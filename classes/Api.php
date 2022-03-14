@@ -71,6 +71,11 @@ class Api
 		else
 			return false;
     }
+    
+    public function AuthorizationSettings() {
+        if (!empty($this->api_key))
+            App::GetClient()->GetController('auth')->SetAuthSettings($this->GetList(array('dsm_action' => 'settings/')));
+    }
 
 	public function ClassInfo($class_id)
 	{
@@ -246,7 +251,7 @@ class Api
 
 		$dsm_action_path = explode("/",$action);
 
-		if($action != 'auth/login' && $action != 'auth/register' && $action != 'classes/filters/')
+        if($action != 'auth/login' && $action != 'auth/register' && $action != 'classes/filters/' && $action != 'classes/data'  && $action != 'settings/')
 			$authorization_token = App::GetApi()->GetAuthorizationToken();
 
 		if($action == 'members/edit' && !empty($this->GetIdParam()))

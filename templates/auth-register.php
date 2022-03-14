@@ -7,8 +7,6 @@ include plugin_dir_path( __FILE__ ) . 'auth-login.php';
 $register_fields = App::GetClient()->GetController('auth')->GetRegisterForm();
 $filters = App::GetClient()->GetController('classes')->GetFilters();
 
-$waivers = App::GetClient()->GetController('members')->GetWaivers();
-
 //Add Required Primary Location
 if (DSM_MEMBERS_PRIMARY_LOCATION_ENABLED == '1') {
 	$primary_location = (object) [

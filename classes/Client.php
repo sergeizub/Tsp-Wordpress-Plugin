@@ -94,7 +94,7 @@ class Client
 		}
 		else
 		{
-			$auth_token = App::GetApi()->GetAuthorizationToken();
+			App::GetApi()->AuthorizationSettings();
 			App::GetTemplate()->Load(  'nav.php' );
 			App::GetTemplate()->Load(  'footer.php' );
 		}

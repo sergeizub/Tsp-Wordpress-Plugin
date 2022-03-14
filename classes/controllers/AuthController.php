@@ -109,16 +109,7 @@ class AuthController extends BaseController
 	{
 		if (!empty($_SESSION['dsm_auth_token']))
 			return $_SESSION['dsm_auth_token'];
-		else {
-			$response = parent::Submit(array('dsm_action' => 'auth/login', 'username' => get_option('dsm_api_username'), 'password' => get_option('dsm_api_password')));
-			if (!empty($response->token)) {
-				if (!empty($response->settings))
-					$this->SetAuthSettings($response->settings);
-				return  $response->token;
-			}
-			else
-				return false;
-		}
+        return false;
 	}
 	
 	public function SetAuthToken($token)

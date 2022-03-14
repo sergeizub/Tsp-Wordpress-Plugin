@@ -14,8 +14,6 @@ class Settings
         register_setting( 'dsm_api_settings', 'dsm_api_url');
         register_setting( 'dsm_api_settings', 'dsm_api_key');
         register_setting( 'dsm_api_settings', 'dsm_api_version');
-        register_setting( 'dsm_api_settings', 'dsm_api_username');
-        register_setting( 'dsm_api_settings', 'dsm_api_password');
         register_setting( 'dsm_api_settings', 'dsm_private_lesson_section');
         //register_setting( 'dsm_api_settings', 'dsm_class_cache');
     }
@@ -47,17 +45,14 @@ class Settings
     <?php settings_fields( 'dsm_api_settings' ); ?>
     <?php do_settings_sections( 'dsm_api_settings' ); ?>
     <table class="form-table">
-        <tr valign="top">
+        <tr valign="top" >
         <th scope="row">DSM Url</th>
-        <td><input type="text" name="dsm_api_url" value="<?php echo esc_attr( get_option('dsm_api_url') ); ?>" placeholder="https://clients.dancestudiomanager.com/"/></td>
+        <td><input type="text" name="dsm_api_url" value="<?php echo esc_attr( get_option('dsm_api_url') ); ?>" placeholder="https://clients.dancestudiomanager.com/" style="min-width:360px"/></td>
         </tr>
-        
-        <!--
+        <tr valign="top">
         <th scope="row">DSM Api Key</th>
-        <td><input type="text" name="dsm_api_key" value="<?php echo esc_attr( get_option('dsm_api_key') ); ?>" /></td>
+        <td><input type="text" name="dsm_api_key" value="<?php echo esc_attr( get_option('dsm_api_key') ); ?>" style="min-width:360px"/></td>
         </tr>
-        -->
-        
         <tr valign="top">
         <th scope="row">DSM Api Version</th>
             <td>
@@ -69,14 +64,6 @@ class Settings
                 ?>
                 </select>
             </td>
-        </tr>
-        <tr valign="top">
-        <th scope="row">DSM Admin Username</th>
-        <td><input type="text" name="dsm_api_username" value="<?php echo esc_attr( get_option('dsm_api_username') ); ?>" placeholder="Username" /></td>
-        </tr>
-        <tr valign="top">
-        <th scope="row">DSM Admin Password</th>
-        <td><input type="text" name="dsm_api_password" value="<?php echo esc_attr( get_option('dsm_api_password') ); ?>" placeholder="Password" /></td>
         </tr>
         <tr valign="top">
         <th scope="row">DSM Enable Private Lessons Section</th>
