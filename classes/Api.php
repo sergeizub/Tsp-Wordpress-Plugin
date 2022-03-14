@@ -14,6 +14,9 @@ class Api
     {
         $this->url = get_option('dsm_api_url');
 		$this->api_key = get_option('dsm_api_key');
+        if (empty($this->api_key))
+            App::GetError()->Show("Incorrect Api Key");
+        
         $this->api_version = get_option('dsm_api_version');
 
     }
