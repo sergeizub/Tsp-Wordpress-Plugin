@@ -131,6 +131,11 @@ class ClassesController extends BaseController
 		$data['dsm_action'] = 'classes/available-schedules';
 		return parent::GetList($data);
 	}
+    
+    public function GetAvailableSchedulesJson($data)
+	{
+		echo  json_encode($this->GetAvailableSchedules($data));
+	}
 
 	public function SubmitFilter($data)
 	{

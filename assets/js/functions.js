@@ -73,7 +73,7 @@ jQuery(function () {
 		var season_status = jQuery(this).data('season_status');
 		var schedule_id = jQuery('#selected_schedule_id').val();
 
-		jQuery('#ap_'+student_id+'_'+class_id).html(RegisterWithPurchasedItemForm(student_id, class_id, jQuery('#ap_options').html()));
+		jQuery('#ap_'+student_id+'_'+class_id).html(RegisterWithPurchasedItemForm(student_id, class_id, schedule_id, jQuery('#ap_options').html()));
 		jQuery('#ap_'+student_id+'_'+class_id+' form ').on('submit', function(e) {
             e.preventDefault();
             dsm_ajax_click(jQuery('<a href="#tab-class-registration-' + class_id + '" dsm_schedule_id="' + class_id + '"></a>'), jQuery(this));
@@ -88,35 +88,34 @@ jQuery(function () {
 			var period = jQuery(option).attr('data-period');
 			if (lessons_available == 'unlimited') lessons_available = '9999';
             jQuery('#sch_cont_'+student_id+'_'+class_id).css('visibility', 'visible');
-            
-			if (season_status == '1') {
-                jQuery.ajax({
-                    type: "POST",
-                    url: dsmajax.url,
-                    data:  {
-                                action: "dsmclient",
-                                obj: "classes",
-                                method: "GetAvailableSchedules",
-                                class_id: class_id,
-                                student_id: student_id,
-                                lessons_available: lessons_available,
-                                class_registration_method: class_registration_method,
-                                selected_schedule_id: schedule_id
-                            },
-                    success: function (data) {
-                            if (data != '' && data != undefined) {
-                                var s = '';
-                                jQuery.each(data, function(i, schedule) {
-                                    s += schedule.START + ' - ' + schedule.END + '<input type="hidden" name="SCHEDULES[]" value="' + schedule.ID + '"><br>';
-                                });
-                                jQuery('#sch_cont_' + student_id + '_' + class_id).html('<br><div class="alert alert-info text-center">' + s + '</div>');								
-                            }
+            jQuery.ajax({
+                type: "POST",
+                url: dsmajax.url,
+                dataType: "json",
+                data:  {
+                            action: "dsmclient",
+                            obj: "classes",
+                            method: "GetAvailableSchedulesJson",
+                            class_id: class_id,
+                            member_id: student_id,
+                            lessons_available: lessons_available,
+                            class_registration_method: class_registration_method,
+                            selected_schedule_id: schedule_id
+                        },
+                success: function (response) {
+                        if (response.data != '' && response.data != undefined) {
+                            var s = '';
+                            jQuery.each(response.data, function(i, schedule) {
+                                s += schedule.title + '<input type="hidden" name="SCHEDULES[]" value="' + schedule.value + '"><br>';
+                            });
+                            jQuery('#sch_cont_' + student_id + '_' + class_id).html('<br><div class="alert alert-info text-center">' + s + '</div>');								
+                        }
+                        else {
+                            jQuery('#sch_cont_' + student_id + '_' + class_id).html('<br><div class="alert alert-warning text-center">You can not register for this lesson with selected item</div>');
+                            jQuery('button.crf-submit').attr('disabled', 'disabled');
+                        }	
                     }
                 });
-			}						
-			else {
-				jQuery('#sch_cont_' + student_id + '_' + class_id).html('<br><div class="alert alert-info text-center">' + jQuery('#selected_schedule_date').text() + '</div><input type="hidden" name="SCHEDULES[]" value="' + schedule_id + '">');						
-			}	
         });
         setTimeout(function() {
 			jQuery('#crf_'+student_id+'_'+class_id+' select[name=purchase_id]').trigger('change');
@@ -221,9 +220,9 @@ function RegisterWithPurchasedItemButton(student_id, class_id, schedule_id, seas
     return '<button class="btn btn-success rwppi" data-student_id="'+student_id+'" data-class_id="'+class_id+'" data-season_status="'+season_status+'" data-schedule_id="'+schedule_id+'">Register with previously purchased items</button><br/><br/>';	
 }
 
-function RegisterWithPurchasedItemForm(student_id, class_id, options)
+function RegisterWithPurchasedItemForm(student_id, class_id, schedule_id,options)
 {
-	return	'<form action="index.php"  method="post" id="crf_'+student_id+'_'+class_id+'"><input type="hidden" name="action" value="dsmclient" /><input type="hidden" name="obj" value="classes" /><input type="hidden" name="method" value="RegisterWithPurchasedItem"><input type="hidden" name="student_id" value="'+student_id+'"><input type="hidden" name="class_id" value="'+class_id+'"><label>Register with previously purchased items</label><div class="row"><div class="col-md-10">'+options+'</div><div class="col-md-2 text-right"><button class="crf-submit btn btn-success" type="submit"><i class="fa fa-arrow-circle-right"></i> Register</button></div><div class="row"><div class="col-md-12" id="sch_cont_'+student_id+'_'+class_id+'"><select class="form-control selected-schedules" name="sch" id="schedules_'+student_id+'_'+class_id+'" multiple="multiple"></select></div></div></form><br/>';
+	return	'<form action="index.php"  method="post" id="crf_'+student_id+'_'+class_id+'"><input type="hidden" name="action" value="dsmclient" /><input type="hidden" name="obj" value="classes" /><input type="hidden" name="method" value="RegisterWithPurchasedItem"><input type="hidden" name="student_id" value="'+student_id+'"><input type="hidden" name="class_id" value="'+class_id+'"><input type="hidden" name="schedule_id" value="'+schedule_id+'"><label>Register with previously purchased items</label><div class="row"><div class="col-md-10">'+options+'</div><div class="col-md-2 text-right"><button class="crf-submit btn btn-success" type="submit"><i class="fa fa-arrow-circle-right"></i> Register</button></div><div class="row"><div class="col-md-12" id="sch_cont_'+student_id+'_'+class_id+'"><select class="form-control selected-schedules" name="sch" id="schedules_'+student_id+'_'+class_id+'" multiple="multiple"></select></div></div></form><br/>';
 }
 
 

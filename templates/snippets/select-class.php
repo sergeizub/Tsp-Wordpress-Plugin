@@ -48,7 +48,7 @@ namespace DanceStudioManager;
 					<?php foreach($active_purchases as $purchase):  ?>
 					<?php if ($purchase['value'] == 'unpaid') continue; ?>
 					
-					<option value="<?php echo $purchase['value']; ?>" data-class_registration_method="<?php echo $purchase['class_registration_method']; ?>" data-price="<?php echo $purchase['price']; ?>" data-period="<?php echo $purchase['period']; ?>" data-lessons_available="<?php echo $purchase['lessons_available']; ?>" data-type="<?php echo $purchase['type']; ?>"><?php echo $purchase['label']; ?></option>
+					<option value="<?php echo $purchase['value']; ?>" data-class_registration_method="<?php if ($purchase['value'] == 'unpaid') { echo "all_future_schedules"; } else {echo $purchase['class_registration_method'];} ?>" data-price="<?php echo $purchase['price']; ?>" data-period="<?php echo $purchase['period']; ?>" data-lessons_available="<?php echo $purchase['lessons_available']; ?>" data-type="<?php echo $purchase['type']; ?>"><?php echo $purchase['label']; ?></option>
 					<?php endforeach; ?>
 			</select>
 			</span>

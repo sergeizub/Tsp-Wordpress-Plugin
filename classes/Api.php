@@ -244,7 +244,8 @@ class Api
 			return false;
 		elseif (is_array($get)) {
 			$action = $get['dsm_action'];
-			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($get));
+			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($get));
+            $params = "?".http_build_query($get);
 		}
 		else
 			$action = $get;
@@ -267,10 +268,11 @@ class Api
 			
 		if (!empty($authorization_token))
                 $httpheader += ['Authorization' => $authorization_token];
-			 
-        $result = wp_remote_get( $this->url."api/".$this->api_version."/".$action , array( 'headers' => $httpheader,  'timeout' => 120 ));
+		
+        $result = wp_remote_get( $this->url."api/".$this->api_version."/".$action.$params , array( 'headers' => $httpheader,  'timeout' => 120 ));
+        
 		$response = json_decode(wp_remote_retrieve_body($result));
-      
+        
 		if (!empty($response->error)) {
 			App::GetError()->Show($response->error);
 			return false;
