@@ -97,7 +97,11 @@ else :
 					var OC_CLASS_LIST_CLASS_LOCATION = '<?php echo DSM_OC_CLASS_LIST_CLASS_LOCATION; ?>';
 					var OC_ALLOW_WAIT_LIST = '<?php echo DSM_OC_ALLOW_WAIT_LIST; ?>';
 					
-					fclass = 'book-now';
+					<?php if (App::GetClient()->GetController('auth')->isLogged()) : ?>
+					fclass = 'book-now dsm_ajax_tab';
+               <?php else: ?>
+               fclass = 'book-now btn-login-alert';
+               <?php endif; ?>
 					if (OC_CLASS_LIST_CLASS_ID == '1') var listid = '<div class="label label-default">' + v.CLASS_ID + '</div>'; else var listid = '';
 					if (OC_CLASS_LIST_CLASS_CODE == '1' && v.CODE !== null) var code = v.CODE; else var code = '';
 					if (OC_CLASS_LIST_CLASS_NAME == '1' && v.NAME !== null) var genre = v.NAME; else var genre = '';
@@ -124,12 +128,12 @@ else :
 					}
 					else if (parseInt(v.STUDENTS_QUANTITY) >= parseInt(v.MAX_STUDENTS)) {
 						if (OC_ALLOW_WAIT_LIST == '1' && v.WAIT_LIST == '1')
-							button = '<button class="btn btn-warning btn-lg ' + fclass + ' dsm_ajax_tab" href="#tab-class-registration-' + v.CLASS_ID + '" dsm_schedule_id="'+v.ID+'" title="Wait List">Wait List</a>';
+							button = '<button class="btn btn-warning btn-lg ' + fclass + '" href="#tab-class-registration-' + v.CLASS_ID + '" dsm_schedule_id="'+v.ID+'" title="Wait List">Wait List</a>';
 						else
 							button = '<div class="alert alert-warning text-center">Full</div>';
 					}
 					else {
-						button = '<a class="btn btn-success btn-lg ' + fclass + ' dsm_ajax_tab" href="#tab-class-registration-' + v.CLASS_ID + '"  dsm_schedule_id="'+v.ID+'" title="Book Now">Book Now</a>';
+						button = '<a class="btn btn-success btn-lg ' + fclass + '" href="#tab-class-registration-' + v.CLASS_ID + '"  dsm_schedule_id="'+v.ID+'" title="Book Now">Book Now</a>';
 					}
 
 					s += '<div class="schedule" style="border-left: 30px solid #' + v.COLOR + ';"><h4>' + v.START_DATE + '  <small>' + v.START_TIME + ' - ' + v.END_TIME + '</small></h4>'+
