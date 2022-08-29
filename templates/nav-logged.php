@@ -36,6 +36,7 @@ jQuery(function() {
 		<a href="#" data-toggle="dropdown"><i class="fa fa-users"></i> <?php echo App::GetClient()->GetController('members')->GetName(); ?><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li><a href="#tab-members-edit" class="dsm_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>
+				<li><a href="#tab-members-change-password" class="dsm_ajax_tab"><i class="fa fa-lock"></i> Change Password</a></li>
 				<li><a href="#tab-members-student" class="dsm_ajax_tab"><i class="fa fa-child"></i>  Add Related Student</a></li>
 				<li><a href="#tab-members-classes" class="dsm_ajax_tab"><i class="fa fa-list"></i> Classes</a></li>
 				<?php if (get_option('dsm_private_lesson_section') == '1'): ?>

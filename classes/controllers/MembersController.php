@@ -66,6 +66,13 @@ class MembersController extends BaseController
 		}
 		return $result;
 	}
+
+    public function ChangePassword($data)
+    {
+		$data['dsm_action'] = 'members/change-password';
+        $result = parent::Submit($data);
+        return $result;
+    }
 	
 	public function DeleteStudent($data)
 	{
