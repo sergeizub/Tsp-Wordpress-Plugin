@@ -27,5 +27,6 @@ var show_login_alert = '<?php echo DSM_OC_SHOW_LOGIN_ALERT; ?>';
 				  <li><a href="#tab-classes" data-toggle="tab" class="dsm_ajax_tab default_tab"><i class="fa fa-users"></i> Classes</a></li>
 		<?php endif; ?>
     <li><a href="#tab-auth-register" data-toggle="tab" class="dsm_ajax_tab"><i class="fa fa-user"></i> Sign In / Create Account</a></li>
+	<li><a href="#tab-auth-password-reset" data-toggle="tab" class="dsm_ajax_tab"><i class="fa fa-lock"></i> Reset Password</a></li>
 </ul>
 <div id="dsm-tab-content" class="tab-content">

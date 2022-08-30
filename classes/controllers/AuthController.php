@@ -104,6 +104,12 @@ class AuthController extends BaseController
 		else
 			return false;
 	}
+
+    public function PasswordReset($data)
+    {
+        $data['dsm_action'] = 'auth/reset-password';
+		$response = parent::Submit($data);
+    }
 	
 	public function GetAuthToken()
 	{
