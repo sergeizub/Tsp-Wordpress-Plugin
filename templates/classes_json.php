@@ -43,10 +43,10 @@ foreach ($classes_list->schedules as $schedules) {
     if (is_array($schedules->data)) {
         foreach ($schedules->data as $schedule) {
 			$schedule_start = new DateTime($schedule->START_DATE);
-			if ($schedule_start->format(DSM_PHPDATE) == $current_date->format(DSM_PHPDATE)){
+			if ($schedule_start->format(DSM_PHPDATE) == $current_date->format(DSM_PHPDATE) && $schedule->STATUS != '2'){
 				$data['schedules'][$i] = $schedule;
 			}
-			elseif ($_REQUEST['schedule_week'] == "1" && $schedule_start >= $current_date &&  $schedule_start < $end_date) {
+			elseif ($_REQUEST['schedule_week'] == "1" && $schedule_start >= $current_date &&  $schedule_start < $end_date && $schedule->STATUS != '2') {
 				$data['schedules'][$i] = $schedule;
 			}
             $i++;
