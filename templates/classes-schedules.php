@@ -8,7 +8,7 @@ $schedules_list = App::GetClient()->GetController('classes')->GetClasses();
 	<?
 foreach ($schedules_list->schedules as $k => $v) {
 	foreach ($v->data as $data)
-		if ($data->CLASS_ID == $class_id) {
+		if ($data->CLASS_ID == $class_id && $data->STATUS != '2') {
 			if ($class_header != 1) :
 			?>
                 <div class="schedule" style="border-left: 30px solid silver;">

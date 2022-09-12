@@ -69,6 +69,7 @@ namespace DanceStudioManager;
 								</thead>
 								<tbody>
 									<?php foreach($class->SCHEDULES as $schedule): ?>
+                                    <?php if ($schedule->STATUS != '2'): ?>      
 									<tr>
 										<td><span style="white-space: nowrap;"><?php echo $schedule->DAY; ?></span></td>
 										<td><span style="white-space: nowrap;"><?php echo $schedule->START_TIME; ?></span> - <span style="white-space: nowrap;padding: 12px;"><?php echo $schedule->END_TIME; ?></span></td>
@@ -92,6 +93,7 @@ namespace DanceStudioManager;
 										<?php endif; ?>
 										</td>
 									</tr>
+                                    <?php endif; ?>
 									<?php endforeach; ?>
 								</tbody>
 							</table>

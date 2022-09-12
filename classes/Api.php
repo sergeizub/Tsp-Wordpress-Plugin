@@ -108,6 +108,8 @@ class Api
 
 		foreach ($schedules_list->schedules as $a=>$b) {
 			foreach ($b->data as $c => $d) {
+                    if ($d->STATUS != '2')
+                        continue;
 					if (!isset($calsses_list[$d->CLASS_ID]))
 					{
 						$calsses_list[$d->CLASS_ID] = $d;
