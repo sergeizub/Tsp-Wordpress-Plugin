@@ -42,6 +42,8 @@ namespace DanceStudioManager;
 			<div class="label label-warning" style="margin-left:20px;">Age ineligible</div>
 		<?php elseif (!$student['member_category_allowed']) : ?>
 			<div class="label label-warning" style="margin-left:20px;">Member Category ineligible</div>
+		<?php elseif ($student['student_reg_blocked']) : ?>
+			<div class="label label-warning" style="margin-left:20px;">New students registration is not allowed</div>
 		<?php else: ?>
 			<span style="display:none;" id="ap_options">
 			<select class="form-control" name="purchase_id" >

@@ -15,6 +15,7 @@ class Settings
         register_setting( 'dsm_api_settings', 'dsm_api_key');
         register_setting( 'dsm_api_settings', 'dsm_api_version');
         register_setting( 'dsm_api_settings', 'dsm_private_lesson_section');
+        register_setting( 'dsm_api_settings', 'dsm_random_url_parameter');
         //register_setting( 'dsm_api_settings', 'dsm_class_cache');
     }
     
@@ -72,6 +73,17 @@ class Settings
                 <?php
                     echo '<option value="0" '.((get_option('dsm_private_lesson_section') == '0') ? 'selected="selected"' : '').'>No</option>';
                     echo '<option value="1" '.((get_option('dsm_private_lesson_section') == '1') ? 'selected="selected"' : '').'>Yes</option>';
+                ?>
+                </select>
+            </td>
+        </tr>
+        <tr valign="top">
+        <th scope="row">DSM Add Random Url Parameter (prevent caching)</th>
+            <td>
+                <select name="dsm_random_url_parameter">
+                <?php
+                    echo '<option value="0" '.((get_option('dsm_random_url_parameter') == '0') ? 'selected="selected"' : '').'>No</option>';
+                    echo '<option value="1" '.((get_option('dsm_random_url_parameter') == '1') ? 'selected="selected"' : '').'>Yes</option>';
                 ?>
                 </select>
             </td>

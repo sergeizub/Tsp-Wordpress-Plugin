@@ -275,7 +275,15 @@ function dsm_ajax_click(link, dsm_form = false) {
         },
         success: function (response) {
             if ((dsm_data['reload'] != undefined && dsm_data['reload'] == 'true') || response == '1' || response == 'true') {
-                window.location.reload(false); 
+                if(window.location.href.indexOf('qrnd=') != -1) {
+                    var dsm_queryParams = new URLSearchParams(window.location.search);
+                    dsm_queryParams.set("qrnd", Math.random().toString(36).substring(2,18));
+					history.replaceState(null, null, "?"+dsm_queryParams.toString());
+                    window.location.reload(false); 
+				}
+				else {
+					window.location.reload(false); 
+				}
             }
 			else {
 				jQuery('#dsm-tab-content').html(response);
