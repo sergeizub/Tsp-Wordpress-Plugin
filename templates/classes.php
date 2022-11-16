@@ -38,7 +38,7 @@ else :
 	jQuery(function() {
    <?php if($_SESSION['dsm_client_attrs']["week"] == "true") : ?>
 		 schedule_week = 1;
-		 SchedulesList(moment().day(<?php echo DSM_CALENDAR_START_DAY; ?>).format('dddd, ' + window.dtp_date));
+		 SchedulesList('<?php echo $date_now; ?>');
    <?php else: ?>
 		 schedule_week = 0;
 		 SchedulesList('<?php echo $date_now; ?>');
