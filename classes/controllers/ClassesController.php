@@ -67,8 +67,17 @@ class ClassesController extends BaseController
             
         foreach($all_filters["location"] as $v)
             $location_filters[$v["value"]] = $v['label'];
-
-		//Filter Schedules
+            
+        if (!empty($filter['start_date']))
+            $start_date = strtotime($filter['start_date']);
+        else
+            $start_date = "";
+        
+        if (!empty($filter['end_date']))
+            $end_date = strtotime($filter['end_date']);
+        else
+            $end_date = "";
+        
 		if(!empty($filter)) {
 			$filter = dsm_array_map('html_entity_decode', $filter);
 			foreach ($dsm_classes->groupclasses as $k_groupclass => $groupclass) {
@@ -85,7 +94,18 @@ class ClassesController extends BaseController
                     || (!empty($filter['class_program']) && !is_array($filter['class_program']) && $filter['class_program'] != $groupclass->PROGRAM)
 					)
 					unset($dsm_classes->groupclasses[$k_groupclass]);
-			}
+
+                if (!empty($dsm_classes->groupclasses[$k_groupclass]) && !empty($dsm_classes->groupclasses[$k_groupclass]->SCHEDULES)
+                        && (!empty($start_date) || !empty($end_date))) {
+                    foreach ($dsm_classes->groupclasses[$k_groupclass]->SCHEDULES as $k_schedule => $schedule) {
+                        if ((!empty($start_date) && $start_date > strtotime($schedule->TITLE))
+                            || (!empty($end_date) && $end_date < strtotime($schedule->TITLE))
+                            )
+                            unset($dsm_classes->groupclasses[$k_groupclass]->SCHEDULES[$k_schedule]);
+                    }
+                }
+            }
+            
 		}
 		return $dsm_classes;
 	}
