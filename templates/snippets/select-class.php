@@ -105,6 +105,43 @@ namespace DanceStudioManager;
 											<?php echo DSM_CURRENCY_SIGN; ?><?php echo $sales_item['PRICE']; ?> <strong><?php echo $sales_item['NAME']; ?></strong>
 											<?php echo (($sales_item['PRICE_DESCRIPTION']) ? '<br><span class="label label-warning">'.$sales_item['PRICE_DESCRIPTION'].'</span>' : ''); ?>
 											<?php echo (($sales_item['DESCRIPTION']) ? '<p><small>'.$sales_item['DESCRIPTION'].'</small></p>' : ''); ?>
+											<?php if ($sales_item['PAYMENT_PLANS'] && $sales_item['SALE_STARTED'] && $student['STUDENT_ID'] > 0 && DSM_OC_SHOPPING_CART_ENABLED == '1'): ?>
+											<h5>Payment plans</h5>
+											<?php foreach($sales_item['PAYMENT_PLANS'] as $pp) : ?>
+											<div class="row mt-3 mb-4">
+												<div class="col-xs-3 col-sm-3 col-md-2">
+													<a class="btn <?php echo ((!$sales_item['INCART']) ? 'btn-success' : 'btn-primary' ); ?> btn-sm select-class dsm_ajax_tab"
+														href = "#tab-class-registration-<?php echo $class['ID']; ?>";
+														<?php echo (($class['info']['SCHEDULE']['WAIT_LIST'] == '0' && $class['info']['SCHEDULE']['MAX_STUDENTS'] <= $class['info']['SCHEDULE']['STUDENTS_QUANTITY']) ? 'disabled="disabled"' : '' ); ?>
+														<?php if ($sales_item['INCART']) : ?>
+															dsm_obj="checkout"
+															dsm_method="DeleteCartItem"
+															dsm_item_key = "<?php echo $sales_item['INCART']; ?>"
+														<?php else: ?>
+															dsm_obj="checkout"
+															dsm_method="SubmitCartItem"
+														<?php endif; ?>
+														dsm_payment_plan_id="<?php echo $pp['ID']?>"
+														dsm_class_id="<?php echo $class['ID']; ?>"
+														dsm_student_id="<?php echo $student['STUDENT_ID']; ?>"
+														dsm_schedule_id="<?php echo (($schedule_id) ? $schedule_id : $class['SCHEDULE_ID']);?>"
+														dsm_sales_item_type="<?php echo $sales_item['TYPE']; ?>"
+														dsm_related_item_id="<?php echo $sales_item['RELATED_ITEM_ID']; ?>"
+														dsm_sales_item_id="<?php echo $sales_item['ID']; ?>"
+													>
+														<span><?php echo ((!$sales_item['INCART']) ? '<i class="fa fa-plus-circle"></i> Select' : '<i class="fa fa-minus-circle"></i> Remove'); ?></span>
+													</a>										
+									</div>
+									<div class="col-xs-9 col-sm-9 col-md-10 ctitle">
+										<i>
+										First Payment <?php echo DSM_CURRENCY_SIGN.$pp['FIRST_PAYMENT_AMOUNT'] ?> plus <?php echo DSM_CURRENCY_SIGN.$pp['PAYMENT_PLAN_FEE'] ?> fee and <?php echo $pp['REPEATS'] ?> payment(s) <?php echo DSM_CURRENCY_SIGN.$pp['RECURRING_AMOUNT'] ?> <?php echo $pp['SCHEDULE_NAME'] ?>
+										</i>
+									</div>
+									<br/><br/>
+								</div>				
+								<?php endforeach; ?>	
+								<?php endif; ?>	
+											
 										</div>
 									</div>
 								</li>

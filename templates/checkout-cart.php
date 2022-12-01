@@ -19,6 +19,7 @@ $selected_account = $cart['selected_account'];
 	        	</tr>
 		        <tr>
 		            <th>Item</th>
+                    <th>&nbsp;</th>
 		            <?php if (DSM_MAIN_DISCOUNT == 'HOURLY_RATES' && false) : ?>
 		            <th class="text-right">
 			            Hours per  <?php if (DSM_HOURLY_TIME_RATES == 'WEEKLY') echo 'week'; elseif (DSM_HOURLY_TIME_RATES == 'MONTHLY') echo 'month'; ?>
@@ -39,13 +40,22 @@ $selected_account = $cart['selected_account'];
 			<?php if (DSM_ENABLE_PAYMENT_ACCOUNT_2 == '1') $cart_locations[$item['location_id']] = $cart_locations[$item['location_id']]; ?>
                 <?php if ($item['student_id']) : ?>
                     <tr id="tr-<?php echo $k_item; ?>">
-			            <td>
+			            <td colspan="2">
                             <?php if ($item['class']['CODE']) : ?>
                                 <?php echo $item['class']['CODE']; ?><br><i class="text-muted"><?php echo $item['title']; ?><?php echo (($item['season']['NAME']) ? ' ('.$item['season']['NAME'].')' : ''); ?></i>
                             <?php else: ?>
                                 <?php echo $item['title']; ?>
                             <?php endif; ?>
                             <?php echo (($item['wait_list'] == '1') ? '<div class="label label-warning">Wait List</div>' : ''); ?>
+                            <?php if ($item['payment_plan']) : ?>
+				            <p class="font-italic">
+                                <i>
+                                    <b>Payment Plan:</b><br>
+                                    First Payment <?php echo DSM_CURRENCY_SIGN.$item['payment_plan']['FIRST_PAYMENT_AMOUNT'] ?> plus <?php echo DSM_CURRENCY_SIGN.$item['payment_plan']['PAYMENT_PLAN_FEE'] ?> fee
+                                    <br>and <?php echo $item['payment_plan']['REPEATS'] ?> payment(s) <?php echo DSM_CURRENCY_SIGN.$item['payment_plan']['RECURRING_AMOUNT'] ?> <?php echo $item['payment_plan']['SCHEDULE_NAME'] ?>
+                                <i>
+                            </p>
+				            <?php endif; ?>
 			            </td>
                         <?php if (DSM_MAIN_DISCOUNT == 'HOURLY_RATES'  && false) : ?>
                             <td class="text-right"><?php echo (($item['hours'] != 0) ? $item['hours'] : ''); ?></td>
@@ -76,12 +86,12 @@ $selected_account = $cart['selected_account'];
             <?php endforeach; ?>
             <?php if (DSM_MAIN_DISCOUNT == 'HOURLY_RATES' && DSM_CALCULATE_TOTALS_FOR == 'student' && false) : ?>
 		        <tr>
-		            <th class="text-right">Total  <?php echo $cart['total_hours'][$student['ID']]; ?> hour(s) per <?php if (DSM_HOURLY_TIME_RATES == 'WEEKLY') echo 'week'; elseif (DSM_HOURLY_TIME_RATES == 'MONTHLY') echo 'month'; ?>, rate <?php echo DSM_CURRENCY_SIGN; ?> <?php echo $cart['hours_rate'][$student['ID']]; ?></th>
+		            <th class="text-right" colspan="2">Total  <?php echo $cart['total_hours'][$student['ID']]; ?> hour(s) per <?php if (DSM_HOURLY_TIME_RATES == 'WEEKLY') echo 'week'; elseif (DSM_HOURLY_TIME_RATES == 'MONTHLY') echo 'month'; ?>, rate <?php echo DSM_CURRENCY_SIGN; ?> <?php echo $cart['hours_rate'][$student['ID']]; ?></th>
 		            <th colspan="8"></th>
 		        </tr>
                 <?php elseif (DSM_MAIN_DISCOUNT == 'MULTI_CLASS_RATES' && DSM_CALCULATE_TOTALS_FOR == 'student' && $cart['class_rates'][$student['ID']]['classes'] != '') : ?>
 		        <tr>
-		            <th class="text-right"><?php echo $cart['class_rates'][$student['ID']]['classes']; ?> Regular Class(es) Rate <?php echo DSM_CURRENCY_SIGN; ?><?php echo $cart['class_rates'][$student['ID']]['rate']; ?></th>
+		            <th class="text-right" colspan="2"><?php echo $cart['class_rates'][$student['ID']]['classes']; ?> Regular Class(es) Rate <?php echo DSM_CURRENCY_SIGN; ?><?php echo $cart['class_rates'][$student['ID']]['rate']; ?></th>
 		            <th colspan="8"></th>
 		        </tr>
 	        <?php endif; ?>
@@ -99,10 +109,9 @@ $selected_account = $cart['selected_account'];
 		        </tr>
 			<?php endif; ?>
             </tbody>
-			
 			<tfoot>        
 		        <tr>
-		            <th class="text-right">Totals:</th>
+		            <th class="text-right" colspan="2">Totals:</th>
 					<?php echo ((DSM_MAIN_DISCOUNT == 'HOURLY_RATES' && false) ? '<th class="text-right"></th>' : ''); ?>
 		            <th class="text-right"><?php echo number_format($cart['total_price'],2); ?></th>
 		            <th></th>
