@@ -59,7 +59,9 @@ class App
             wp_enqueue_style('dsm_style');
             wp_enqueue_style('dsm_style_united');
             wp_enqueue_style('dsm_fullcalendar');
-
+            
+            wp_dequeue_script( 'bootstrap' );
+            
             wp_enqueue_script('dsm_js_bootstrap');
             wp_enqueue_script('dsm_momentjs');
             wp_enqueue_script('dsm_signature_pad');
@@ -88,6 +90,8 @@ class App
             wp_enqueue_style('dsm_style');
             wp_enqueue_style('dsm_style_united');
             wp_enqueue_style('dsm_fullcalendar');
+            
+            wp_dequeue_script( 'bootstrap' );
 
             wp_enqueue_script('dsm_js_bootstrap');
             wp_enqueue_script('dsm_momentjs');
@@ -117,6 +121,8 @@ class App
             wp_enqueue_style('dsm_style');
             wp_enqueue_style('dsm_style_united');
             wp_enqueue_style('dsm_fullcalendar');
+            
+            wp_dequeue_script( 'bootstrap' );
 
             wp_enqueue_script('dsm_js_bootstrap');
             wp_enqueue_script('dsm_momentjs');
@@ -146,6 +152,8 @@ class App
             wp_enqueue_style('dsm_style');
             wp_enqueue_style('dsm_style_united');
             wp_enqueue_style('dsm_fullcalendar');
+            
+            wp_dequeue_script( 'bootstrap' );
 
             wp_enqueue_script('dsm_js_bootstrap');
             wp_enqueue_script('dsm_momentjs');
