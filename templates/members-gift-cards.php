@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 $result = App::GetClient()->GetController('members')->GetGiftCards();
 $gift_card_data = $result->data;
 ?>
@@ -7,7 +7,7 @@ $gift_card_data = $result->data;
 	<h2 class="page-header">Gift Cards</h2>
 	<div class="col-12 row">
 		<form method="post"  action="index.php" class="form-horizontal" role="form" id="redeem-gift-card-form">
-		<input type="hidden" name="action" value="dsmclient"/>
+		<input type="hidden" name="action" value="tspclient"/>
 		<input type="hidden" name="obj" value="members"/>
 		<input type="hidden" name="method" value="RedeemGiftCard"/>
 		<input type="hidden" name="boot_tab" value="tab-members-gift-cards"/>

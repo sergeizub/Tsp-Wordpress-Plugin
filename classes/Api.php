@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 class Api
 {
@@ -12,12 +12,10 @@ class Api
 
     public function __construct()
     {
-        $this->url = get_option('dsm_api_url');
-		$this->api_key = get_option('dsm_api_key');
-        if (empty($this->api_key))
-            App::GetError()->Show("Incorrect Api Key");
+        $this->url = get_option('tsp_api_url');
+		$this->api_key = get_option('tsp_api_key');
         
-        $this->api_version = get_option('dsm_api_version');
+        $this->api_version = get_option('tsp_api_version');
 
     }
 
@@ -26,18 +24,21 @@ class Api
         if (filter_var( $this->url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) !== false)
 			return true;
 		else
-			App::GetError()->Show("Sumbit Valid DSM Url");
+			App::GetError()->Show("Sumbit Valid TSP Url");
     }
 
 	public function ValidateApiVersion()
 	{
+         if (empty($this->api_key))
+            App::GetError()->Show("Incorrect Api Key");
+        
         if (in_array($this->api_version,$this->api_version_list))
 			return true;
 		else
 			App::GetError()->Show("Select Valid Api Version");
     }
 
-	public function ValidateDSMUrl()
+	public function ValidateTSPUrl()
 	{
 		if (!$this->ValidateUrl())
 			return false;
@@ -77,12 +78,12 @@ class Api
     
     public function AuthorizationSettings() {
         if (!empty($this->api_key))
-            App::GetClient()->GetController('auth')->SetAuthSettings($this->GetList(array('dsm_action' => 'settings/')));
+            App::GetClient()->GetController('auth')->SetAuthSettings($this->GetList(array('tsp_action' => 'settings/')));
     }
 
 	public function ClassInfo($class_id)
 	{
-		if(!$this->ValidateDSMUrl())
+		if(!$this->ValidateTSPUrl())
 			return false;
 
 		$authorization_token = App::GetApi()->GetAuthorizationToken();
@@ -102,7 +103,7 @@ class Api
 
 		$schedules_list = $this->GetList('classes/');
 
-		if (!$this->ValidateDSMUrl() || $schedules_list == false)
+		if (!$this->ValidateTSPUrl() || $schedules_list == false)
 			return false;
 		$calsses_list = array();
 
@@ -121,15 +122,15 @@ class Api
 
 	public function Submit($post)
 	{
-		if (!$this->ValidateDSMUrl())
+		if (!$this->ValidateTSPUrl())
 			return false;
 
-		if (empty($post['dsm_action']))
+		if (empty($post['tsp_action']))
 			return false;
 
-		$post_action = str_replace('_','/',$post['dsm_action']);
+		$post_action = str_replace('_','/',$post['tsp_action']);
 
-		if ($post['dsm_action'] != 'auth/login' && $post['dsm_action'] != 'auth/register')
+		if ($post['tsp_action'] != 'auth/login' && $post['tsp_action'] != 'auth/register')
 			$authorization_token = App::GetApi()->GetAuthorizationToken();
 
 		if($post_action == 'members/edit' && !empty($this->GetIdParam()))
@@ -188,14 +189,14 @@ class Api
 
 	public function Delete($post)
 	{
-		if (!$this->ValidateDSMUrl())
+		if (!$this->ValidateTSPUrl())
 			return false;
 
-		if (empty($post['dsm_action']))
+		if (empty($post['tsp_action']))
 			return false;
 
-		$post_action = str_replace('_','/',$post['dsm_action']);
-		unset($post['dsm_action']);
+		$post_action = str_replace('_','/',$post['tsp_action']);
+		unset($post['tsp_action']);
 
 		$authorization_token = App::GetApi()->GetAuthorizationToken();
         
@@ -239,13 +240,13 @@ class Api
 
 	public function GetList($get)
 	{
-		if (!$this->ValidateDSMUrl())
+		if (!$this->ValidateTSPUrl())
 			return false;
 
 		if (empty($get))
 			return false;
 		elseif (is_array($get)) {
-			$action = $get['dsm_action'];
+			$action = $get['tsp_action'];
 			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($get));
             $params = "?".http_build_query($get);
 		}
@@ -255,7 +256,7 @@ class Api
 		//$action = str_replace('_','/',$action);
 		$action = str_replace('schedule/id','schedule_id',$action);
 
-		$dsm_action_path = explode("/",$action);
+		$tsp_action_path = explode("/",$action);
 
         if($action != 'auth/login' && $action != 'auth/register' && $action != 'classes/filters/' && $action != 'classes/data'  && $action != 'settings/')
 			$authorization_token = App::GetApi()->GetAuthorizationToken();
@@ -272,8 +273,8 @@ class Api
                 $httpheader += ['Authorization' => $authorization_token];
 		
         $result = wp_remote_get( $this->url."api/".$this->api_version."/".$action.$params , array( 'headers' => $httpheader,  'timeout' => 120 ));
-        
-		$response = json_decode(wp_remote_retrieve_body($result));
+       
+        $response = json_decode(wp_remote_retrieve_body($result));
         
 		if (!empty($response->error)) {
 			App::GetError()->Show($response->error);

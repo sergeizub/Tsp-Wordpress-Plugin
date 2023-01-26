@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 class AuthController extends BaseController
 {
@@ -11,7 +11,7 @@ class AuthController extends BaseController
 	
 	public function Submit($data)
 	{
-		$data['dsm_action'] = 'auth/register';
+		$data['tsp_action'] = 'auth/register';
 		if ($data['I_AM'] == 'adult-student') {
 			$data['IS_STUDENT'] = 1;
 			$data['IS_GUARDIAN'] = 0;
@@ -25,7 +25,7 @@ class AuthController extends BaseController
 			$data['IS_GUARDIAN'] = 1;
 		}
 		//Check Required Primary Location Selected
-		if (DSM_MEMBERS_PRIMARY_LOCATION_ENABLED == '1') {
+		if (TSP_MEMBERS_PRIMARY_LOCATION_ENABLED == '1') {
 			if (empty($data['PRIMARY_LOCATION'])) {
 				App::GetError()->Show("Please Select Primary Location.");
 				return false;
@@ -62,7 +62,7 @@ class AuthController extends BaseController
 	public function Login($data = array())
 	{
 		
-		$data['dsm_action'] = 'auth/login';
+		$data['tsp_action'] = 'auth/login';
 		$response = parent::Submit($data);
 		
 		if (!empty($response->token))
@@ -74,13 +74,13 @@ class AuthController extends BaseController
 		//Redirect To Previous Class
 		if (!empty($data['class_id']))
 		{
-			$_SESSION['dsm_redirect']['boot_tab'] = 'class-registration-'.$data['class_id'];
+			$_SESSION['tsp_redirect']['boot_tab'] = 'class-registration-'.$data['class_id'];
 			if (!empty($data['schedule_id']))
-				$_SESSION['dsm_redirect']['schedule_id'] = $data['schedule_id'];
+				$_SESSION['tsp_redirect']['schedule_id'] = $data['schedule_id'];
 		}
         elseif (!empty($data['sales-item_id']))
 		{
-			$_SESSION['dsm_redirect']['boot_tab'] = 'checkout-sales-items-'.$data['sales-item_id'];
+			$_SESSION['tsp_redirect']['boot_tab'] = 'checkout-sales-items-'.$data['sales-item_id'];
 		}
 		if ($response->token) {
 			echo true;
@@ -99,45 +99,45 @@ class AuthController extends BaseController
 	
 	public function isLogged()
 	{
-		if (!empty($_SESSION['dsm_auth_token']))
-			return $_SESSION['dsm_auth_token'];
+		if (!empty($_SESSION['tsp_auth_token']))
+			return $_SESSION['tsp_auth_token'];
 		else
 			return false;
 	}
 
     public function PasswordReset($data)
     {
-        $data['dsm_action'] = 'auth/reset-password';
+        $data['tsp_action'] = 'auth/reset-password';
 		$response = parent::Submit($data);
     }
 	
 	public function GetAuthToken()
 	{
-		if (!empty($_SESSION['dsm_auth_token']))
-			return $_SESSION['dsm_auth_token'];
+		if (!empty($_SESSION['tsp_auth_token']))
+			return $_SESSION['tsp_auth_token'];
         return false;
 	}
 	
 	public function SetAuthToken($token)
 	{
 		if (!empty($token)) {
-			$_SESSION['dsm_auth_token'] = $token;
-			return $_SESSION['dsm_auth_token'];
+			$_SESSION['tsp_auth_token'] = $token;
+			return $_SESSION['tsp_auth_token'];
 		}
 		else {
-			unset($_SESSION['dsm_auth_token']);
+			unset($_SESSION['tsp_auth_token']);
 			return false;
 		}
 	}
 	
 	public function ParseAuthSettings()
 	{
-		if (!empty($_SESSION['dsm_auth_settings'])) {
-			foreach ($_SESSION['dsm_auth_settings'] as $k_setting => $setting) {
-				if (!defined('DSM_'.$k_setting))
-					define ('DSM_'.$k_setting,$setting);
+		if (!empty($_SESSION['tsp_auth_settings'])) {
+			foreach ($_SESSION['tsp_auth_settings'] as $k_setting => $setting) {
+				if (!defined('TSP_'.$k_setting))
+					define ('TSP_'.$k_setting,$setting);
 			}
-			$this->InitDateTimeFormat(DSM_DSM_DATE_FORMAT, DSM_DSM_TIME_FORMAT);
+			$this->InitDateTimeFormat(TSP_DSM_DATE_FORMAT, TSP_DSM_TIME_FORMAT);
 		}
 		else
 			false;
@@ -146,12 +146,12 @@ class AuthController extends BaseController
 	public function SetAuthSettings($settings)
 	{
 		if (!empty($settings)) {
-			$_SESSION['dsm_auth_settings'] = json_decode(json_encode($settings),true);
+			$_SESSION['tsp_auth_settings'] = json_decode(json_encode($settings),true);
 			$this->ParseAuthSettings();
-			return $_SESSION['dsm_auth_settings'];
+			return $_SESSION['tsp_auth_settings'];
 		}
 		else {
-			unset($_SESSION['dsm_auth_settings']);
+			unset($_SESSION['tsp_auth_settings']);
 			return false;
 		}
 	}
@@ -198,7 +198,7 @@ class AuthController extends BaseController
 
 		foreach ($date_time_formats as $k => $v)
 			if (!defined($k))
-				define('DSM_'.$k, $v);
+				define('TSP_'.$k, $v);
 	}	
 	
 	public function GetRegisterForm()

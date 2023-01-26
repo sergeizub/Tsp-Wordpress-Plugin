@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 abstract class BaseController
 {
@@ -11,7 +11,7 @@ abstract class BaseController
 	   $file_parts = explode( '\\', $class_name );
 	   
 	   for ( $i = count( $file_parts ) - 1; $i > 0; $i-- ) {
-			$current = str_ireplace( 'DanceStudioManager', '', $current );
+			$current = str_ireplace( 'TravelSportsPro', '', $current );
 			$current = $file_parts[ $i ] ;
 			if ( count( $file_parts ) - 1 === $i ) 
 				$this->short_class_name = str_ireplace( 'Controller', '', $current );

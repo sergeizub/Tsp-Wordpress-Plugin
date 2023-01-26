@@ -1,9 +1,9 @@
 <div id="tab-classes-list" class="tab-pane">
-	<div class="dsm-header">
+	<div class="tsp-header">
 		<h2>Change Password</h2>
 	</div>
 	<form id="form" action="index.php" method="post" class="form-horizontal" role="form">
-	<input type="hidden" name="action" value="dsmclient"/>
+	<input type="hidden" name="action" value="tspclient"/>
 	<input type="hidden" name="obj" value="members"/>
 	<input type="hidden" name="method" value="ChangePassword"/>
 	<input type="hidden" name="boot_tab" value="tab-members-change-password"/>

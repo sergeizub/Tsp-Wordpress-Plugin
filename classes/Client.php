@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 class Client
 {
@@ -11,15 +11,15 @@ class Client
 		if(!session_id()) {
             session_start();
         }
-	   add_action('wp_ajax_dsmclient', array($this,'AjaxClient'));
-	   add_action('wp_ajax_nopriv_dsmclient', array($this,'AjaxClient'));
+	   add_action('wp_ajax_tspclient', array($this,'AjaxClient'));
+	   add_action('wp_ajax_nopriv_tspclient', array($this,'AjaxClient'));
 	  
 	   $controller_files = glob(__DIR__.'/controllers/*Controller.php');
 	   foreach ($controller_files as $file) {
 			$controller = basename($file, ".php");
 			if ($controller == 'BaseController')
 				continue;
-			$controller_name = 'DanceStudioManager\\'.$controller;
+			$controller_name = 'TravelSportsPro\\'.$controller;
 			$controller_key = strtolower(str_ireplace("Controller","",$controller));
 			$this->controllers[$controller_key] = new $controller_name();
 			
@@ -77,7 +77,7 @@ class Client
 	{
 		$this->tab = false;
 		App::GetTemplate()->Load(  'header.php' );
-		if (!empty($_POST['dsm_action'])) {
+		if (!empty($_POST['tsp_action'])) {
 				$obj = sanitize_text_field($_POST['obj']);
 				if (!empty($_POST['method'])){
 					$method = sanitize_text_field($_POST['method']);
@@ -101,14 +101,14 @@ class Client
 	}
 	
 	public function NavRedirect() {
-		if ($_SESSION['dsm_redirect'] && !empty($_SESSION['dsm_redirect']['boot_tab'])) {
-			foreach ($_SESSION['dsm_redirect'] as $k=>$v) {
+		if ($_SESSION['tsp_redirect'] && !empty($_SESSION['tsp_redirect']['boot_tab'])) {
+			foreach ($_SESSION['tsp_redirect'] as $k=>$v) {
 				if ($k == 'boot_tab') continue;
 				$params .= " jQuery(redir_form).append( \"<input type='hidden' name='".$k."' value='".$v."' /> \");";
 			}
-			return "var redir_form = jQuery('<form></form>'); var redir_link = jQuery('<a href=\"#".sanitize_text_field($_SESSION['dsm_redirect']['boot_tab'])."\"></a>'); ".$params.";dsm_ajax_click(redir_link,redir_form);";
+			return "var redir_form = jQuery('<form></form>'); var redir_link = jQuery('<a href=\"#".sanitize_text_field($_SESSION['tsp_redirect']['boot_tab'])."\"></a>'); ".$params.";tsp_ajax_click(redir_link,redir_form);";
 			
 		}
-		return "dsm_ajax_click(jQuery('.default_tab'))";
+		return "tsp_ajax_click(jQuery('.default_tab'))";
 	}
 }

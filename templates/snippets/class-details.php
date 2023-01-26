@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 $groupclasses = array();
 $class_id = App::GetApi()->GetIdParam();
 $schedule_id = sanitize_key($_POST['schedule_id']);
@@ -42,7 +42,7 @@ if (!empty($class_full_info->items)) {
 				echo 'Date and time: <span id="selected_schedule_date">'.$schedule['START_DATE'].' '.$schedule['START_TIME'].' - '.$schedule['END_TIME'].'</span><br>';
 		?>
 	<?php endif; ?>
-	<?php if (DSM_OC_CLASS_SHOW_INSTRUCTOR == 1): ?>
+	<?php if (TSP_OC_CLASS_SHOW_INSTRUCTOR == 1): ?>
 		Instructor: <?php echo $groupclass['INSTRUCTOR']; ?><br />
 		<?php echo (($groupclass['INSTRUCTOR2'] > 0 ) ? $groupclass['INSTRUCTOR2'].'<br />' : ''); ?>
 		<?php echo (($groupclass['INSTRUCTOR3'] > 0 ) ? $groupclass['INSTRUCTOR3'].'<br />' : ''); ?>
@@ -51,7 +51,7 @@ if (!empty($class_full_info->items)) {
 		<br />
 	<?php endif; ?>
 
-	<?php echo ((DSM_OC_CLASS_SHOW_MAX_STUDENTS == 1 ) ? 'Max. Students: '.$groupclass['MAX_STUDENTS'].'<br />' : ''); ?>
+	<?php echo ((TSP_OC_CLASS_SHOW_MAX_STUDENTS == 1 ) ? 'Max. Students: '.$groupclass['MAX_STUDENTS'].'<br />' : ''); ?>
 	<?php echo (($groupclass['MIN_AGE'] > 0 &&  $groupclass['MAX_AGE'] < 100) ? 'Age: '.$groupclass['MIN_AGE'].'-'.$groupclass['MAX_AGE'].'<br />' : ''); ?>
 	<br />
 	<?php echo (($groupclass['DESCRIPTION']) ? '<br /><p>'.$groupclass['DESCRIPTION'].'</p>' : ''); ?>

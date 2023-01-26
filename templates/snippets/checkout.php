@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 $user_data = App::GetClient()->GetController('members')->GetUserData();
 
 if (!empty($_POST['first_name']))
@@ -18,7 +18,7 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 	window.account_credit =  '<?php echo ($cart['balance'] * -1);?>';
 	window.cart_total = '<?php echo ($cart['total']);?>';
 </script>
-<?php if (DSM_OC_SHOPPING_CART_PAYPAL == '1') : ?>
+<?php if (TSP_OC_SHOPPING_CART_PAYPAL == '1') : ?>
 	<div class="row">
 		<div class="col-md-offset-6 col-sm-offset-5 col-md-5 col-sm-6 pt25">
 			<?php include plugin_dir_path( __FILE__ ) . 'discount-coupon.php'; ?>
@@ -26,12 +26,12 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 	</div>
 	<div class="row">
 		<div class="col-md-offset-6 col-sm-offset-5 col-md-5 col-sm-6 pt25">
-			<?php if (DSM_PAYPAL_URL != '' &&  DSM_PAYPAL_EMAIL != '') : ?>
-		    <form action="<?php echo DSM_PAYPAL_URL; ?>" method="post" id="gateway-form-checkout">
+			<?php if (TSP_PAYPAL_URL != '' &&  TSP_PAYPAL_EMAIL != '') : ?>
+		    <form action="<?php echo TSP_PAYPAL_URL; ?>" method="post" id="gateway-form-checkout">
 		        <input type="hidden" name="cmd" value="_xclick" />
-		        <input type="hidden" name="business" value="<?php echo DSM_PAYPAL_EMAIL; ?>" />
+		        <input type="hidden" name="business" value="<?php echo TSP_PAYPAL_EMAIL; ?>" />
 		        <input type="hidden" name="locale" value="en_US" />
-		        <input type="hidden" name="currency_code" value="<?php echo DSM_PAYPAL_PAYMENT_CURRENCY; ?>" />
+		        <input type="hidden" name="currency_code" value="<?php echo TSP_PAYPAL_PAYMENT_CURRENCY; ?>" />
 		        <input type="hidden" name="item_name" value="Packages & Classes" />
 		        <input type="hidden" name="item_number" value="" />
 		        <input type="hidden" name="quantity" value="1" />
@@ -44,7 +44,7 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 				<?php endif; ?>
 		        <input type="hidden" name="return" value="<?php echo "//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>" />
 		        <input type="hidden" name="cancel_return" value="<?php echo "//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>" />
-		        <input type="hidden" name="notify_url" value="<?php echo get_option('dsm_api_url'); ?>ipn-paypal.php">
+		        <input type="hidden" name="notify_url" value="<?php echo get_option('tsp_api_url'); ?>ipn-paypal.php">
 		        <input type="image" style="float:right;" src="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" 
 		               alt="PayPal - The safer, easier way to pay online!" role="button" id="submit-pay-pal" />
 		    </form>
@@ -59,7 +59,7 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 <div class="row">
 		<div class="col-md-offset-2 col-md-6 pt25">
 			<form action="" method="post" id="gateway-form-checkout" class="form-horizontal" role="form">
-			<input type="hidden" name="action" value="dsmclient"/>
+			<input type="hidden" name="action" value="tspclient"/>
 			<input type="hidden" name="obj" value="checkout"/>
 			<input type="hidden" name="boot_tab" value="tab-checkout-cart"/>
 			<input type="hidden" name="method" value="Submit"/>
@@ -69,7 +69,7 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 			<?php //include plugin_dir_path( __FILE__ ) . 'discount-coupon.php'; ?>
 		        
 			    <div class="form-group">
-			        <label class="col-sm-5 control-label">Total Amount to Pay, <?php echo DSM_CURRENCY_SIGN; ?></label>
+			        <label class="col-sm-5 control-label">Total Amount to Pay, <?php echo TSP_CURRENCY_SIGN; ?></label>
 			        <div class="col-sm-7" id="transaction_amount_field">
 			            <input class="form-control" type="text" readonly="readonly" id="transaction_amount" name="transaction_amount" style="width:100px;" value="<?php echo $cart['total']; ?>">
 			        </div>
@@ -78,16 +78,16 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 			    <div class="form-group row">
 			        <label class="col-sm-5 col-form-label"></label>
 			        <div class="col-sm-7">
-			            <input type="checkbox" id="use_account_credit" name="use_account_credit"> Use Account Credit (<?php echo DSM_CURRENCY_SIGN; echo $cart['balance'] * -1;?>)
+			            <input type="checkbox" id="use_account_credit" name="use_account_credit"> Use Account Credit (<?php echo TSP_CURRENCY_SIGN; echo $cart['balance'] * -1;?>)
 			        </div>
 			    </div>
 			   <? endif; ?>
-				<?php if (DSM_OC_PAY_AT_STUDIO == "1") : ?>
+				<?php if (TSP_OC_PAY_AT_STUDIO == "1") : ?>
 			    <div class="form-group">
 			        <label class="col-sm-5 control-label"></label>
 			        <div class="col-sm-7">
 			            <input type="checkbox" id="pay_at_studio" name="pay_at_studio" value="1"
-							<?php echo ((DSM_OC_PAY_AT_STUDIO != "" && (DSM_OC_ALLOW_CARD_PAYMENTS == "0")) ? 'checked="checked"' : ''); ?>> Pay at Studio
+							<?php echo ((TSP_OC_PAY_AT_STUDIO != "" && (TSP_OC_ALLOW_CARD_PAYMENTS == "0")) ? 'checked="checked"' : ''); ?>> Pay at Studio
 			        </div>
 			    </div>
 			    <?php endif; ?>
@@ -98,7 +98,7 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 							<option value="0">Add New Card</option> 
 							<?php foreach ($payment_sources as $token) : ?> 
 							<option value="<?php echo $token['id']; ?>" <?php echo ((!empty($selected_account) && !empty($token['account_id']) && $selected_account != $token['account_id']) ? 'disabled="disabled"' : ''); ?>>
-								<?php echo ((DSM_DSM_DATE_FORMAT == 'AU' && DSM_PAYMENT_SYSTEM == 'quickpay' && $token['tender_type'] == 'ACH') ? 'DD' : $token['tender_type']); ?> **** **** **** <?php echo $token['last4']; ?> <?php echo (($token['account']) ? '('.$token['account'].')': ''); ?>
+								<?php echo ((TSP_DSM_DATE_FORMAT == 'AU' && TSP_PAYMENT_SYSTEM == 'quickpay' && $token['tender_type'] == 'ACH') ? 'DD' : $token['tender_type']); ?> **** **** **** <?php echo $token['last4']; ?> <?php echo (($token['account']) ? '('.$token['account'].')': ''); ?>
 		                    </option>
 							<?php endforeach; ?>
 						</select>
@@ -137,11 +137,11 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 						 <input class="form-control" type="text" name="card_verification" maxlength="4" value="<?php echo sanitize_text_field($_POST['card_verification']); ?>">
 					</div>
 			    </div>
-				<? if (!empty(trim(get_option('dsm_payment_notice')))) :?>
+				<? if (!empty(trim(get_option('tsp_payment_notice')))) :?>
 				<div class="form-group">
 					<label class="col-sm-5 control-label">&nbsp;</label>
 					<div class="col-sm-7">
-						<?php echo get_option('dsm_payment_notice'); ?>
+						<?php echo get_option('tsp_payment_notice'); ?>
 					</div>      
 				</div>
 				<? else: ?>

@@ -1,10 +1,10 @@
 #tab-classes<?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 $class_id = App::GetApi()->GetIdParam();
 $schedules_list = App::GetClient()->GetController('classes')->GetClasses();	
 	?>
-	<button class="btn btn-default dsm_ajax_tab"  dsm_boot_tab="classes" >Classes</button>
+	<button class="btn btn-default tsp_ajax_tab"  tsp_boot_tab="classes" >Classes</button>
 	<?
 foreach ($schedules_list->schedules as $k => $v) {
 	foreach ($v->data as $data)

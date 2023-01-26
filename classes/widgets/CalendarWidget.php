@@ -1,10 +1,10 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 class CalendarWidget extends \WP_Widget
 {
 	public function __construct()
 	{
-		parent::__construct( "dsm_calendar", 'DSM Calendar' );
+		parent::__construct( "tsp_calendar", 'TSP Calendar' );
 	}
 
 	public function form( $instance )

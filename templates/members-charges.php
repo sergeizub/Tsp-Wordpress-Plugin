@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 $result = App::GetClient()->GetController('members')->GetCharges();
 ?>
 
@@ -14,7 +14,7 @@ $result = App::GetClient()->GetController('members')->GetCharges();
 				<th>Category</th>
 				<th>Class</th>
 				<th>Notes</th>
-				<th style="text-align:right" width="90">Charged, <?php echo DSM_CURRENCY_SIGN; ?></th>
+				<th style="text-align:right" width="90">Charged, <?php echo TSP_CURRENCY_SIGN; ?></th>
 			</tr>
 		</thead>
 		<tbody>

@@ -1,14 +1,12 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 use \DateTime;
-
-include plugin_dir_path( __FILE__ ) . 'auth-login.php';
 
 $register_fields = App::GetClient()->GetController('auth')->GetRegisterForm();
 $filters = App::GetClient()->GetController('classes')->GetFilters();
 
 //Add Required Primary Location
-if (DSM_MEMBERS_PRIMARY_LOCATION_ENABLED == '1') {
+if (TSP_MEMBERS_PRIMARY_LOCATION_ENABLED == '1') {
 	$primary_location = (object) [
 			'name' => 'PRIMARY_LOCATION',
             'type' => 'select',
@@ -59,7 +57,7 @@ if (is_array($register_fields)) :
 		InputDateInit();
 	});
 	</script>
-	<div class="dsm-header"><h2>Create Account</h2></div>
+	<div class="tsp-header"><h2>Create Account</h2></div>
 	<form class="form-horizontal" role="form" id="members-form"  action="index.php" method="post" enctype="multipart/form-data"> <?
 		foreach ($register_fields as $k_field => $field) {
 			if ($field->name == 'PASSWORD') { ?>
@@ -88,24 +86,24 @@ if (is_array($register_fields)) :
 		<? } else if ($field->name == 'BIRTHDAY') { ?>
 				<?
 					if (isset($_POST[$field->name]) && $_POST[$field->name] != '0000-00-00')
-						$dsm_day = new DateTime($_POST[$field->name]);
+						$tsp_day = new DateTime($_POST[$field->name]);
 				?>
 				<div class="form-group">
 					<label class="col-sm-3 control-label"><?php echo ((isset($field->required) && $field->required == true) ? '<span style="color: red;">*</span>' : ''); ?> <?php echo $field->label; ?>
-					<? if (DSM_OC_GENDER_ENABLED == "1"):?>, &nbsp;<?php echo ((DSM_OC_REQ_GENDER == '1') ? '<span style="color: red;">*</span>' : ''); ?>Gender</label><? endif; ?>
+					<? if (TSP_OC_GENDER_ENABLED == "1"):?>, &nbsp;<?php echo ((TSP_OC_REQ_GENDER == '1') ? '<span style="color: red;">*</span>' : ''); ?>Gender</label><? endif; ?>
 						<div class="col-sm-3 <?php echo ((in_array($field->name,$error_fields)) ? 'has-error' : ''); ?>">
 							<div class="input-group date">
 								<input type="text" class="form-control" maxlength="64"
 								   name="<?php echo $field->name; ?>"
-								   value="<?php echo ((isset($_POST[$field->name]) && $_POST[$field->name] != '0000-00-00') ?  $dsm_day->format(DSM_PHPDATE) : ''); ?>"
+								   value="<?php echo ((isset($_POST[$field->name]) && $_POST[$field->name] != '0000-00-00') ?  $tsp_day->format(TSP_PHPDATE) : ''); ?>"
 								   <?php echo ((isset($field->required) && $field->required == true) ? 'required' : ''); ?>
 								   placeholder="<?php echo $field->label; ?>" readonly="readonly">
 								   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						<div class="col-sm-3">
-							<? if (DSM_OC_GENDER_ENABLED) : ?>
-									<select name="GENDER" class="form-control" <?php echo ((DSM_OC_REQ_GENDER == '1') ? 'required' : ''); ?>>
+							<? if (TSP_OC_GENDER_ENABLED) : ?>
+									<select name="GENDER" class="form-control" <?php echo ((TSP_OC_REQ_GENDER == '1') ? 'required' : ''); ?>>
 								<? if (is_array($register_fields[$k_field+1]->values)): ?>
 									<?  foreach ($register_fields[$k_field+1]->values as $v): ?>
 									<option value="<?php echo $v->value; ?>"
@@ -118,13 +116,13 @@ if (is_array($register_fields)) :
 								</select>
 							<? endif; ?>
 		<? } else if ($field->name == 'PHONE1'
-					  || ($field->name == 'PHONE2' && DSM_MEMBERS_PHONE2_ENABLED == '1')
-					  || ($field->name == 'PHONE3' && DSM_MEMBERS_PHONE3_ENABLED == '1')) { ?>
+					  || ($field->name == 'PHONE2' && TSP_MEMBERS_PHONE2_ENABLED == '1')
+					  || ($field->name == 'PHONE3' && TSP_MEMBERS_PHONE3_ENABLED == '1')) { ?>
 				<div class="form-group">
-					<label class="col-sm-3 control-label"><?php echo (( $field->name == 'PHONE1' && DSM_OC_REQ_PHONE1 == '1' || ($field->name == 'PHONE2' && DSM_OC_REQ_PHONE2 == '1')) ? '<span style="color: red;">*</span>' : ''); ?> <?php echo $field->label; ?></label>
+					<label class="col-sm-3 control-label"><?php echo (( $field->name == 'PHONE1' && TSP_OC_REQ_PHONE1 == '1' || ($field->name == 'PHONE2' && TSP_OC_REQ_PHONE2 == '1')) ? '<span style="color: red;">*</span>' : ''); ?> <?php echo $field->label; ?></label>
 						<div class="col-sm-3 <?php echo ((in_array($field->name,$error_fields)) ? 'has-error' : ''); ?>">
 							<input type="text" class="form-control" maxlength="20" id="<?php echo $field->name; ?>" name="<?php echo $field->name; ?>"  value="<?php echo (isset($_POST[$field->name]) ? $_POST[$field->name] : ''); ?>" placeholder="<?php echo $field->label; ?>"
-							 <?php echo (( $field->name == 'PHONE1' && DSM_OC_REQ_PHONE1 == '1' || ($field->name == 'PHONE2' && DSM_OC_REQ_PHONE2 == '1')) ? 'required' : ''); ?>
+							 <?php echo (( $field->name == 'PHONE1' && TSP_OC_REQ_PHONE1 == '1' || ($field->name == 'PHONE2' && TSP_OC_REQ_PHONE2 == '1')) ? 'required' : ''); ?>
 							>
 						</div>
 						<div class="col-sm-3">
@@ -133,8 +131,8 @@ if (is_array($register_fields)) :
 		<? } else if ($field->name == 'PASSWORD2' || $field->name == 'LASTNAME' || $field->name == 'GENDER'
 					|| $field->name == 'PHONE1_NOTES' || $field->name == 'PHONE2_NOTES' || $field->name == 'PHONE3_NOTES'
 					|| $field->name == 'PHONE1' || $field->name == 'PHONE2' || $field->name == 'PHONE3'
-					|| ($field->name == 'EMAIL2' && DSM_MEMBERS_EMAIL2_ENABLED != '1')
-					|| ($field->name == 'PRIMARY_PHONE' && DSM_OC_PRIMARY_PHONE_SELECT_ENABLED != '1')
+					|| ($field->name == 'EMAIL2' && TSP_MEMBERS_EMAIL2_ENABLED != '1')
+					|| ($field->name == 'PRIMARY_PHONE' && TSP_OC_PRIMARY_PHONE_SELECT_ENABLED != '1')
 					 ) {
 				continue; 
 		} else {
@@ -160,16 +158,16 @@ if (is_array($register_fields)) :
 					break;
 					case "date";
 						if (isset($_POST[$field->name]) && $_POST[$field->name] != '0000-00-00')
-							$dsm_day = new DateTime($_POST[$field->name]);
+							$tsp_day = new DateTime($_POST[$field->name]);
 						echo
 							'<div class="input-group date">
 								<input type="text" class="form-control" name="'.$field->name.'"
-								value="'.((isset($_POST[$field->name]) && $_POST[$field->name] != '0000-00-00') ?  $dsm_day->format(DSM_PHPDATE) : '').'"
+								value="'.((isset($_POST[$field->name]) && $_POST[$field->name] != '0000-00-00') ?  $tsp_day->format(TSP_PHPDATE) : '').'"
 								'.((isset($field->required) && $field->required == true) ? 'required' : '').'
 								placeholder="'.$field->label.'" readonly="readonly">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>';
-							unset($dsm_day);
+							unset($tsp_day);
 					break;
 					default :
 					case "input":
@@ -190,7 +188,7 @@ if (is_array($register_fields)) :
 			echo '</div></div>';
 		}
 		
-		echo '<input type="hidden" name="action" value="dsmclient"/>';
+		echo '<input type="hidden" name="action" value="tspclient"/>';
 		echo '<input type="hidden" name="obj" value="auth"/>';
 		echo '<input type="hidden" name="method" value="Submit"/>';
 		echo '<input type="hidden" name="boot_tab" value="tab-auth-register"/>';

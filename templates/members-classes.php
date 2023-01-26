@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 use \DateTime;
 
 $my_classes = json_decode(json_encode(App::GetClient()->GetController('members')->GetMyClasses()),true);
@@ -64,11 +64,11 @@ function SchedulesSection(section_id)
     <tr>
     	<th>Class</th>
     	<th>Description</th>
-		<?php if (DSM_MAIN_DISCOUNT === 'MULTI_CLASS' || DSM_MAIN_DISCOUNT === 'HOURLY_DISCOUNTS') : ?>
+		<?php if (TSP_MAIN_DISCOUNT === 'MULTI_CLASS' || TSP_MAIN_DISCOUNT === 'HOURLY_DISCOUNTS') : ?>
     	<th>Discount</th>
-    	<th class="text-right">Amount, <?php echo ((defined("DSM_CURRENCY_SIGN")) ? DSM_CURRENCY_SIGN : ''); ?></th>
+    	<th class="text-right">Amount, <?php echo ((defined("TSP_CURRENCY_SIGN")) ? TSP_CURRENCY_SIGN : ''); ?></th>
     	<?php endif; ?>
-    	<th class="text-center"><?php echo ((defined("DSM_OC_CLASS_LIST_ACTION_LABEL")) ? DSM_OC_CLASS_LIST_ACTION_LABEL : 'Action'); ?></th>
+    	<th class="text-center"><?php echo ((defined("TSP_OC_CLASS_LIST_ACTION_LABEL")) ? TSP_OC_CLASS_LIST_ACTION_LABEL : 'Action'); ?></th>
     </tr>
 	</thead>
 	<tbody>
@@ -77,10 +77,10 @@ function SchedulesSection(section_id)
     	<td>
 			<?php echo $class['CLASS_NAME'];?>
     	<td>
-			<?php echo ( (count($class['CLASS_SCHEDULES']) && $class['PAYMENT_METHOD'] === 'billing_schedule' > 0 && $class['STATUS_IN_CLASS'] == '1' &&  (DSM_MAIN_DISCOUNT === 'MULTI_CLASS' || DSM_MAIN_DISCOUNT === 'HOURLY_DISCOUNTS')) ? $class['tuition_description'] : ''); ?>
+			<?php echo ( (count($class['CLASS_SCHEDULES']) && $class['PAYMENT_METHOD'] === 'billing_schedule' > 0 && $class['STATUS_IN_CLASS'] == '1' &&  (TSP_MAIN_DISCOUNT === 'MULTI_CLASS' || TSP_MAIN_DISCOUNT === 'HOURLY_DISCOUNTS')) ? $class['tuition_description'] : ''); ?>
         	<?php echo ( ($class['CLASS_TYPE'] === 'private') ? 'Completed '.$class['LESSONS_COMPLETED'].' of '.$class['LESSONS_PURCHASED'].' hours. Remaining hours: '.$class['LESSONS_REMAINING'] : '' ); ?>
         </td>
-    	<?php if (DSM_MAIN_DISCOUNT === 'MULTI_CLASS' || DSM_MAIN_DISCOUNT === 'HOURLY_DISCOUNTS') : ?>
+    	<?php if (TSP_MAIN_DISCOUNT === 'MULTI_CLASS' || TSP_MAIN_DISCOUNT === 'HOURLY_DISCOUNTS') : ?>
     	<td>
 			<?php echo ( (count($class['CLASS_SCHEDULES']) && $class['PAYMENT_METHOD'] === 'billing_schedule' > 0 && $class['STATUS_IN_CLASS'] == '1') ? $class['discount_description'] : '' ); ?>
     	</td>
@@ -100,15 +100,15 @@ function SchedulesSection(section_id)
 			<table class="table table-striped table-condensed table-hover">
 			<tr>
 				<th>Schedule</th>
-				<?php if (defined('DSM_OC_HIDE_ATTENDANCE') && DSM_OC_HIDE_ATTENDANCE != '1') : ?>
-				<th><?php echo ( ($class['CLASS_TYPE'] === 'private' || DSM_ATTENDANCE_STATUS_LATE === '1') ? 'Status' : 'Present' ); ?></th>
+				<?php if (defined('TSP_OC_HIDE_ATTENDANCE') && TSP_OC_HIDE_ATTENDANCE != '1') : ?>
+				<th><?php echo ( ($class['CLASS_TYPE'] === 'private' || TSP_ATTENDANCE_STATUS_LATE === '1') ? 'Status' : 'Present' ); ?></th>
 				<?php endif; ?>
 				<?php echo ( ($class['PAYMENT_METHOD'] == 'sales_packages' && $class['CLASS_TYPE'] != 'private') ? '<th>Assigned Purchase</th>' : '' ); ?>
 			</tr>
 			<?php foreach($class['CLASS_SCHEDULES'] as $schedule) : ?>
 			<tr>
 				<td><?php echo $schedule['STARTF']; ?> - <?php echo $schedule['ENDF']; ?></td>
-				<?php echo ( (defined('DSM_OC_HIDE_ATTENDANCE') && DSM_OC_HIDE_ATTENDANCE != '1') ? '<td id="pls_'.$schedule['ID'].'_'.$class['MEMBER_ID'].'">'.$schedule['PRESENT'].'</td>' : '' ); ?>
+				<?php echo ( (defined('TSP_OC_HIDE_ATTENDANCE') && TSP_OC_HIDE_ATTENDANCE != '1') ? '<td id="pls_'.$schedule['ID'].'_'.$class['MEMBER_ID'].'">'.$schedule['PRESENT'].'</td>' : '' ); ?>
 				<?php echo ( ($class['PAYMENT_METHOD'] == 'sales_packages' && $class['CLASS_TYPE'] != 'private') ? '<td><span class="purchase">'.$schedule['PURCHASE'].'</span></td>' : '' ); ?>
 			</tr>
 			<?php endforeach; ?>

@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 class Template
 {
@@ -23,7 +23,7 @@ class Template
 				<? endif; ?>
 				});
 			</script>
-			<div id="dsm_loading"><i class="fa fa-refresh fa-spin fa-3x"></i></div>
+			<div id="tsp_loading"><i class="fa fa-refresh fa-spin fa-3x"></i></div>
 			<? endif; ?>
 			<?
             load_template(plugin_dir_path( __FILE__ ) . '../templates/'. $file);

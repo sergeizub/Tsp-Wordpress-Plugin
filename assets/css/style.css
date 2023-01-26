@@ -1,122 +1,122 @@
 html {
     font-size:  inherit !important;
 }
-.dsm_sales-item-quantity {
+.tsp_sales-item-quantity {
 	text-align: center;
 	width: 60px !important;
 }
-.dsm_body {
+.tsp_body {
 	background: #faf9fb !important;
     
 }
 
-.dsm_body a, .dsm_body a:link, .dsm_body a:visited {
+.tsp_body a, .tsp_body a:link, .tsp_body a:visited {
 	color: #333;
 }
 
-.dsm_body a:hover {
+.tsp_body a:hover {
 	color: #660087 !important;
 }
 
-.dsm_body .page-content h1, .dsm_body .page-content h2, .dsm_body .page-content h3, .dsm_body .page-content h4, .dsm_body .page-content h5, .dsm_body .page-content h6,
-.dsm_body .page-content .h1, .dsm_body .page-content .h2, .dsm_body .page-content .h3, .dsm_body .page-content .h4, .dsm_body .page-content .h5, .dsm_body .page-content .h6 {
+.tsp_body .page-content h1, .tsp_body .page-content h2, .tsp_body .page-content h3, .tsp_body .page-content h4, .tsp_body .page-content h5, .tsp_body .page-content h6,
+.tsp_body .page-content .h1, .tsp_body .page-content .h2, .tsp_body .page-content .h3, .tsp_body .page-content .h4, .tsp_body .page-content .h5, .tsp_body .page-content .h6 {
     font-family: "Ubuntu",Tahoma,"Helvetica Neue",Helvetica,Arial,sans-serif !important;
     font-weight: 500 !important;
     line-height: inherit !important;
     color: inherit !important;
 }
 
-.dsm_body .list-unstyled {
+.tsp_body .list-unstyled {
 	list-style: none !important;
 }
 
-#dsm-tab-content table, th, td {
+#tsp-tab-content table, th, td {
     border: none;
 }
-.dsm_body .tab-content h4, .dsm_body .tab-content .h4 {
+.tsp_body .tab-content h4, .tsp_body .tab-content .h4 {
     font-size: 18px !important;
 }
-.dsm_body button, .dsm_body button[disabled]:hover, .dsm_body button[disabled]:focus, .dsm_body input[type="button"], .dsm_body input[type="button"][disabled]:hover, .dsm_body input[type="button"][disabled]:focus, .dsm_body input[type="reset"], .dsm_body input[type="reset"][disabled]:hover, .dsm_body input[type="reset"][disabled]:focus, .dsm_body input[type="submit"], .dsm_body input[type="submit"][disabled]:hover, .dsm_body input[type="submit"][disabled]:focus {
+.tsp_body button, .tsp_body button[disabled]:hover, .tsp_body button[disabled]:focus, .tsp_body input[type="button"], .tsp_body input[type="button"][disabled]:hover, .tsp_body input[type="button"][disabled]:focus, .tsp_body input[type="reset"], .tsp_body input[type="reset"][disabled]:hover, .tsp_body input[type="reset"][disabled]:focus, .tsp_body input[type="submit"], .tsp_body input[type="submit"][disabled]:hover, .tsp_body input[type="submit"][disabled]:focus {
     text-transform:none;
 }
 
-.no-sidebar .entry-content, .dsm_body .no-sidebar .page-header {
+.no-sidebar .entry-content, .tsp_body .no-sidebar .page-header {
    margin-right: 0 !important;
     margin-left: 0 !important; 
 }
 
-.dsm_body .navbar-nav li a, #m-dd li a {
+.tsp_body .navbar-nav li a, #m-dd li a {
     line-height: 50px;
     height: 50px;
     padding-top: 0;
 }
-.dsm_body .nav-sidebar a {
+.tsp_body .nav-sidebar a {
 	color: #eee;
 }
 
-.dsm_body .page-header {
+.tsp_body .page-header {
     border-top: 0px !important;
     padding-top: 0px !important;
     margin-top: 0px !important;
     margin-bottom: 20px !important;
 }
 
-.dsm_body .page-header h2 {
+.tsp_body .page-header h2 {
     margin-bottom: 10px !important;
 }
 
-.dsm_body .dsm-header {
+.tsp_body .tsp-header {
     padding-left:20px;
 }
 
-.dsm_body .entry-content .nav a {
+.tsp_body .entry-content .nav a {
     box-shadow: none !important;
 }
-.dsm_body .nav-pills {
+.tsp_body .nav-pills {
     margin-bottom:16px;
 }
-.dsm_body .tab-pane {
+.tsp_body .tab-pane {
     padding-top:0px;
 }
 
-.dsm_body .nav-tabs {
+.tsp_body .nav-tabs {
     padding: 0px !important;
 }
 
-.dsm_body .form-signin {
+.tsp_body .form-signin {
     max-width: 350px;
     padding: 15px;
     margin: 0 auto;
 }
 
-.dsm_body div.schedule {
+.tsp_body div.schedule {
 	margin: 4px;
 	padding: 10px 30px;
 	border: 1px;
 	border-bottom: 1px solid silver;
 }
-.dsm_body div.schedule h3 {
+.tsp_body div.schedule h3 {
 	margin-bottom: 10px;		
 }
-.dsm_body div.schedule h4 {
+.tsp_body div.schedule h4 {
 	color: gray !important;
     text-transform: none;
 }
 
-.dsm_body div.tab-content h3 {
+.tsp_body div.tab-content h3 {
 	margin-bottom: 10px;
 }
-.dsm_body div.tab-content h4 {
+.tsp_body div.tab-content h4 {
 	margin: 15px 0 !important;
 }
-.dsm_body div.tab-content span {
+.tsp_body div.tab-content span {
 	font-weight: 400;
 }
 
-#dsm_calendar {
+#tsp_calendar {
     margin-top:30px;
 }
-#dsm_loading {
+#tsp_loading {
 	position: fixed;
 	top: 30%;
 	right: 47%;
@@ -124,40 +124,40 @@ html {
 	display: none;
 }
 
-.dsm_body .modal-title {
+.tsp_body .modal-title {
     margin: 0px !important;
     display: inline-block;
 }
 
-.dsm_body .modal-body ul, .modal-body ol {
+.tsp_body .modal-body ul, .modal-body ol {
     margin-left:20px;
 }
 
-.dsm_body div.tab-content span {
+.tsp_body div.tab-content span {
     font-weight: 400;
 }
 
-.dsm_body .signature canvas {
+.tsp_body .signature canvas {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
 /* Class list */
 /* bootstrap: fix content width inside hidden tabs */
-.dsm_body .classes-list > .tab-pane:not(.active),
-.dsm_body .classes-list > .pill-pane:not(.active) {
+.tsp_body .classes-list > .tab-pane:not(.active),
+.tsp_body .classes-list > .pill-pane:not(.active) {
     display: none !important;
     overflow-y: hidden;
      overflow-x: hidden;
     padding:0px;
 } 
 /* bootstrap hack end */
-.dsm_body #current-date {
+.tsp_body #current-date {
 	display: inline-block; 
 	height: 22px;
     width: 240px;
 }
-.dsm_body #current-date input[name=currentdate] {
+.tsp_body #current-date input[name=currentdate] {
 	border: 0 !important;
 	background-color: transparent;
 	text-align: center;
@@ -165,31 +165,41 @@ html {
 	cursor: pointer;
 	-webkit-box-shadow: none;
 }
-.dsm_body #current-date input[name=currentdate]:hover {
+.tsp_body #current-date input[name=currentdate]:hover {
 	text-decoration: underline;
 }
 
+.tsp_body .fc-day-grid-event .fc-content {
+   white-space: normal;
+   color: #fff;
+   font-size: 1.1em;
+}
+
+.fc-day-grid-event .fc-time {
+   font-weight: 700px;
+}
+
 @media only screen and (min-width:769px) {
-	.dsm_body #current-date input[name=currentdate] {
+	.tsp_body #current-date input[name=currentdate] {
 		font-size: 14pt;
 	}
 }
 @media only screen and (max-width:768px) {
-	.dsm_body #current-date input[name=currentdate] {
+	.tsp_body #current-date input[name=currentdate] {
 		font-size: 11pt;
 	}
     
-    .dsm_body .table_mobile_block > tbody > tr > td {
+    .tsp_body .table_mobile_block > tbody > tr > td {
         display:inline-block;
         border:none !important;
     }
     
-    .dsm_body .table_mobile_block > thead > tr > th{
+    .tsp_body .table_mobile_block > thead > tr > th{
         display:none;
         border:none !important;
     }
     
-    .dsm_body div.tab-content .schedule .book-now {
+    .tsp_body div.tab-content .schedule .book-now {
         top:0px;
         float:left;
         margin-bottom:0px

@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 use \DateTime;
 $classes_list = array();
 $add_data = $filter = array();
@@ -12,20 +12,20 @@ $filter = json_decode(str_replace('\"','"',$_REQUEST['filter']),true);
 if(empty($filter))
 	$filter = array();
 	
-	if ($_SESSION['dsm_client_attrs']['week'] == "true") {
+	if ($_SESSION['tsp_client_attrs']['week'] == "true") {
 		
-		if ($_SESSION['dsm_client_attrs']["start_date"])
-			$date_now = date(DSM_PHPDATE, strtotime(sanitize_text_field($_SESSION['dsm_client_attrs']["start_date"])));
+		if ($_SESSION['tsp_client_attrs']["start_date"])
+			$date_now = date(TSP_PHPDATE, strtotime(sanitize_text_field($_SESSION['tsp_client_attrs']["start_date"])));
 		else
-			$date_now = date(DSM_PHPDATE);
+			$date_now = date(TSP_PHPDATE);
 		for ($i=0;$i<7;$i++) {
-			$day = date(DSM_PHPDATE, strtotime($date_now. ' + '.$i.' days'));
+			$day = date(TSP_PHPDATE, strtotime($date_now. ' + '.$i.' days'));
 			$add_data["start"] = $day;
-			$classes_list[] = App::GetClient()->GetController('classes')->GetClasses((array)$_SESSION['dsm_client_attrs'] + $filter + $add_data);
+			$classes_list[] = App::GetClient()->GetController('classes')->GetClasses((array)$_SESSION['tsp_client_attrs'] + $filter + $add_data);
 		}
 	}
-	else if(!empty($_SESSION['dsm_client_attrs']))
-		$classes_list[] = App::GetClient()->GetController('classes')->GetClasses((array)$_SESSION['dsm_client_attrs'] + $filter + $add_data);
+	else if(!empty($_SESSION['tsp_client_attrs']))
+		$classes_list[] = App::GetClient()->GetController('classes')->GetClasses((array)$_SESSION['tsp_client_attrs'] + $filter + $add_data);
 	else
 		$classes_list[] = App::GetClient()->GetController('classes')->GetClasses($filter + $add_data);
 
@@ -37,17 +37,17 @@ $day = new DateTime($add_data_start);
 if ($_REQUEST['schedule_week'] == "1") {
 	$data = [
 			'schedules' => [],
-			'current_date' => $day->format('l, '.DSM_PHPDATE). ' - ' .$day->modify('+ 6 day')->format('l, '.DSM_PHPDATE),
-			'prev_date' => $day->modify('- 13 day')->format(DSM_PHPDATE),
-			'next_date' => $day->modify('+ 14 day')->format(DSM_PHPDATE)
+			'current_date' => $day->format('l, '.TSP_PHPDATE). ' - ' .$day->modify('+ 6 day')->format('l, '.TSP_PHPDATE),
+			'prev_date' => $day->modify('- 13 day')->format(TSP_PHPDATE),
+			'next_date' => $day->modify('+ 14 day')->format(TSP_PHPDATE)
 		];
 	$end_date->modify('+ 7 day');
 } else {
 	$data = [
 			'schedules' => [],
-			'current_date' => $day->format('l, '.DSM_PHPDATE),
-			'prev_date' => $day->modify('- 1 day')->format(DSM_PHPDATE),
-			'next_date' => $day->modify('+ 2 day')->format(DSM_PHPDATE)
+			'current_date' => $day->format('l, '.TSP_PHPDATE),
+			'prev_date' => $day->modify('- 1 day')->format(TSP_PHPDATE),
+			'next_date' => $day->modify('+ 2 day')->format(TSP_PHPDATE)
 		];
 }
 foreach ($classes_list as $list_item) {
@@ -55,7 +55,7 @@ foreach ($classes_list as $list_item) {
 		if (is_array($schedules->data)) {
 			foreach ($schedules->data as $schedule) {
 				$schedule_start = new DateTime($schedule->START_DATE);
-				if ($schedule_start->format(DSM_PHPDATE) == $current_date->format(DSM_PHPDATE) && $schedule->STATUS != '2'){
+				if ($schedule_start->format(TSP_PHPDATE) == $current_date->format(TSP_PHPDATE) && $schedule->STATUS != '2'){
 					$data['schedules'][$i] = $schedule;
 				}
 				elseif ($_REQUEST['schedule_week'] == "1" && $schedule_start >= $current_date && $schedule->STATUS != '2') {
@@ -68,6 +68,6 @@ foreach ($classes_list as $list_item) {
 }
 
 if ($_REQUEST['schedule_week'] != "1")
-	usort($data['schedules'], 'dsm_location_sort');
+	usort($data['schedules'], 'tsp_location_sort');
 
 echo json_encode($data);

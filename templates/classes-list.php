@@ -1,18 +1,18 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 $filter = array();
 foreach($_REQUEST['filter'] as $k => $v)
 	$filter[$k] = sanitize_text_field($v);
 	
-if (is_array($_SESSION['dsm_client_attrs']['class_code']))
-	foreach($_SESSION['dsm_client_attrs']['class_code'] as $k => $v)
+if (is_array($_SESSION['tsp_client_attrs']['class_code']))
+	foreach($_SESSION['tsp_client_attrs']['class_code'] as $k => $v)
 		$programs_class_code[$k] = sanitize_text_field($v);
 else
-	$programs_class_code = sanitize_text_field($_SESSION['dsm_client_attrs']['class_code']);
+	$programs_class_code = sanitize_text_field($_SESSION['tsp_client_attrs']['class_code']);
 	
-if(!empty($_SESSION['dsm_client_attrs']))
-	$classes_list = App::GetClient()->GetController('classes')->GetClassesData((array)$_SESSION['dsm_client_attrs'] + (array)$filter);
+if(!empty($_SESSION['tsp_client_attrs']))
+	$classes_list = App::GetClient()->GetController('classes')->GetClassesData((array)$_SESSION['tsp_client_attrs'] + (array)$filter);
 else
 	$classes_list = App::GetClient()->GetController('classes')->GetClassesData($filter);
 
@@ -32,7 +32,7 @@ foreach ($classes_list->groupclasses as $class) {
 
 //Sort By Location Asc
 foreach ($classes_tabs as $k => $v_array) {
-	usort($classes_tabs[$k], 'dsm_location_sort');
+	usort($classes_tabs[$k], 'tsp_location_sort');
 }
 ?>
 <div id="tab-classes-list" class="tab-pane">

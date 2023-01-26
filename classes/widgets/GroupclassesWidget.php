@@ -1,10 +1,10 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 class GroupclassesWidget extends \WP_Widget
 {
 	public function __construct()
 	{
-		parent::__construct( "dsm_classes_list", 'DSM GroupClasses' );
+		parent::__construct( "tsp_classes_list", 'TSP GroupClasses' );
 	}
 
 	public function form( $instance )

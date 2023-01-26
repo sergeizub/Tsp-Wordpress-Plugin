@@ -1,9 +1,9 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 ?>
 <script>
 jQuery(function() {
-    <?php if (DSM_OC_ALLOW_CLASS_REG_PURCH_ITEMS == "1") : ?>
+    <?php if (TSP_OC_ALLOW_CLASS_REG_PURCH_ITEMS == "1") : ?>
 	InitClassRegWithPurchesdItem();	
 	<?php endif;?>
 });
@@ -14,5 +14,5 @@ jQuery(function() {
     </div>
 <?php include plugin_dir_path( __FILE__ ) . 'snippets/class-details.php'; ?>
 <br/><br/>
-<a type="button" class="btn btn-primary geturl checkout dsm_ajax_tab" href="#tab-checkout-cart"><i class="fa fa-shopping-cart"></i> Checkout</a>
+<a type="button" class="btn btn-primary geturl checkout tsp_ajax_tab" href="#tab-checkout-cart"><i class="fa fa-shopping-cart"></i> Checkout</a>
 </div>

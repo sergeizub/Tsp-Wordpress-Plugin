@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 class Emailer
 {
@@ -30,7 +30,7 @@ class Emailer
 		$message .=  !empty($family['EMAIL'])  ? $labels['EMAIL']   .": " . $family['EMAIL'] . "<br />" : '';
 		$message .=  !empty($family['EMAIL2']) ? $labels['EMAIL2']  .": " . $family['EMAIL2'] . "<br />" : '';
 		$message .=  !empty($family['NOTES']) ? "<br />" . $family['NOTES'] . "<br />" : '';
-		$message .= "Your DSM Url: ".get_option('dsm_api_url');
+		$message .= "Your TSP Url: ".get_option('tsp_api_url');
 		
 		$subject = "New Account";
 		

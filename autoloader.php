@@ -1,16 +1,16 @@
 <?php
 
-spl_autoload_register( 'dsm_namespace_autoload' );
+spl_autoload_register( 'tsp_namespace_autoload' );
 
-function dsm_namespace_autoload( $class_name )
+function tsp_namespace_autoload( $class_name )
 {
-    if ( false === strpos( $class_name, 'DanceStudioManager' ))
+    if ( false === strpos( $class_name, 'TravelSportsPro' ))
         return;
     $file_parts = explode( '\\', $class_name );
     $namespace = '';
     for ( $i = count( $file_parts ) - 1; $i > 0; $i-- ) {
        
-        $current = str_ireplace( 'DanceStudioManager', '', $current );
+        $current = str_ireplace( 'TravelSportsPro', '', $current );
         $current = $file_parts[ $i ] ;
         if ( count( $file_parts ) - 1 === $i ) {
             if ( false !== strpos( $current, 'Widget' ))

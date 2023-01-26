@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 class CheckoutController extends BaseController
 {
@@ -23,7 +23,7 @@ class CheckoutController extends BaseController
 			}
 		}
 		unset($data['selected_account']);
-		$data['dsm_action'] = 'checkout/confirm';
+		$data['tsp_action'] = 'checkout/confirm';
 		return parent::Submit($data);
 	}
 	
@@ -34,13 +34,13 @@ class CheckoutController extends BaseController
 	
 	public function SubmitCartItem($data)
 	{
-		$data['dsm_action'] = 'checkout/cart';
+		$data['tsp_action'] = 'checkout/cart';
 		return parent::Submit($data);
 	}
 	
 	public function DeleteCartItem($data)
 	{
-		$data['dsm_action'] = 'checkout/cart';
+		$data['tsp_action'] = 'checkout/cart';
 		return parent::Delete($data);
 	}
 	
@@ -60,13 +60,13 @@ class CheckoutController extends BaseController
 	}
 	
 	public function AddDiscount($data) {
-		$data['dsm_action'] = 'checkout/discount';
+		$data['tsp_action'] = 'checkout/discount';
 		$result =  parent::Submit($data);
 		return $result;
 	}
 	
 	public function RemoveDiscount($data) {
-		$data['dsm_action'] = 'checkout/discount';
+		$data['tsp_action'] = 'checkout/discount';
 		return parent::Delete($data);
 	}
     
@@ -85,7 +85,7 @@ class CheckoutController extends BaseController
     
     public function SubmitSalesItem($data)
 	{
-		$data['dsm_action'] = 'checkout/sales-items';
+		$data['tsp_action'] = 'checkout/sales-items';
 		return parent::Submit($data);
 	}
 }

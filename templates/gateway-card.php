@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 $user_data = App::GetClient()->GetController('members')->GetUserData();
 
 if (!empty($_POST['first_name']))
@@ -15,7 +15,7 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 ?>
 <div class="row">
 	<div class="col-md-10 pt25">
-		<div class="dsm-header"><h2>Add Card</h2></div>
+		<div class="tsp-header"><h2>Add Card</h2></div>
 		<form action="index.php" method="post" id="gateway-form-card" class="form-horizontal" role="form">
 			<div class="form-group">
 				<label class="col-sm-5 control-label"><span class="text-warning">*</span> First Name</label>
@@ -60,7 +60,7 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 					<input class="form-control" type="text" name="description" maxlength="255" value="<?php echo sanitize_textarea_field($_POST['description']); ?>" />
 				</div>      
 			</div>
-			<input type="hidden" name="action" value="dsmclient"/>
+			<input type="hidden" name="action" value="tspclient"/>
 			<input type="hidden" name="obj" value="gateway"/>
 			<input type="hidden" name="method" value="SubmitCard"/>
 			<input type="hidden" name="boot_tab" value="tab-members-cards-accounts"/>

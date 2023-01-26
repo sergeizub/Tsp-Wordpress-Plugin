@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 class MembersController extends BaseController
 {
@@ -10,7 +10,7 @@ class MembersController extends BaseController
 	
 	public function Submit($data)
 	{
-		$data['dsm_action'] = 'members/edit';
+		$data['tsp_action'] = 'members/edit';
 		
 		if ($data['I_AM'] == 'adult-student') {
 			$data['IS_STUDENT'] = 1;
@@ -46,9 +46,9 @@ class MembersController extends BaseController
 	public function SubmitStudent($data)
 	{
 		if ($data['student_id'])
-			$data['dsm_action'] = 'members/edit/'.$data['student_id'];
+			$data['tsp_action'] = 'members/edit/'.$data['student_id'];
 		else
-			$data['dsm_action'] = 'members/student';
+			$data['tsp_action'] = 'members/student';
 
 		$result = parent::Submit($data);
 		
@@ -69,20 +69,20 @@ class MembersController extends BaseController
 
     public function ChangePassword($data)
     {
-		$data['dsm_action'] = 'members/change-password';
+		$data['tsp_action'] = 'members/change-password';
         $result = parent::Submit($data);
         return $result;
     }
 	
 	public function DeleteStudent($data)
 	{
-		$data['dsm_action'] = 'members/student/'.$data['student_id'];
+		$data['tsp_action'] = 'members/student/'.$data['student_id'];
 		return parent::Delete($data);
 	}
     
     public function RedeemGiftCard($data)
 	{
-        $data['dsm_action'] = 'members/gift-cards-redeem';
+        $data['tsp_action'] = 'members/gift-cards-redeem';
 		$result = parent::Submit($data);
         return $result;
     }

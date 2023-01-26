@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 class GatewayController extends BaseController
 {
@@ -10,7 +10,7 @@ class GatewayController extends BaseController
 	
 	public function SubmitCard($data)
 	{
-		$data['dsm_action'] = 'gateway/card';
+		$data['tsp_action'] = 'gateway/card';
 		if ($data['auto_payment'] == 'on' || $data['auto_payment'] == '1') 
 			$data['auto_payment'] = '1';
 		else
@@ -21,7 +21,7 @@ class GatewayController extends BaseController
 	
 	public function SubmitACH($data)
 	{
-		$data['dsm_action'] = 'gateway/account';
+		$data['tsp_action'] = 'gateway/account';
 		if ($data['auto_payment'] == 'on' || $data['auto_payment'] == '1') 
 			$data['auto_payment'] = '1';
 		else
@@ -32,19 +32,19 @@ class GatewayController extends BaseController
 	
 	public function SubmitDefault($data)
 	{
-		$data['dsm_action'] = 'gateway/default';
+		$data['tsp_action'] = 'gateway/default';
 		return parent::Submit($data);
 	}
 	
 	public function SubmitAutopay($data)
 	{
-		$data['dsm_action'] = 'gateway/auto-pay';
+		$data['tsp_action'] = 'gateway/auto-pay';
 		return parent::Submit($data);
 	}
 	
 	public function Delete($data)
 	{
-		$data['dsm_action'] = 'gateway/delete';
+		$data['tsp_action'] = 'gateway/delete';
 		return parent::Delete($data);
 	}
 }

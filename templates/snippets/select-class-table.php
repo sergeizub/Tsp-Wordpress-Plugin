@@ -1,17 +1,17 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 ?>
             <table class="table table-borderless table_mobile_block" style="table-layout: auto;">
                 <thead>
                     <tr>
                         <th>Class</th>
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_AGE == '1') { ?><th class="text-center">Age</th><?php } ?>
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_LEVEL == '1') { ?><th class="text-center">Level</th><?php } ?>
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_LOCATION == '1') { ?><th class="text-center">Location</th><?php } ?>
-						<?php if (DSM_OC_CLASS_LIST_CLASS_INSTRUCTOR == '1') { ?><th class="text-center">Instructor</th><?php } ?>                    
-						<?php if (DSM_OC_CLASS_LIST_CLASS_DATES == '1') { ?><th>Dates</th><?php } ?>
-						<?php if (DSM_OC_CLASS_LIST_CLASS_PRICE == '1') { ?><th style="min-width:90px;" class="text-left">Pricing</th><?php } ?>
-						<?php if (DSM_OC_CLASS_LIST_TYPE != 'list_by_program' && DSM_OC_CLASS_LIST_TYPE != 'list_by_program_table') { ?><th>Schedules</th><?php } else { ?><th></th><?php } ?>
+                        <?php if (TSP_OC_CLASS_LIST_CLASS_AGE == '1') { ?><th class="text-center">Age</th><?php } ?>
+                        <?php if (TSP_OC_CLASS_LIST_CLASS_LEVEL == '1') { ?><th class="text-center">Level</th><?php } ?>
+                        <?php if (TSP_OC_CLASS_LIST_CLASS_LOCATION == '1') { ?><th class="text-center">Location</th><?php } ?>
+						<?php if (TSP_OC_CLASS_LIST_CLASS_INSTRUCTOR == '1') { ?><th class="text-center">Instructor</th><?php } ?>                    
+						<?php if (TSP_OC_CLASS_LIST_CLASS_DATES == '1') { ?><th>Dates</th><?php } ?>
+						<?php if (TSP_OC_CLASS_LIST_CLASS_PRICE == '1') { ?><th style="min-width:90px;" class="text-left">Pricing</th><?php } ?>
+						<?php if (TSP_OC_CLASS_LIST_TYPE != 'list_by_program' && TSP_OC_CLASS_LIST_TYPE != 'list_by_program_table') { ?><th>Schedules</th><?php } else { ?><th></th><?php } ?>
                        
                     </tr>
                 </thead>
@@ -23,42 +23,42 @@ namespace DanceStudioManager;
                     <tr>
                         <td>
 							<h4>
-							<?php if (DSM_OC_CLASS_LIST_CLASS_ID == '1') { ?><div class="label label-default"><?php echo $class->ID; ?></div><?php } ?>
-                            <?php echo (DSM_OC_CLASS_LIST_CLASS_CODE == '1') ? $class->CODE.' ' : ''; ?>
-                            <?php echo (DSM_OC_CLASS_LIST_CLASS_NAME == '1') ? $class->NAME.' ' : ''; ?>
-                            <?php echo (DSM_OC_CLASS_LIST_CLASS_LEVEL == '1') ? $class->LEVEL : ''; ?>
+							<?php if (TSP_OC_CLASS_LIST_CLASS_ID == '1') { ?><div class="label label-default"><?php echo $class->ID; ?></div><?php } ?>
+                            <?php echo (TSP_OC_CLASS_LIST_CLASS_CODE == '1') ? $class->CODE.' ' : ''; ?>
+                            <?php echo (TSP_OC_CLASS_LIST_CLASS_NAME == '1') ? $class->NAME.' ' : ''; ?>
+                            <?php echo (TSP_OC_CLASS_LIST_CLASS_LEVEL == '1') ? $class->LEVEL : ''; ?>
 							</h4>
 						</td>
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_AGE == '1') { ?><td class="text-center"><?php echo $class->MIN_AGE; ?> - <?php echo $class->MAX_AGE; ?></td><?php } ?>
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_LEVEL == '1') { ?><td class="text-center"><?php echo $class->LEVEL; ?></td><?php } ?>
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_LOCATION == '1') { ?><td class="text-center"><h4><?php echo $class->LOCATION; ?></td><?php } ?></h4>  
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_INSTRUCTOR == '1') { ?>
+                        <?php if (TSP_OC_CLASS_LIST_CLASS_AGE == '1') { ?><td class="text-center"><?php echo $class->MIN_AGE; ?> - <?php echo $class->MAX_AGE; ?></td><?php } ?>
+                        <?php if (TSP_OC_CLASS_LIST_CLASS_LEVEL == '1') { ?><td class="text-center"><?php echo $class->LEVEL; ?></td><?php } ?>
+                        <?php if (TSP_OC_CLASS_LIST_CLASS_LOCATION == '1') { ?><td class="text-center"><h4><?php echo $class->LOCATION; ?></td><?php } ?></h4>  
+                        <?php if (TSP_OC_CLASS_LIST_CLASS_INSTRUCTOR == '1') { ?>
                         <td class="text-center">
                             <?php echo $class->INSTRUCTOR; ?>
                         </td>
                         <?php } ?>
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_DATES == '1') { ?>
+                        <?php if (TSP_OC_CLASS_LIST_CLASS_DATES == '1') { ?>
                         <td>
 							<span style="white-space: nowrap;"><?php echo $class->CLASS_START; ?></span> - <span style="white-space: nowrap;"><?php echo $class->CLASS_END; ?></span>
 						</td>
                         <?php } ?>
-                        <?php if (DSM_OC_CLASS_LIST_CLASS_PRICE == '1') { ?>
+                        <?php if (TSP_OC_CLASS_LIST_CLASS_PRICE == '1') { ?>
                         <td>
                             <?php if ($class->PAYMENT_METHOD == "sales_packages") : ?>
                             <ul class="gc list-unstyled">
-			                	<li><b><?php echo DSM_CURRENCY_SIGN; ?><?php echo $class->SALES_ITEM_PRICE; ?></b> <?php echo $class->SALES_ITEM; ?></li>
+			                	<li><b><?php echo TSP_CURRENCY_SIGN; ?><?php echo $class->SALES_ITEM_PRICE; ?></b> <?php echo $class->SALES_ITEM; ?></li>
                         	</ul>
                             <?php else: ?>
                                 <?php echo $class->PRICING; ?>
-                                <?php if (DSM_OC_CLASS_REG_FEE_ENABLED == '1' && $class->REG_FEE > 0 ) { ?>
-									<br /><small>(Reg. fee <?php echo DSM_CURRENCY_SIGN; ?><?php echo $class->REG_FEE; ?>)</small>
+                                <?php if (TSP_OC_CLASS_REG_FEE_ENABLED == '1' && $class->REG_FEE > 0 ) { ?>
+									<br /><small>(Reg. fee <?php echo TSP_CURRENCY_SIGN; ?><?php echo $class->REG_FEE; ?>)</small>
 								<?php } ?>
                             <?php endif; ?>
 	                    </td>
                         <?php } ?>
 
 						<td>
-							<?php if ( (DSM_OC_CLASS_LIST_TYPE == 'list_by_program' || DSM_OC_CLASS_LIST_TYPE == 'list_by_program_table' || $_SESSION['dsm_client_attrs']['view'] == "List") && $class->PAYMENT_METHOD == "sales_packages") :?>
+							<?php if ( (TSP_OC_CLASS_LIST_TYPE == 'list_by_program' || TSP_OC_CLASS_LIST_TYPE == 'list_by_program_table' || $_SESSION['tsp_client_attrs']['view'] == "List") && $class->PAYMENT_METHOD == "sales_packages") :?>
 							<table class="table table-borderless" style="table-layout: auto;">
 								<thead>
 									<tr>
@@ -79,15 +79,15 @@ namespace DanceStudioManager;
 												<span><?php echo $schedule->TITLE; ?> <?php echo $schedule->M_STATUS; ?></span>
 											</button>
 										<?php elseif (App::GetClient()->GetController('auth')->isLogged()): ?>
-											<?php if ($schedule->MAX_STUDENTS <= ($schedule->NUM_STUDENTS) && DSM_OC_ALLOW_WAIT_LIST == "1"): ?>
-												<a href="#tab-class-registration-<?php echo $class->ID; ?>"  dsm_class_id="<?php echo $class->ID; ?>" dsm_schedule_id="<?php echo $schedule->ID; ?>" title="Add to Wait List" class="btn btn-success dsm_ajax_tab">
+											<?php if ($schedule->MAX_STUDENTS <= ($schedule->NUM_STUDENTS) && TSP_OC_ALLOW_WAIT_LIST == "1"): ?>
+												<a href="#tab-class-registration-<?php echo $class->ID; ?>"  tsp_class_id="<?php echo $class->ID; ?>" tsp_schedule_id="<?php echo $schedule->ID; ?>" title="Add to Wait List" class="btn btn-success tsp_ajax_tab">
 																<i class="fa fa-plus-circle"></i> <?php echo $schedule->TITLE;?> Add to Wait List  </a>
 											<?php else: ?>
-												<a href="#tab-class-registration-<?php echo $class->ID; ?>" dsm_class_id="<?php echo $class->ID; ?>" dsm_schedule_id="<?php echo $schedule->ID;?>" title="Register" class="btn btn-success dsm_ajax_tab">
+												<a href="#tab-class-registration-<?php echo $class->ID; ?>" tsp_class_id="<?php echo $class->ID; ?>" tsp_schedule_id="<?php echo $schedule->ID;?>" title="Register" class="btn btn-success tsp_ajax_tab">
 																<i class="fa fa-plus-circle"></i> <?php echo $schedule->TITLE; ?> Register </a>
 											<?php endif; ?>
 										<?php else: ?>
-											<button class="btn btn-success btn-login-alert" type="button" dsm_class_id="<?php echo $class->ID; ?>" dsm_schedule_id="<?php echo $schedule->ID; ?>">
+											<button class="btn btn-success btn-login-alert" type="button" tsp_class_id="<?php echo $class->ID; ?>" tsp_schedule_id="<?php echo $schedule->ID; ?>">
 												<span><i class="fa fa-plus-circle"></i> <?php echo $schedule->TITLE?> Register</span>
 											</button>		
 										<?php endif; ?>
@@ -99,11 +99,11 @@ namespace DanceStudioManager;
 							</table>
 							<?php else: ?>
 								<?php if (App::GetClient()->GetController('auth')->isLogged()): ?>
-									<?php if ($class->MAX_STUDENTS <= ($class->STUDENTS_QUANTITY) && DSM_OC_ALLOW_WAIT_LIST == "1"): ?>
-										<a href="#tab-class-registration-<?php echo $class->ID; ?>" title="Add to Wait List" class="btn btn-success dsm_ajax_tab">
+									<?php if ($class->MAX_STUDENTS <= ($class->STUDENTS_QUANTITY) && TSP_OC_ALLOW_WAIT_LIST == "1"): ?>
+										<a href="#tab-class-registration-<?php echo $class->ID; ?>" title="Add to Wait List" class="btn btn-success tsp_ajax_tab">
 																<i class="fa fa-plus-circle"></i> Add to Wait List</a>
 									<?php else: ?>
-										<a href="#tab-class-registration-<?php echo $class->ID; ?>" title="Register" class="btn btn-success dsm_ajax_tab">
+										<a href="#tab-class-registration-<?php echo $class->ID; ?>" title="Register" class="btn btn-success tsp_ajax_tab">
 																<i class="fa fa-plus-circle"></i> Register</a>
 									<?php endif; ?>
 								<?php else: ?>

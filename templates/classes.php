@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
    $class_id = App::GetApi()->GetIdParam();
 ?>
@@ -9,10 +9,10 @@ if (!empty($class_id)) :
    App::GetTemplate()->Load('class-registration.php');
 else :
 	include plugin_dir_path( __FILE__ ) . 'snippets/class-filters.php'; 
-   if ($_SESSION['dsm_client_attrs']["start_date"] && strtotime($_SESSION['dsm_client_attrs']["start_date"]) > strtotime(DSM_PHPDATE))
-	  $date_now = date(DSM_PHPDATE, strtotime(sanitize_text_field($_SESSION['dsm_client_attrs']["start_date"])));
+   if ($_SESSION['tsp_client_attrs']["start_date"] && strtotime($_SESSION['tsp_client_attrs']["start_date"]) > strtotime(TSP_PHPDATE))
+	  $date_now = date(TSP_PHPDATE, strtotime(sanitize_text_field($_SESSION['tsp_client_attrs']["start_date"])));
    else
-	  $date_now = date(DSM_PHPDATE);
+	  $date_now = date(TSP_PHPDATE);
 
 	?>
 	<script>
@@ -36,7 +36,7 @@ else :
     }
 	var schedule_week;
 	jQuery(function() {
-   <?php if($_SESSION['dsm_client_attrs']["week"] == "true") : ?>
+   <?php if($_SESSION['tsp_client_attrs']["week"] == "true") : ?>
 		 schedule_week = 1;
 		 SchedulesList('<?php echo $date_now; ?>');
    <?php else: ?>
@@ -50,7 +50,7 @@ else :
 		
 		jQuery(document).on("click", "#week-schedules", function() {
 			schedule_week = 1;
-			SchedulesList(moment().day(<?php echo DSM_CALENDAR_START_DAY; ?>).format('dddd, ' + window.dtp_date));
+			SchedulesList(moment().day(<?php echo TSP_CALENDAR_START_DAY; ?>).format('dddd, ' + window.dtp_date));
 		});		
 	
 		jQuery(document).on("click", "#next-date", function() {
@@ -73,10 +73,10 @@ else :
 
 	function SchedulesList(date)
 	{
-		jQuery('#dsm_loading').show();
+		jQuery('#tsp_loading').show();
 		jQuery('#schedules-container').html('');
 		
-	jQuery.post(dsmajax.url, { action : 'dsmclient', boot_tab: 'classes' , type: 'json', start: date, filter: JSON.stringify(class_filter), schedule_week: schedule_week},
+	jQuery.post(tspajax.url, { action : 'tspclient', boot_tab: 'classes' , type: 'json', start: date, filter: JSON.stringify(class_filter), schedule_week: schedule_week},
 		function(data) 
 		{
 			if (data.schedules != '' && data.schedules != undefined) {
@@ -87,18 +87,18 @@ else :
 					var login = '1';
 					
 					if (v.COLOR == '') v.COLOR = 'cccccc';
-					var OC_CLASS_LIST_CLASS_ID = '<?php echo DSM_OC_CLASS_LIST_CLASS_ID; ?>';
-					var OC_CLASS_LIST_CLASS_CODE = '<?php echo DSM_OC_CLASS_LIST_CLASS_CODE; ?>';
-					var OC_CLASS_LIST_CLASS_NAME = '<?php echo DSM_OC_CLASS_LIST_CLASS_NAME; ?>';
-					var OC_CLASS_LIST_CLASS_LEVEL = '<?php echo DSM_OC_CLASS_LIST_CLASS_LEVEL; ?>';
-					var OC_CLASS_LIST_CLASS_DESCRIPTION = '<?php echo DSM_OC_CLASS_LIST_CLASS_DESCRIPTION; ?>';
-					var OC_CLASS_LIST_CLASS_AGE = '<?php echo DSM_OC_CLASS_LIST_CLASS_AGE; ?>';
-					var OC_CLASS_LIST_AVAILABLE_SLOTS = '<?php echo DSM_OC_CLASS_LIST_AVAILABLE_SLOTS; ?>';
-					var OC_CLASS_LIST_CLASS_LOCATION = '<?php echo DSM_OC_CLASS_LIST_CLASS_LOCATION; ?>';
-					var OC_ALLOW_WAIT_LIST = '<?php echo DSM_OC_ALLOW_WAIT_LIST; ?>';
+					var OC_CLASS_LIST_CLASS_ID = '<?php echo TSP_OC_CLASS_LIST_CLASS_ID; ?>';
+					var OC_CLASS_LIST_CLASS_CODE = '<?php echo TSP_OC_CLASS_LIST_CLASS_CODE; ?>';
+					var OC_CLASS_LIST_CLASS_NAME = '<?php echo TSP_OC_CLASS_LIST_CLASS_NAME; ?>';
+					var OC_CLASS_LIST_CLASS_LEVEL = '<?php echo TSP_OC_CLASS_LIST_CLASS_LEVEL; ?>';
+					var OC_CLASS_LIST_CLASS_DESCRIPTION = '<?php echo TSP_OC_CLASS_LIST_CLASS_DESCRIPTION; ?>';
+					var OC_CLASS_LIST_CLASS_AGE = '<?php echo TSP_OC_CLASS_LIST_CLASS_AGE; ?>';
+					var OC_CLASS_LIST_AVAILABLE_SLOTS = '<?php echo TSP_OC_CLASS_LIST_AVAILABLE_SLOTS; ?>';
+					var OC_CLASS_LIST_CLASS_LOCATION = '<?php echo TSP_OC_CLASS_LIST_CLASS_LOCATION; ?>';
+					var OC_ALLOW_WAIT_LIST = '<?php echo TSP_OC_ALLOW_WAIT_LIST; ?>';
 					
 					<?php if (App::GetClient()->GetController('auth')->isLogged()) : ?>
-					fclass = 'book-now dsm_ajax_tab';
+					fclass = 'book-now tsp_ajax_tab';
                <?php else: ?>
                fclass = 'book-now btn-login-alert';
                <?php endif; ?>
@@ -128,16 +128,16 @@ else :
 					}
 					else if (parseInt(v.STUDENTS_QUANTITY) >= parseInt(v.MAX_STUDENTS)) {
 						if (OC_ALLOW_WAIT_LIST == '1' && v.WAIT_LIST == '1')
-							button = '<button class="btn btn-warning btn-lg ' + fclass + '" href="#tab-class-registration-' + v.CLASS_ID + '" dsm_schedule_id="'+v.ID+'" title="Wait List">Wait List</a>';
+							button = '<button class="btn btn-warning btn-lg ' + fclass + '" href="#tab-class-registration-' + v.CLASS_ID + '" tsp_schedule_id="'+v.ID+'" title="Wait List">Wait List</a>';
 						else
 							button = '<div class="alert alert-warning text-center">Full</div>';
 					}
 					else {
-						button = '<a class="btn btn-success btn-lg ' + fclass + '" href="#tab-class-registration-' + v.CLASS_ID + '"  dsm_schedule_id="'+v.ID+'" title="Book Now">Book Now</a>';
+						button = '<a class="btn btn-success btn-lg ' + fclass + '" href="#tab-class-registration-' + v.CLASS_ID + '"  tsp_schedule_id="'+v.ID+'" title="Book Now">Book Now</a>';
 					}
 
 					s += '<div class="schedule" style="border-left: 30px solid #' + v.COLOR + ';"><h4>' + v.START_DATE + '  <small>' + v.START_TIME + ' - ' + v.END_TIME + '</small></h4>'+
-					'<div class="row"><div class="col-md-9"><a href="#tab-classes" class="dsm_ajax_tab" dsm_obj="classes" dsm_method="GetInfo" dsm_class_id="' + v.CLASS_ID + '" ><h3>'+ listid + ' ' + code + ' ' + genre + ' ' + level + 
+					'<div class="row"><div class="col-md-9"><a href="#tab-classes" class="tsp_ajax_tab" tsp_obj="classes" tsp_method="GetInfo" tsp_class_id="' + v.CLASS_ID + '" ><h3>'+ listid + ' ' + code + ' ' + genre + ' ' + level + 
 					'</h3></a></div><div class="col-md-3 text-right">' + button +
 					'</div></div><p></p>' + description +  slots + location + '</div>';
 				});
@@ -154,19 +154,19 @@ else :
 		    if (data.current_date != '' && data.current_date != undefined)
 				jQuery('#current-date input[name=currentdate]').val(data.current_date);
 			
-			jQuery('#dsm-tab-content .dsm_ajax_tab').on('click', function(e) {
+			jQuery('#tsp-tab-content .tsp_ajax_tab').on('click', function(e) {
 				e.preventDefault();
-				dsm_ajax_click(this);
+				tsp_ajax_click(this);
 			});
 			
-			jQuery('#dsm_loading').hide();
+			jQuery('#tsp_loading').hide();
         }, 
         'json'
     );	
 }
 </script>
 <style>
-<?php if($_SESSION['dsm_client_attrs']["week"] == "true"): ?>
+<?php if($_SESSION['tsp_client_attrs']["week"] == "true"): ?>
 #current-date {
 	min-width: 60%;
 }
@@ -176,7 +176,7 @@ else :
 	<div class="panel panel-default ">
 		<div class="panel-heading">
 			<h3 class="panel-title text-center">
-			   <?php if($_SESSION['dsm_client_attrs']["week"] == "true") : ?>
+			   <?php if($_SESSION['tsp_client_attrs']["week"] == "true") : ?>
 				  <a href="#" id="week-schedules" class="btn btn-default pull-left hidden-xs" style="margin-right:12px;" data-start="">Week</a>
 			   <?php endif; ?>
 				  <a href="#" id="today-schedules" class="btn btn-default pull-left hidden-xs" data-start="">Today</a>

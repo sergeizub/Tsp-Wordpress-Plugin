@@ -1,10 +1,10 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 class RegisterWidget extends \WP_Widget
 {
 	public function __construct()
 	{
-		parent::__construct( "dsm_register", 'DSM Register' );
+		parent::__construct( "tsp_register", 'TSP Register' );
 	}
 
 	public function form( $instance )

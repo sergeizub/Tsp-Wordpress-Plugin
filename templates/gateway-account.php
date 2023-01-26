@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 $user_data = App::GetClient()->GetController('members')->GetUserData();
 
 if (!empty($_POST['first_name']))
@@ -15,7 +15,7 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 ?>
 <div class="row">
 	<div class="col-md-10 pt25">
-		<div class="dsm-header"><h2>Add ACH</h2></div>
+		<div class="tsp-header"><h2>Add ACH</h2></div>
 			<form action="index.php" method="post" id="gateway-form-ach" class="form-horizontal" role="form">
 				<div class="form-group">
 					<label class="col-sm-5 control-label"><span class="text-warning">*</span> First Name</label>
@@ -36,7 +36,7 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-5 control-label"><span class="text-warning">*</span> <?php echo ((DSM_DSM_DATE_FORMAT == 'AU' && DSM_PAYMENT_SYSTEM == 'quickpay') ? 'BSB' : 'Bank Routing Number'); ?></label>
+					<label class="col-sm-5 control-label"><span class="text-warning">*</span> <?php echo ((TSP_DSM_DATE_FORMAT == 'AU' && TSP_PAYMENT_SYSTEM == 'quickpay') ? 'BSB' : 'Bank Routing Number'); ?></label>
 					<div class="col-sm-7">
 						<input class="form-control" type="text" name="bank_routing_number" value="<?php echo sanitize_text_field($_POST['bank_routing_number']); ?>">
 					</div>
@@ -54,7 +54,7 @@ else if (!empty($user_data) && isset($user_data->LASTNAME))
 						<input class="form-control" type="text" name="description" maxlength="255" value="<?php echo sanitize_textarea_field($_POST['description']); ?>" />
 					</div>      
 				</div>
-				<input type="hidden" name="action" value="dsmclient"/>
+				<input type="hidden" name="action" value="tspclient"/>
 				<input type="hidden" name="obj" value="gateway"/>
 				<input type="hidden" name="method" value="SubmitACH"/>
 				<input type="hidden" name="boot_tab" value="tab-members-cards-accounts"/>

@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 $result = App::GetClient()->GetController('members')->GetPayments();
 ?>
 <div id="tab-members-payments" class="tab-pane">
@@ -13,7 +13,7 @@ $result = App::GetClient()->GetController('members')->GetPayments();
 				<th>Type</th>
 				<th>Check #</th>
 				<th>Notes</th>
-				<th style="text-align:right" width="90">Paid, <?php echo DSM_CURRENCY_SIGN; ?></th>
+				<th style="text-align:right" width="90">Paid, <?php echo TSP_CURRENCY_SIGN; ?></th>
 			</tr>
 		</thead>
 		<tbody>

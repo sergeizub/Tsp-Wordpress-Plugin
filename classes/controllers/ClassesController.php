@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 
 class ClassesController extends BaseController
 {
@@ -17,12 +17,12 @@ class ClassesController extends BaseController
 		}
 
 		$data['limit'] = '100000';
-		$dsm_classes = parent::GetList('classes/?'.http_build_query($data));
+		$tsp_classes = parent::GetList('classes/?'.http_build_query($data));
 
 		//Filter Schedules
 		if(!empty($filter)) {
-			$filter = dsm_array_map('html_entity_decode', $filter);
-			foreach ($dsm_classes->schedules as $k_schedules => $schedules) {
+			$filter = tsp_array_map('html_entity_decode', $filter);
+			foreach ($tsp_classes->schedules as $k_schedules => $schedules) {
 				if (is_array($schedules->data)) {
 					foreach ($schedules->data as $k_schedule => $schedule) {
 						if ((!empty($filter['class_code']) && is_array($filter['class_code']) && !in_array($schedule->CODE, $filter['class_code']))
@@ -36,12 +36,12 @@ class ClassesController extends BaseController
 							|| (!empty($filter['class_program']) && is_array($filter['class_program']) && !in_array($schedule->PROGRAM, $filter['class_program']))
 							|| (!empty($filter['class_program']) && !is_array($filter['class_program']) && $filter['class_program'] != $schedule->PROGRAM)
 							)
-							unset($dsm_classes->schedules[$k_schedules]->data[$k_schedule]);
+							unset($tsp_classes->schedules[$k_schedules]->data[$k_schedule]);
 					}
 				}
 			}
 		}
-		return $dsm_classes;
+		return $tsp_classes;
 	}
 
 	public function GetClassesData($filter)
@@ -54,9 +54,9 @@ class ClassesController extends BaseController
 		if($data['class_code'])
 			$data['class_code'] = htmlspecialchars_decode($data['class_code']);
 		
-		$data['dsm_action'] = 'classes/data';
-		$dsm_classes = parent::GetList($data);
-        $all_filters = json_decode(json_encode($dsm_classes->filters),true);
+		$data['tsp_action'] = 'classes/data';
+		$tsp_classes = parent::GetList($data);
+        $all_filters = json_decode(json_encode($tsp_classes->filters),true);
         $name_filters = $level_filters = $location_filters = array();
   
         foreach($all_filters["name"] as $v)
@@ -79,8 +79,8 @@ class ClassesController extends BaseController
             $end_date = "";
         
 		if(!empty($filter)) {
-			$filter = dsm_array_map('html_entity_decode', $filter);
-			foreach ($dsm_classes->groupclasses as $k_groupclass => $groupclass) {
+			$filter = tsp_array_map('html_entity_decode', $filter);
+			foreach ($tsp_classes->groupclasses as $k_groupclass => $groupclass) {
                
 				if ((!empty($filter['class_code']) && is_array($filter['class_code']) && !in_array($groupclass->CODE, $filter['class_code']))
                     || (!empty($filter['class_code']) && !is_array($filter['class_code']) && $filter['class_code'] != $groupclass->CODE)
@@ -93,26 +93,26 @@ class ClassesController extends BaseController
 					|| (!empty($filter['class_program']) && is_array($filter['class_program']) && !in_array($groupclass->PROGRAM, $filter['class_program']))
                     || (!empty($filter['class_program']) && !is_array($filter['class_program']) && $filter['class_program'] != $groupclass->PROGRAM)
 					)
-					unset($dsm_classes->groupclasses[$k_groupclass]);
+					unset($tsp_classes->groupclasses[$k_groupclass]);
 
-                if (!empty($dsm_classes->groupclasses[$k_groupclass]) && !empty($dsm_classes->groupclasses[$k_groupclass]->SCHEDULES)
+                if (!empty($tsp_classes->groupclasses[$k_groupclass]) && !empty($tsp_classes->groupclasses[$k_groupclass]->SCHEDULES)
                         && (!empty($start_date) || !empty($end_date))) {
-                    foreach ($dsm_classes->groupclasses[$k_groupclass]->SCHEDULES as $k_schedule => $schedule) {
+                    foreach ($tsp_classes->groupclasses[$k_groupclass]->SCHEDULES as $k_schedule => $schedule) {
                         if ((!empty($start_date) && $start_date > strtotime($schedule->TITLE))
                             || (!empty($end_date) && $end_date < strtotime($schedule->TITLE))
                             )
-                            unset($dsm_classes->groupclasses[$k_groupclass]->SCHEDULES[$k_schedule]);
+                            unset($tsp_classes->groupclasses[$k_groupclass]->SCHEDULES[$k_schedule]);
                     }
                 }
             }
             
 		}
-		return $dsm_classes;
+		return $tsp_classes;
 	}
 
 	public function ClassesCalendar($data)
 	{
-		$data['dsm_action'] = 'classes-calendar';
+		$data['tsp_action'] = 'classes-calendar';
 		return parent::Submit($data);
 	}
 
@@ -122,12 +122,12 @@ class ClassesController extends BaseController
 			$id = $data['class_id'];
 		else
 			$id =  $data;
-		if (get_option('dsm_class_cache') == '1')
-			$dsm_class_info =  get_transient( 'dsm_class_'.$id );
-		if(empty($dsm_class_info)) {
-			$dsm_class_info = parent::GetList("classes/".$id);
-			if (get_option('dsm_class_cache') == '1')
-				set_transient( 'dsm_class_'.$id, $dsm_class_info, 6 * HOUR_IN_SECONDS );
+		if (get_option('tsp_class_cache') == '1')
+			$tsp_class_info =  get_transient( 'tsp_class_'.$id );
+		if(empty($tsp_class_info)) {
+			$tsp_class_info = parent::GetList("classes/".$id);
+			if (get_option('tsp_class_cache') == '1')
+				set_transient( 'tsp_class_'.$id, $tsp_class_info, 6 * HOUR_IN_SECONDS );
 		}
 
 	 return parent::GetList("classes/$id");
@@ -148,7 +148,7 @@ class ClassesController extends BaseController
 
 	public function GetAvailableSchedules($data)
 	{
-		$data['dsm_action'] = 'classes/available-schedules';
+		$data['tsp_action'] = 'classes/available-schedules';
 		return parent::GetList($data);
 	}
     
@@ -159,14 +159,14 @@ class ClassesController extends BaseController
 
 	public function SubmitFilter($data)
 	{
-		$data['dsm_action'] = 'classes';
-		$dsm_classes_list = parent::GetList($data);
-		return $dsm_classes_list;
+		$data['tsp_action'] = 'classes';
+		$tsp_classes_list = parent::GetList($data);
+		return $tsp_classes_list;
 	}
 
 	public function RegisterWithPurchasedItem($data)
 	{
-		$data['dsm_action'] = 'classes/register-purchased';
+		$data['tsp_action'] = 'classes/register-purchased';
 		return parent::Submit($data);
 	}
 }

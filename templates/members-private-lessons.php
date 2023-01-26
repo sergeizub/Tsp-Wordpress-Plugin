@@ -1,12 +1,12 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 $private_lessons_totals =  json_decode(json_encode(App::GetClient()->GetController('members')->GetPrivateLessonsTotals()),true);
 $my_classes = json_decode(json_encode(App::GetClient()->GetController('members')->GetMyClasses()),true);
 
 ?>
 <div id="tab-members-cards-accounts" class="tab-pane">
 	<h2 class="page-header">Private Lessons</h2>
-	<?php if (DSM_SHOW_LESSONS_TOTALS == '1'): ?>
+	<?php if (TSP_SHOW_LESSONS_TOTALS == '1'): ?>
 	<table class="table table-striped table-sm lessons_totals mt-2 mb-5">
 		<tr>
 			<th width="30%"></th>

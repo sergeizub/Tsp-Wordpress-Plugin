@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 use \DateTime;
 $student = array();
 
@@ -23,14 +23,14 @@ else {
 <? if (is_array($student->form)) :
 	?>
 	<div id="<?php echo ((!empty($student_id) ? 'members_edit_'.$student_id : 'tab-members-student')); ?>" class="<?php echo (!empty($student_id) ? '' : 'tab-pane'); ?>">
-	<div class="dsm-header"><h2><?php echo (!empty($student_id) ? 'Edit' : 'Create'); ?> Student</h2></div>
-	<?php if (DSM_REGISTRATION_FEE_ENABLED && DSM_REGISTRATION_MAX) : ?>
+	<div class="tsp-header"><h2><?php echo (!empty($student_id) ? 'Edit' : 'Create'); ?> Student</h2></div>
+	<?php if (TSP_REGISTRATION_FEE_ENABLED && TSP_REGISTRATION_MAX) : ?>
         <div class="alert alert-warning text-center">
-            Registering first <?php echo DSM_REGISTRATION_MAX; ?> student(s) will cost <?php echo DSM_CURRENCY_SIGN; ?><?php echo DSM_REGISTRATION_FEE; ?> each. <?php echo ((DSM_REGISTRATION_FEE_OVER_MAX == 0 && DSM_REGISTRATION_FAMILY_FEE > 0) ? 'Max family registration fee '.DSM_CURRENCY_SIGN.DSM_REGISTRATION_FAMILY_FEE : 'All other students will cost '.DSM_CURRENCY_SIGN.DSM_REGISTRATION_FEE_OVER_MAX.' each.'); ?>
+            Registering first <?php echo TSP_REGISTRATION_MAX; ?> student(s) will cost <?php echo TSP_CURRENCY_SIGN; ?><?php echo TSP_REGISTRATION_FEE; ?> each. <?php echo ((TSP_REGISTRATION_FEE_OVER_MAX == 0 && TSP_REGISTRATION_FAMILY_FEE > 0) ? 'Max family registration fee '.TSP_CURRENCY_SIGN.TSP_REGISTRATION_FAMILY_FEE : 'All other students will cost '.TSP_CURRENCY_SIGN.TSP_REGISTRATION_FEE_OVER_MAX.' each.'); ?>
         </div>
-	<?php elseif (DSM_REGISTRATION_FEE_ENABLED && DSM_REGISTRATION_MAX == "0") : ?>
+	<?php elseif (TSP_REGISTRATION_FEE_ENABLED && TSP_REGISTRATION_MAX == "0") : ?>
 		<div class="alert alert-warning text-center">
-            Registering students will cost <?php echo DSM_CURRENCY_SIGN; ?><?php echo DSM_REGISTRATION_FEE; ?>.
+            Registering students will cost <?php echo TSP_CURRENCY_SIGN; ?><?php echo TSP_REGISTRATION_FEE; ?>.
         </div>
     <? endif; ?>
 	<form class="form-horizontal" role="form" id="student-form" action="" method="post"> <?
@@ -56,16 +56,16 @@ else {
 					echo '<textarea class="form-control" rows="4" name="'.$field->name.'">'.(isset($student_data[$field->name]) ? $student_data[$field->name] : '').'</textarea>';
 				break;
 				case "date";
-					$dsm_day = new DateTime($student_data[$field->name]);
+					$tsp_day = new DateTime($student_data[$field->name]);
 					echo
 						'<div class="input-group date">
 							<input type="text" class="form-control" name="'.$field->name.'"
-								value="'.((isset($student_data[$field->name]) && $student_data[$field->name] != '0000-00-00') ?  $dsm_day->format(DSM_PHPDATE) : '').'"
+								value="'.((isset($student_data[$field->name]) && $student_data[$field->name] != '0000-00-00') ?  $tsp_day->format(TSP_PHPDATE) : '').'"
 								'.((isset($field->required) && $field->required == true) ? 'required' : '').'
 								placeholder="'.$field->label.'" readonly="readonly">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 						</div>';
-						unset($dsm_day);
+						unset($tsp_day);
 				break;
 				default :
 				case "input":
@@ -87,7 +87,7 @@ else {
 		if (!empty($student_id))
 			echo '<input type="hidden" name="student_id" value="'.$student_id.'"/>';
 
-		echo '<input type="hidden" name="action" value="dsmclient"/>';
+		echo '<input type="hidden" name="action" value="tspclient"/>';
 		echo '<input type="hidden" name="obj" value="members"/>';
 		echo '<input type="hidden" name="method" value="SubmitStudent"/>';
 		echo '<input type="hidden" name="boot_tab" value="tab-members-edit"/>';

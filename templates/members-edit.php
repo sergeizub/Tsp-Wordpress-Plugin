@@ -1,5 +1,5 @@
 <?php
-namespace DanceStudioManager;
+namespace TravelSportsPro;
 use \DateTime;
 
 $member_id = App::GetApi()->GetIdParam();
@@ -24,13 +24,13 @@ else {
 		<? foreach ($related_students->family as $student): ?>
 		<li class="list-group-item"><i class="fa fa-user"></i> <?php echo $student->FIRSTNAME; ?> <?php echo $student->LASTNAME; ?>
 			<div class="pull-right">
-				<? if ($student->PARENT_ID > 0 && DSM_OC_RELATED_STUDENTS_ALLOW_EDIT_ARCHIVE == '1') : ?>
-				<a href="#tab-members-edit-<?php echo $student->ID; ?>" class="dsm_ajax_tab btn btn-primary btn-xs geturl">
+				<? if ($student->PARENT_ID > 0 && TSP_OC_RELATED_STUDENTS_ALLOW_EDIT_ARCHIVE == '1') : ?>
+				<a href="#tab-members-edit-<?php echo $student->ID; ?>" class="tsp_ajax_tab btn btn-primary btn-xs geturl">
 				  <i class="fa fa-pencil"></i> Edit
 				</a>
-				<button type="button" dsm_obj="members" dsm_method="DeleteStudent" dsm_student_id="<?php echo $student->ID; ?>"
+				<button type="button" tsp_obj="members" tsp_method="DeleteStudent" tsp_student_id="<?php echo $student->ID; ?>"
 				    href="#tab-members-edit"
-					onclick="if (confirm('Are you sure you want to archive student?')) { dsm_ajax_click(this) };return false;"
+					onclick="if (confirm('Are you sure you want to archive student?')) { tsp_ajax_click(this) };return false;"
 					class="btn btn-danger btn-xs">
 				  <i class="fa fa-remove"></i> Archive
 				</button>
@@ -45,7 +45,7 @@ else {
 	$user_form =  App::GetClient()->GetController('members')->GetUserForm();
 	if (is_array($user_form)) : ?>
 	<div id="tab-members-edit" class="tab-pane">
-	<div class="dsm-header"><h2>Edit Profile</h2></div>
+	<div class="tsp-header"><h2>Edit Profile</h2></div>
 	<form class="form-horizontal" role="form" id="members-form" action="" method="post">
 	<?
 		foreach ($user_form as $field) {
@@ -57,7 +57,7 @@ else {
 		
 			switch ($field->type) {
 				case "select":
-					if($field->name == 'I_AM' && DSM_MODE != 'COMBINED')
+					if($field->name == 'I_AM' && TSP_MODE != 'COMBINED')
 						continue;
 					echo '<select name="'.$field->name.'" class="form-control">';
 					if (is_array($field->values))
@@ -78,16 +78,16 @@ else {
 					echo '<textarea class="form-control" rows="4" name="'.$field->name.'">'.(isset($user_data[$field->name]) ? $user_data[$field->name] : '').'</textarea>';
 				break;
 				case "date";
-					$dsm_day = new DateTime($user_data[$field->name]);
+					$tsp_day = new DateTime($user_data[$field->name]);
 					echo
 						'<div class="input-group date">
 							<input type="text" class="form-control" name="'.$field->name.'"
-								value="'.((isset($user_data[$field->name]) && $user_data[$field->name] != '0000-00-00') ?  $dsm_day->format(DSM_PHPDATE) : '').'"
+								value="'.((isset($user_data[$field->name]) && $user_data[$field->name] != '0000-00-00') ?  $tsp_day->format(TSP_PHPDATE) : '').'"
 								'.((isset($field->required) && $field->required == true) ? 'required' : '').'
 								placeholder="'.$field->label.'" readonly="readonly">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 						</div>';
-						unset($dsm_day);
+						unset($tsp_day);
 				break;
 				default :
 				case "input":
@@ -106,7 +106,7 @@ else {
 			}
 			echo '</div></div>';
 		}
-		echo '<input type="hidden" name="action" value="dsmclient"/>';
+		echo '<input type="hidden" name="action" value="tspclient"/>';
 		echo '<input type="hidden" name="obj" value="members"/>';
 		echo '<input type="hidden" name="method" value="Submit"/>';
 		echo '<input type="hidden" name="boot_tab" value="tab-members-edit"/>';
