@@ -6,12 +6,17 @@ $my_classes = json_decode(json_encode(App::GetClient()->GetController('members')
 $user_data = json_decode(json_encode(App::GetClient()->GetController('members')->GetUserData()),true);
 $related_students =  json_decode(json_encode(App::GetClient()->GetController('members')->GetChildList()),true);
 
-
 $students = array();
+
+foreach ($related_students['family'] as $child) {
+	$students[$student_name]['item'] = $child;
+}
+
 foreach ($my_classes['classes'] as $student) {
 	foreach ($student as $class) {
 		$student_name = $class['STUDENT'];
 		$class_id = $class['CLASS_ID'];
+
 		if (!array_key_exists($student_name,$students)) {
 			$students[$student_name] = array();
 			//If parent assigned to the class
@@ -28,16 +33,15 @@ foreach ($my_classes['classes'] as $student) {
 		
 		if (!array_key_exists('classes',$students[$student_name]))
 				$students[$student_name]['classes'] = array();
-		
 		$students[$student_name]['classes'][$class_id] = $class;	
 	}
 }
 
 ?>
 <div class="page-header">
-	<h3>Classes</h3>
+	<h3>Programs</h3>
 </div>
-
+<?php if (TSP_OC_MY_CLASSES_GROUP_BY_CLASS == '1') :?>
 <script>
 function SchedulesSection(section_id)
 {
@@ -50,12 +54,22 @@ function SchedulesSection(section_id)
 	}
 }	
 </script>
+<?php endif; ?>
 
 <?php foreach ($students as $student) : ?>
+
 <div class="panel panel-primary">
 <div class="panel-heading">
 	<?php echo ( ($student['item']['GENDER'] == 'F') ? '<i class="fa fa-female"></i>&nbsp;' : ( ($student['item']['GENDER'] == 'M') ? '<i class="fa fa-male"></i>&nbsp;' : '' ) ); ?>
 	<?php echo ( (!empty($student['item']['BIRTHDAY_MONTH']) && $student['item']['CURRENT_MONTH'] == $student['item']['BIRTHDAY_MONTH']) ? '<i class="fa fa-birthday-cake"></i>&nbsp;' : '' ); ?> <?php echo $student['item']['FIRSTNAME'].' '.$student['item']['LASTNAME']; ?>  
+	<span style="color:#81b9f9">
+		<?php if (!empty($student['item']['BIRTHDAY'])) {
+				$birthday = new DateTime($student['item']['BIRTHDAY']);
+				echo '&nbsp; '.$birthday->format(TSP_PHPDATE);
+				if (!empty($student['item']['AGE']) && $student['item']['AGE'] < 120 )  echo ' Age: '.$student['item']['AGE'];
+		} ?>
+		<?php if (!empty($student['item']['RELATION'])) echo '('.$student['item']['RELATION'].')'; ?>
+	</span> 
 </div>
 <div class="panel-body">
     <?php if (count($student['classes']) > 0) : ?>
@@ -120,7 +134,7 @@ function SchedulesSection(section_id)
 	</tbody>
 	</table>
 	<?php  else: ?>
-	<div class="alert alert-info">Student is not enrolled in any classes.</div>					
+	<div class="alert alert-info">Student is not enrolled in any programs.</div>					
 	<?php endif; ?>
 </div>
 </div>

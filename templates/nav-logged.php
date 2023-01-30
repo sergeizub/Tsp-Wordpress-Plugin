@@ -29,7 +29,7 @@ jQuery(function() {
 			<ul class="dropdown-menu">
 				<li><a href="#tab-members-edit" class="tsp_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>
 				<li><a href="#tab-members-change-password" class="tsp_ajax_tab"><i class="fa fa-lock"></i> Change Password</a></li>
-				<li><a href="#tab-members-student" class="tsp_ajax_tab"><i class="fa fa-child"></i>  Add Related Student</a></li>
+				<li><a href="#tab-members-student" class="tsp_ajax_tab"><i class="fa fa-child"></i>  Add Related Player</a></li>
 				<li><a href="#tab-members-classes" class="tsp_ajax_tab"><i class="fa fa-list"></i> Programs</a></li>
 				<?php if (get_option('tsp_private_lesson_section') == '1'): ?>
 				<li><a href="#tab-members-private-lessons" class="tsp_ajax_tab"><i class="fa fa-user-circle"></i>  Private Lessons</a></li>
