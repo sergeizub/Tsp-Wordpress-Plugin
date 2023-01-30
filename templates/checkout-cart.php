@@ -56,6 +56,15 @@ $selected_account = $cart['selected_account'];
                                 <i>
                             </p>
 				            <?php endif; ?>
+                            <?php if ($item['selected_values']) : ?>
+				            	Jersey Size: <?php echo $cart['special_categs']['jersey_sizes'][$item['selected_values']['jersey_size']]; ?><br>
+				            	Jersey Number 1 (Not Guaranteed): <?php echo $item['selected_values']['jersey_number_1']; ?><br>
+				            	Jersey Number 2 (Not Guaranteed): <?php echo $item['selected_values']['jersey_number_2']; ?><br>
+				            	Pant Size: <?php echo $cart['special_categs']['pant_sizes'][$item['selected_values']['pant_size']]; ?><br>				            	
+				            	Pant Style: <?php echo $cart['special_categs']['pant_styles'][$item['selected_values']['pant_style']]; ?><br>				            	
+				            	Cap Size: <?php echo $cart['special_categs']['cap_sizes'][$item['selected_values']['cap_size']]; ?><br>				            	
+				            	Bag Style: <?php echo $cart['special_categs']['bag_styles'][$item['selected_values']['bag_style']]; ?><br>				            	
+				            <?php endif; ?>
 			            </td>
                         <?php if (TSP_MAIN_DISCOUNT == 'HOURLY_RATES'  && false) : ?>
                             <td class="text-right"><?php echo (($item['hours'] != 0) ? $item['hours'] : ''); ?></td>
