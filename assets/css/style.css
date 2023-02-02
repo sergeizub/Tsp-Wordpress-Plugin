@@ -73,7 +73,8 @@ html {
     box-shadow: none !important;
 }
 .tsp_body .nav-pills {
-    margin-bottom:16px;
+   margin-bottom:16px;
+   margin-left: 0px;
 }
 .tsp_body .tab-pane {
     padding-top:0px;

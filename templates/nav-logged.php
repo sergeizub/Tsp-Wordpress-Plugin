@@ -24,7 +24,7 @@ jQuery(function() {
 				<a href="#tab-checkout-cart" data-toggle="tab" class="tsp_ajax_tab" ><i class="fa fa-shopping-cart"></i> Cart</a>
 			</li>
 	<?php endif; ?>
-	<li class="pull-right"><a href="#" data-toggle="tab"  tsp_obj="auth" tsp_method="Logout"  tsp_reload="true" class="tsp_ajax_tab"><i class="fa fa-sign-out"></i> Logout</a></li>
+	
 	<li class="dropdown pull-right" id="m-dd">
 		<a href="#" data-toggle="dropdown"><i class="fa fa-users"></i> My Account<span class="caret"></span></a>
 			<ul class="dropdown-menu">
@@ -42,6 +42,7 @@ jQuery(function() {
 				<li><a href="#tab-members-payments" class="tsp_ajax_tab"><i class="fa fa-credit-card"></i> Payments</a></li>
 				<?php endif; ?>
 				<li><a href="#tab-members-cards-accounts" class="tsp_ajax_tab"><i class="fa fa-credit-card"></i> Stored Cards</a></li>
+				<li><a href="#" data-toggle="tab"  tsp_obj="auth" tsp_method="Logout"  tsp_reload="true" class="tsp_ajax_tab"><i class="fa fa-sign-out"></i> Logout</a></li>
 			</ul>
 	</li>
 </ul>

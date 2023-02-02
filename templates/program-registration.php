@@ -56,40 +56,38 @@ jQuery(function() {
 				msg += 'Please select Program\n';
 		}
 		else if (step == 3) {
-			step_title += 'Jersey Size: ' + jQuery('#jersey_size option:selected').text() + '<br>';
-			step_title += 'Jersey Number 1: ' + jQuery('#jersey_number_1').val() + '<br>';
-			step_title += 'Jersey Number 2: ' + jQuery('#jersey_number_2').val() + '<br>';
-			step_title += 'Pant Size: ' + jQuery('#pant_size option:selected').text() + '<br>';
-			step_title += 'Pant Style: ' + jQuery('#pant_style option:selected').text() + '<br>';
-			step_title += 'Cap Size: ' + jQuery('#cap_size option:selected').text() + '<br>';
-			step_title += 'Bag Style: ' + jQuery('#bag_style option:selected').text() + '<br>';
-
-			selected_values.jersey_size = jQuery('#jersey_size').val();
-			selected_values.jersey_number_1 = parseInt(jQuery('#jersey_number_1').val());
-			selected_values.jersey_number_2 = parseInt(jQuery('#jersey_number_2').val());
-			selected_values.pant_size = jQuery('#pant_size').val();
-			selected_values.pant_style = jQuery('#pant_style').val();
-			selected_values.cap_size = jQuery('#cap_size').val();
-			selected_values.bag_style = jQuery('#bag_style').val();
+			if (jQuery('#jersey_size').val() > 0) {
+				step_title += 'Jersey Size: ' + jQuery('#jersey_size option:selected').text() + '<br>';
+				selected_values.jersey_size = jQuery('#jersey_size').val();
+			}
+			if (jQuery('#jersey_number_1').val() > 0) {
+				step_title += 'Jersey Number 1: ' + jQuery('#jersey_number_1').val() + '<br>';
+				selected_values.jersey_number_1 = parseInt(jQuery('#jersey_number_1').val());
+			}
+			if (jQuery('#jersey_number_2').val() > 0) {
+				step_title += 'Jersey Number 2: ' + jQuery('#jersey_number_2').val() + '<br>';
+				selected_values.jersey_number_2 = parseInt(jQuery('#jersey_number_2').val());
+			}
+			if (jQuery('#pant_size').val() > 0) {
+				step_title += 'Pant Size: ' + jQuery('#pant_size option:selected').text() + '<br>';
+				selected_values.pant_size = jQuery('#pant_size').val();
+			}
+			if (jQuery('#pant_style').val() > 0) {
+				step_title += 'Pant Style: ' + jQuery('#pant_style option:selected').text() + '<br>';
+				selected_values.pant_style = jQuery('#pant_style').val();
+			}
+			if (jQuery('#cap_size').val() > 0) {
+				step_title += 'Cap Size: ' + jQuery('#cap_size option:selected').text() + '<br>';
+				selected_values.cap_size = jQuery('#cap_size').val();
+			}
+			if (jQuery('#bag_style').val() > 0) {
+				step_title += 'Bag Style: ' + jQuery('#bag_style option:selected').text() + '<br>';
+				selected_values.bag_style = jQuery('#bag_style').val();
+			}
 			
-			if (selected_values.jersey_size == 0) 
-				msg += 'Please select Jersey Size\n';
-
-			if (selected_values.jersey_number_1 == '' || !Number.isInteger(selected_values.jersey_number_1))
+			if (selected_values.jersey_number_1 != '' && !isNaN(selected_values.jersey_number_1) && !Number.isInteger(selected_values.jersey_number_1))
 				msg += 'Please enter valid Jersey Number 1\n';
-				
-			if (selected_values.pant_size == 0) 
-				msg += 'Please select Pant Size\n';
 			
-			if (selected_values.pant_style == 0) 
-				msg += 'Please select Pant Style\n';
-							
-			if (selected_values.cap_size == 0) 
-				msg += 'Please select Cap Size\n';
-			
-			if (selected_values.bag_style == 0) 
-				msg += 'Please select Bag Style\n';
-
 			
 			if (msg == '')
 				jQuery(this).html('Add to Cart and Checkout');
@@ -296,35 +294,35 @@ function AddToCart()
 
 <div id="step3" data-step="3" class="step">
 	<h4>Player Information</h4>
-	<label for="jersey_size" class="col-form-label"><span style="color: red;">*</span> Jersey Size</label>
+	<label for="jersey_size" class="col-form-label">Jersey Size</label>
 	<select id="jersey_size" name="jersey_size" class="form-control">
 	<?php foreach ($program_reg_init['data']['jersey_sizes'] as $k_jersey_size => $jersey_size): ?>
 	<option value="<?php echo $k_jersey_size;?>"><?php echo $jersey_size;?></option>
 	<?php endforeach; ?>
 	</select>
-	<label for="jersey_number_1" class="col-form-label"><span style="color: red;">*</span> Jersey Number 1 (Not Guaranteed)</label>
+	<label for="jersey_number_1" class="col-form-label">Jersey Number 1 (Not Guaranteed)</label>
 	<input type="text" class="form-control" id="jersey_number_1" placeholder="Numbers only">
 	<label for="jersey_number_2" class="col-form-label">Jersey Number 2 (Not Guaranteed)</label>
 	<input type="text" class="form-control" id="jersey_number_2" placeholder="Numbers only">
-	<label for="pant_size" class="col-form-label"><span style="color: red;">*</span> Pant Size</label>
+	<label for="pant_size" class="col-form-label">Pant Size</label>
 	<select id="pant_size" name="pant_size" class="form-control">
 	<?php foreach ($program_reg_init['data']['pant_sizes'] as $k_pant_size => $pant_size): ?>
 	<option value="<?php echo $k_pant_size;?>"><?php echo $pant_size;?></option>
 	<?php endforeach; ?>
 	</select>
-	<label for="pant_style" class="col-form-label"><span style="color: red;">*</span> Pant Style</label>
+	<label for="pant_style" class="col-form-label">Pant Style</label>
 	<select id="pant_style" name="pant_style" class="form-control">
 	<?php foreach ($program_reg_init['data']['pant_styles'] as $k_pant_style => $pant_style): ?>
 	<option value="<?php echo $k_pant_style;?>"><?php echo $pant_style;?></option>
 	<?php endforeach; ?>
 	</select>
-	<label for="cap_size" class="col-form-label"><span style="color: red;">*</span> Cap Size</label>
+	<label for="cap_size" class="col-form-label">Cap Size</label>
 	<select id="cap_size" name="cap_size" class="form-control">
 	<?php foreach ($program_reg_init['data']['cap_sizes'] as $k_cap_size => $cap_size): ?>
 	<option value="<?php echo $k_cap_size;?>"><?php echo $cap_size;?></option>
 	<?php endforeach; ?>
 	</select>
-	<label for="bag_selection" class="col-form-label"><span style="color: red;">*</span> Bag Style</label>
+	<label for="bag_selection" class="col-form-label">Bag Style</label>
 	<select id="bag_style" name="bag_style" class="form-control">
 	<?php foreach ($program_reg_init['data']['bag_styles'] as $k_bag_style => $bag_style): ?>
 	<option value="<?php echo $k_bag_style;?>"><?php echo $bag_style;?></option>

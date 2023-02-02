@@ -57,13 +57,27 @@ $selected_account = $cart['selected_account'];
                             </p>
 				            <?php endif; ?>
                             <?php if ($item['selected_values']) : ?>
+                                <?php if (!empty($item['selected_values']['jersey_size'])):?>
 				            	Jersey Size: <?php echo $cart['special_categs']['jersey_sizes'][$item['selected_values']['jersey_size']]; ?><br>
+                                <?php endif; ?>
+                                <?php if (!empty($item['selected_values']['jersey_number_1'])):?>
 				            	Jersey Number 1 (Not Guaranteed): <?php echo $item['selected_values']['jersey_number_1']; ?><br>
+                                <?php endif; ?>
+                                <?php if (!empty($item['selected_values']['jersey_number_2'])):?>
 				            	Jersey Number 2 (Not Guaranteed): <?php echo $item['selected_values']['jersey_number_2']; ?><br>
-				            	Pant Size: <?php echo $cart['special_categs']['pant_sizes'][$item['selected_values']['pant_size']]; ?><br>				            	
-				            	Pant Style: <?php echo $cart['special_categs']['pant_styles'][$item['selected_values']['pant_style']]; ?><br>				            	
-				            	Cap Size: <?php echo $cart['special_categs']['cap_sizes'][$item['selected_values']['cap_size']]; ?><br>				            	
-				            	Bag Style: <?php echo $cart['special_categs']['bag_styles'][$item['selected_values']['bag_style']]; ?><br>				            	
+                                <?php endif; ?>
+                                <?php if (!empty($item['selected_values']['pant_size'])):?>
+				            	Pant Size: <?php echo $cart['special_categs']['pant_sizes'][$item['selected_values']['pant_size']]; ?><br>
+                                <?php endif; ?>
+                                <?php if (!empty($item['selected_values']['pant_style'])):?>
+				            	Pant Style: <?php echo $cart['special_categs']['pant_styles'][$item['selected_values']['pant_style']]; ?><br>
+                                <?php endif; ?>
+                                <?php if (!empty($item['selected_values']['cap_size'])):?>
+				            	Cap Size: <?php echo $cart['special_categs']['cap_sizes'][$item['selected_values']['cap_size']]; ?><br>
+                                <?php endif; ?>
+                                <?php if (!empty($item['selected_values']['bag_style'])):?>
+				            	Bag Style: <?php echo $cart['special_categs']['bag_styles'][$item['selected_values']['bag_style']]; ?><br>
+                                <?php endif; ?>
 				            <?php endif; ?>
 			            </td>
                         <?php if (TSP_MAIN_DISCOUNT == 'HOURLY_RATES'  && false) : ?>
