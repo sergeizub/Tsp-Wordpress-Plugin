@@ -247,7 +247,7 @@ class Api
 			return false;
 		elseif (is_array($get)) {
 			$action = $get['tsp_action'];
-			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($get));
+			//curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($get));
             $params = "?".http_build_query($get);
 		}
 		else

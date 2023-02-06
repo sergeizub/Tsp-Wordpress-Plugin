@@ -18,7 +18,6 @@ var show_login_alert = '<?php echo TSP_OC_SHOW_LOGIN_ALERT; ?>';
 		<?php else: ?>
 		<li><a href="#tab-auth-login" data-toggle="tab" class="tsp_ajax_tab default_tab"><i class="fa fa-users"></i> Programs</a></li>
 		<?php endif; ?>
-	<li class="pull-right"><a href="#tab-auth-password-reset" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-lock"></i> Reset Password</a></li>
-    <li class="pull-right"><a href="#tab-auth-register" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-user"></i> Create Account</a></li>
+	<li class="pull-right"><a href="#tab-auth-register" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-user"></i> Create Account</a></li>
 </ul>
 <div id="tsp-tab-content" class="tab-content">

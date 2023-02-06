@@ -18,6 +18,7 @@
 					<input type="hidden" name="schedule_id" value="<?php echo sanitize_key($_POST['schedule_id']); ?>"/>
 					<input type="hidden" name="sales-item_id" value="<?php echo sanitize_key($_POST['sales-item_id']); ?>"/>
 					<button class="btn btn-success" type="submit" id="cl_sign_in"><i class="fa fa-sign-in"></i> Sign In</button>
+					&nbsp;&nbsp;&nbsp;&nbsp; <a href="#tab-auth-password-reset" data-toggle="tab" class="tsp_ajax_tab">Reset Password</a></li>
 				</div>
 				<div class="form-group">Don't have account yet? <a href="#tab-auth-register" data-toggle="tab" class="tsp_ajax_tab">Create Account</a></div>
 			</form>
