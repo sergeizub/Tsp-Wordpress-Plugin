@@ -21,6 +21,8 @@ class App
 
         add_action('admin_enqueue_scripts', function ($hook) {
                 wp_enqueue_style('tsp_admin', plugins_url('../css/admin.css',__FILE__ ));
+                wp_enqueue_style('wp-color-picker');
+                wp_enqueue_script('wp-color-picker');
             });
 
         add_action('wp_enqueue_scripts', function ($hook) {
@@ -28,7 +30,6 @@ class App
                 wp_register_style( 'tsp_datetimepicker', plugins_url('../assets/bootstrap-3.3.7/css/bootstrap-datetimepicker.min.css',__FILE__) );
                 wp_register_style( 'tsp_fontawesome', plugins_url('../assets/font-awesome-4.7.0/css/font-awesome.min.css',__FILE__) );
                 wp_register_style( 'tsp_style', plugins_url('../assets/css/style.css',__FILE__ ) );
-                wp_register_style( 'tsp_style_united', plugins_url('../assets/css/style-united.css',__FILE__ ) );
                 wp_register_style( 'tsp_fullcalendar', plugins_url('../assets/fullcalendar-3.9.0/fullcalendar.min.css',__FILE__) );
 
                 wp_register_script( 'tsp_js_bootstrap', plugins_url('../assets/bootstrap-3.3.7/js/bootstrap.min.js',__FILE__) , array('jquery'));

@@ -17,6 +17,11 @@ class Settings
         register_setting( 'tsp_api_settings', 'tsp_private_lesson_section');
         register_setting( 'tsp_api_settings', 'tsp_random_url_parameter');
         //register_setting( 'tsp_api_settings', 'tsp_class_cache');
+        
+        register_setting( 'tsp_api_settings', 'tsp_nav_item_background');
+        register_setting( 'tsp_api_settings', 'tsp_nav_item_color');
+        register_setting( 'tsp_api_settings', 'tsp_active_item_background');
+        register_setting( 'tsp_api_settings', 'tsp_active_item_color');
     }
     
     public function InitPage()
@@ -39,9 +44,13 @@ class Settings
         set_transient( 'tsp_classes_list', $tsp_classes_list, 6 * HOUR_IN_SECONDS );
     }
 ?>
-    <div class="wrap">
+<div class="wrap">
+<script type="text/javascript" >
+	jQuery(document).ready(function() {
+	jQuery('.tsp_color_picker').wpColorPicker();
+	});
+</script> 
 <h1>TSP Plugin</h1>
-
 <form method="post" action="options.php">
     <?php settings_fields( 'tsp_api_settings' ); ?>
     <?php do_settings_sections( 'tsp_api_settings' ); ?>
@@ -87,6 +96,20 @@ class Settings
                 ?>
                 </select>
             </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Nav Menu Item Background Color</th>
+            <td><input type="text" class="tsp_color_picker" name="tsp_nav_item_background" value="<?php echo esc_attr( get_option('tsp_nav_item_background') ); ?>" style="max-width:80px" placeholder="default"/></td>
+        </tr>
+            <th scope="row">Nav Menu Item Text Color</th>
+            <td><input type="text" class="tsp_color_picker" name="tsp_nav_item_color" value="<?php echo esc_attr( get_option('tsp_nav_item_color') ); ?>" style="max-width:80px" placeholder="default"/></td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Active Menu Item Background Color</th>
+            <td><input type="text" class="tsp_color_picker" name="tsp_active_item_background" value="<?php echo esc_attr( get_option('tsp_active_item_background') ); ?>" style="max-width:80px" placeholder="default"/></td>
+        </tr>
+            <th scope="row">Active Menu Item Text Color</th>
+            <td><input type="text" class="tsp_color_picker" name="tsp_active_item_color" value="<?php echo esc_attr( get_option('tsp_active_item_color') ); ?>" style="max-width:80px" placeholder="default"/></td>
         </tr>
     </table>
     <?php submit_button(); ?>

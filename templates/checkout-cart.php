@@ -153,7 +153,7 @@ $selected_account = $cart['selected_account'];
 		<div class="col-md-offset-7 col-md-6 pt10">		
 		    <div class="form-group">
 			    <label class="col-sm-5 control-label text-right">Subtotal, <?php echo TSP_CURRENCY_SIGN; ?></label>
-			    <label class="col-sm-2 control-label text-right">
+			    <label class="col-sm-4 control-label text-right">
 					<?php echo number_format($cart['subtotal'],2); ?>
 			    </label>
 		    </div>	
@@ -163,7 +163,7 @@ $selected_account = $cart['selected_account'];
 		<div class="col-md-offset-7 col-md-6 pt10">		
 		    <div class="form-group">
 			    <label class="col-sm-5 control-label text-right">Tax <?php echo ((TSP_TAX_PERCENTAGE_VALUE > 0) ? TSP_TAX_PERCENTAGE_VALUE.'%' : ''); ?>, <?php echo TSP_CURRENCY_SIGN;?></label>
-			    <label class="col-sm-2 control-label text-right">
+			    <label class="col-sm-4 control-label text-right">
 					<?php echo number_format($cart['tax'],2); ?>
 			    </label>
 		    </div>	
@@ -175,7 +175,7 @@ $selected_account = $cart['selected_account'];
 		<div class="col-md-offset-7 col-md-6 pt10">		
 		    <div class="form-group">
 			    <label class="col-sm-5 control-label text-right"><?php echo $cart['convenience_fee_category']; ?>, <?php echo TSP_CURRENCY_SIGN; ?></label>
-			    <label class="col-sm-2 control-label text-right">
+			    <label class="col-sm-4 control-label text-right">
  			        	<?php echo number_format($cart['convenience_fee'],2); ?> <i>(<?php echo $cart['convenience_fee_description']; ?>)</i>
 			        </label>
 		        </div>	
@@ -187,7 +187,7 @@ $selected_account = $cart['selected_account'];
 			<div class="col-md-offset-7 col-md-6 pt10">		
 		        <div class="form-group">
 			        <label class="col-sm-5 control-label text-right">Grand Total, <?php echo TSP_CURRENCY_SIGN; ?></label>
-			        <label class="col-sm-2 control-label text-right">
+			        <label class="col-sm-4 control-label text-right">
  			        	<?php echo number_format($cart['total'],2); ?>
 			        </label>
 		        </div>	

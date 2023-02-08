@@ -54,7 +54,7 @@ class MembersController extends BaseController
 		
 		$error_fields = array();
 		if ($result->success == true) {
-			App::GetError()->Success("Student Submitted.");
+			App::GetError()->Success("Player Submitted.");
 			unset($_POST);
 		}
 		elseif ($result->errors) {

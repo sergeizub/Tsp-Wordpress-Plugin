@@ -15,8 +15,20 @@ class GatewayController extends BaseController
 			$data['auto_payment'] = '1';
 		else
 			$data['auto_payment'] = '0';
-
-		return parent::Submit($data);
+            
+        $result = parent::Submit($data);
+        if ($result->success == true) {
+			App::GetError()->Success("Card Submitted.");
+			unset($_POST);
+		}
+		elseif ($result->errors) {
+			foreach ($result_register->errors as $k=>$v) {
+				array_push($error_fields, $k);
+				$msg .= "<br/>".$v;
+			}
+			App::GetError()->Show("Unable Submit Card.".$msg);
+		}
+		return $result;
 	}
 	
 	public function SubmitACH($data)
