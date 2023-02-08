@@ -294,39 +294,53 @@ function AddToCart()
 
 <div id="step3" data-step="3" class="step">
 	<h4>Player Information</h4>
+	<?php if (TSP_REG_JERSEY_SIZE == "1"): ?>
 	<label for="jersey_size" class="col-form-label">Jersey Size</label>
 	<select id="jersey_size" name="jersey_size" class="form-control">
 	<?php foreach ($program_reg_init['data']['jersey_sizes'] as $k_jersey_size => $jersey_size): ?>
 	<option value="<?php echo $k_jersey_size;?>"><?php echo $jersey_size;?></option>
 	<?php endforeach; ?>
 	</select>
+	<?php endif; ?>
+	<?php if (TSP_REG_JERSEY_NUMBER1 == "1"): ?>
 	<label for="jersey_number_1" class="col-form-label">Jersey Number 1 (Not Guaranteed)</label>
 	<input type="text" class="form-control" id="jersey_number_1" placeholder="Numbers only">
+	<?php endif; ?>
+	<?php if (TSP_REG_JERSEY_NUMBER2 == "1"): ?>
 	<label for="jersey_number_2" class="col-form-label">Jersey Number 2 (Not Guaranteed)</label>
 	<input type="text" class="form-control" id="jersey_number_2" placeholder="Numbers only">
+	<?php endif; ?>
+	<?php if (TSP_REG_PANT_SIZE == "1"): ?>
 	<label for="pant_size" class="col-form-label">Pant Size</label>
 	<select id="pant_size" name="pant_size" class="form-control">
 	<?php foreach ($program_reg_init['data']['pant_sizes'] as $k_pant_size => $pant_size): ?>
 	<option value="<?php echo $k_pant_size;?>"><?php echo $pant_size;?></option>
 	<?php endforeach; ?>
 	</select>
+	<?php endif; ?>
+	<?php if (TSP_REG_PANT_STYLE == "1"): ?>
 	<label for="pant_style" class="col-form-label">Pant Style</label>
 	<select id="pant_style" name="pant_style" class="form-control">
 	<?php foreach ($program_reg_init['data']['pant_styles'] as $k_pant_style => $pant_style): ?>
 	<option value="<?php echo $k_pant_style;?>"><?php echo $pant_style;?></option>
 	<?php endforeach; ?>
 	</select>
+	<?php endif; ?>
+	<?php if (TSP_REG_CAP_SIZE == "1"): ?>
 	<label for="cap_size" class="col-form-label">Cap Size</label>
 	<select id="cap_size" name="cap_size" class="form-control">
 	<?php foreach ($program_reg_init['data']['cap_sizes'] as $k_cap_size => $cap_size): ?>
 	<option value="<?php echo $k_cap_size;?>"><?php echo $cap_size;?></option>
 	<?php endforeach; ?>
 	</select>
+	<?php endif; ?>
+	<?php if (TSP_REG_BAG_STYLE == "1"): ?>
 	<label for="bag_selection" class="col-form-label">Bag Style</label>
 	<select id="bag_style" name="bag_style" class="form-control">
 	<?php foreach ($program_reg_init['data']['bag_styles'] as $k_bag_style => $bag_style): ?>
 	<option value="<?php echo $k_bag_style;?>"><?php echo $bag_style;?></option>
 	<?php endforeach; ?>
+	<?php endif; ?>
 	</select>
 </div>
 
