@@ -43,7 +43,10 @@ class AuthController extends BaseController
 				$login_param['schedule_id'] = $data['schedule_id'];
 			if ($data['sales-item_id'])
 				$login_param['sales-item_id'] = $data['sales-item_id'];
-                
+            
+            if (empty($login_param['class_id']) && $login_param['schedule_id'] && $login_param['sales-item_id']) {
+                $login_param['boot_tab'] = 'members-student';
+            }
 			$this->Login($login_param);
 			
 			//App::GetError()->Success("User Registered. Please check your email with confirmation");
@@ -82,6 +85,9 @@ class AuthController extends BaseController
 		{
 			$_SESSION['tsp_redirect']['boot_tab'] = 'checkout-sales-items-'.$data['sales-item_id'];
 		}
+        elseif (!empty($data['boot_tab'])) {
+            $_SESSION['tsp_redirect']['boot_tab'] = $data['boot_tab'];
+        }
 		if ($response->token) {
 			echo true;
 			exit();

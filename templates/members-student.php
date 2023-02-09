@@ -23,7 +23,7 @@ else {
 <? if (is_array($student->form)) :
 	?>
 	<div id="<?php echo ((!empty($student_id) ? 'members_edit_'.$student_id : 'tab-members-student')); ?>" class="<?php echo (!empty($student_id) ? '' : 'tab-pane'); ?>">
-	<div class="tsp-header"><h2><?php echo (!empty($student_id) ? 'Edit' : 'Create'); ?> Student</h2></div>
+	<div class="tsp-header"><h2><?php echo (!empty($student_id) ? 'Edit' : 'Add Related'); ?> Player</h2></div>
 	<?php if (TSP_REGISTRATION_FEE_ENABLED && TSP_REGISTRATION_MAX) : ?>
         <div class="alert alert-warning text-center">
             Registering first <?php echo TSP_REGISTRATION_MAX; ?> student(s) will cost <?php echo TSP_CURRENCY_SIGN; ?><?php echo TSP_REGISTRATION_FEE; ?> each. <?php echo ((TSP_REGISTRATION_FEE_OVER_MAX == 0 && TSP_REGISTRATION_FAMILY_FEE > 0) ? 'Max family registration fee '.TSP_CURRENCY_SIGN.TSP_REGISTRATION_FAMILY_FEE : 'All other students will cost '.TSP_CURRENCY_SIGN.TSP_REGISTRATION_FEE_OVER_MAX.' each.'); ?>
