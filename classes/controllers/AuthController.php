@@ -44,7 +44,7 @@ class AuthController extends BaseController
 			if ($data['sales-item_id'])
 				$login_param['sales-item_id'] = $data['sales-item_id'];
             
-            if (empty($login_param['class_id']) && $login_param['schedule_id'] && $login_param['sales-item_id']) {
+            if (empty($login_param['class_id']) && empty($login_param['schedule_id']) && empty($login_param['sales-item_id'])) {
                 $login_param['boot_tab'] = 'members-student';
             }
 			$this->Login($login_param);

@@ -145,6 +145,24 @@ $selected_account = $cart['selected_account'];
 		            <th class="text-right"><?php echo ((TSP_TAX_ENABLED == '1') ? number_format($cart['tax'],2) : ''); ?></th>
 		            <th></th>
 		        </tr>
+                <?php if ($cart['convenience_fee'] > 0) : ?>
+                <tr class="no_border_top">
+                    <th class="text-right" colspan="2"></th>
+                    <?php echo ((TSP_MAIN_DISCOUNT == 'HOURLY_RATES' && false) ? '<th class="text-right"></th>' : ''); ?>
+                    <th class="text-right" colspan="3"><?php echo $cart['convenience_fee_category']; ?>, <?php echo TSP_CURRENCY_SIGN; ?></th>
+		            <th class="text-right" ><?php echo number_format($cart['convenience_fee'],2); ?></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr class="no_border_top">
+                    <th class="text-right" colspan="2"></th>
+                    <?php echo ((TSP_MAIN_DISCOUNT == 'HOURLY_RATES' && false) ? '<th class="text-right"></th>' : ''); ?>
+                    <th class="text-right" colspan="3">Total, <?php echo TSP_CURRENCY_SIGN; ?></th>
+		            <th class="text-right" ><?php echo number_format($cart['total'],2); ?></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <?php endif; ?>
 		    </tfoot>
 		</table>
 	</div>
@@ -152,8 +170,8 @@ $selected_account = $cart['selected_account'];
 	<div class="row">
 		<div class="col-md-offset-7 col-md-6 pt10">		
 		    <div class="form-group">
-			    <label class="col-sm-5 control-label text-right">Subtotal, <?php echo TSP_CURRENCY_SIGN; ?></label>
-			    <label class="col-sm-4 control-label text-right">
+			    <label class="col-sm-5 text-right">Subtotal, <?php echo TSP_CURRENCY_SIGN; ?></label>
+			    <label class="col-sm-4 text-right">
 					<?php echo number_format($cart['subtotal'],2); ?>
 			    </label>
 		    </div>	
@@ -162,37 +180,14 @@ $selected_account = $cart['selected_account'];
 	<div class="row">
 		<div class="col-md-offset-7 col-md-6 pt10">		
 		    <div class="form-group">
-			    <label class="col-sm-5 control-label text-right">Tax <?php echo ((TSP_TAX_PERCENTAGE_VALUE > 0) ? TSP_TAX_PERCENTAGE_VALUE.'%' : ''); ?>, <?php echo TSP_CURRENCY_SIGN;?></label>
-			    <label class="col-sm-4 control-label text-right">
+			    <label class="col-sm-5 text-right">Tax <?php echo ((TSP_TAX_PERCENTAGE_VALUE > 0) ? TSP_TAX_PERCENTAGE_VALUE.'%' : ''); ?>, <?php echo TSP_CURRENCY_SIGN;?></label>
+			    <label class="col-sm-4 text-right">
 					<?php echo number_format($cart['tax'],2); ?>
 			    </label>
 		    </div>	
 		</div>
 	</div>
 <?php endif; ?>
-<?php if ($cart['convenience_fee'] > 0) : ?>
-	<div class="row">
-		<div class="col-md-offset-7 col-md-6 pt10">		
-		    <div class="form-group">
-			    <label class="col-sm-5 control-label text-right"><?php echo $cart['convenience_fee_category']; ?>, <?php echo TSP_CURRENCY_SIGN; ?></label>
-			    <label class="col-sm-4 control-label text-right">
- 			        	<?php echo number_format($cart['convenience_fee'],2); ?> <i>(<?php echo $cart['convenience_fee_description']; ?>)</i>
-			        </label>
-		        </div>	
-			</div>
-		</div>
-		<?php endif; ?>
-
-		<div class="row">
-			<div class="col-md-offset-7 col-md-6 pt10">		
-		        <div class="form-group">
-			        <label class="col-sm-5 control-label text-right">Grand Total, <?php echo TSP_CURRENCY_SIGN; ?></label>
-			        <label class="col-sm-4 control-label text-right">
- 			        	<?php echo number_format($cart['total'],2); ?>
-			        </label>
-		        </div>	
-			</div>
-		</div>
 		 <?php include plugin_dir_path( __FILE__ ) . 'snippets/checkout.php'; ?>
 <?php else: ?>
 	<div class="alert alert-info">

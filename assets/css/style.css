@@ -45,6 +45,11 @@ html {
     margin-left: 0 !important; 
 }
 
+.no_border_top>th{
+   border-top: none !important;
+   font-weight: normal;
+}
+
 .tsp_body .navbar-nav li a, #m-dd li a {
     line-height: 50px;
     height: 50px;
