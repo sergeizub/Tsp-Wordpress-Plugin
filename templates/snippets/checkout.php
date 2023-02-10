@@ -69,9 +69,12 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 			<?php //include plugin_dir_path( __FILE__ ) . 'discount-coupon.php'; ?>
 		        
 			    <div class="form-group">
-			        <label class="col-sm-5 control-label">Total Amount to Pay, <?php echo TSP_CURRENCY_SIGN; ?></label>
+			        <label class="col-sm-5 control-label">Total Amount to Pay</label>
 			        <div class="col-sm-7" id="transaction_amount_field">
-			            <input class="form-control" type="text" readonly="readonly" id="transaction_amount" name="transaction_amount" style="width:100px;" value="<?php echo $cart['total']; ?>">
+						<?php  if (!empty($cart['total'])): ?>
+						<span style="position:absolute; margin-left:4px;margin-top:7px;"><?php echo TSP_CURRENCY_SIGN; ?></span>
+						<?php endif; ?>
+			            <input class="form-control" type="text" readonly="readonly" id="transaction_amount" name="transaction_amount" style="width:100px;padding-left:12px;" value="<?php echo $cart['total']; ?>">
 			        </div>
 			    </div>
 				<?php if ($cart['balance'] < 0):?>

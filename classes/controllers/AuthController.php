@@ -85,8 +85,11 @@ class AuthController extends BaseController
 		{
 			$_SESSION['tsp_redirect']['boot_tab'] = 'checkout-sales-items-'.$data['sales-item_id'];
 		}
-        elseif (!empty($data['boot_tab'])) {
+        elseif (!empty($data['boot_tab']) && $data['boot_tab'] != '#tab-auth-login') {
             $_SESSION['tsp_redirect']['boot_tab'] = $data['boot_tab'];
+        }
+        else {
+            $_SESSION['tsp_redirect']['boot_tab'] = 'chechout-cart';
         }
 		if ($response->token) {
 			echo true;

@@ -46,7 +46,10 @@ html {
 }
 
 .no_border_top>th{
-   border-top: none !important;
+   font-weight: normal;
+}
+
+.no_bold>th{
    font-weight: normal;
 }
 

@@ -25,13 +25,13 @@ $selected_account = $cart['selected_account'];
 			            Hours per  <?php if (TSP_HOURLY_TIME_RATES == 'WEEKLY') echo 'week'; elseif (TSP_HOURLY_TIME_RATES == 'MONTHLY') echo 'month'; ?>
 		            </th>
 					<?php endif; ?>
-					<th class="text-right" width="90">Price,&nbsp;<?php echo TSP_CURRENCY_SIGN;?></th>
+					<th class="text-right" width="90">Price</th>
 					<th class="text-center"></th>
                     <?php if (TSP_ENABLE_DISCOUNT_COUPONS == '1' || TSP_MAIN_DISCOUNT == 'MULTI_CLASS' || TSP_MULTI_STUDENT_ENABLED == '1') : ?>
-		            <th class="text-right" width="90">Discount,&nbsp;<?php echo TSP_CURRENCY_SIGN;?></th>
-		            <th class="text-right" width="90">Subtotal,&nbsp;<?php echo TSP_CURRENCY_SIGN;?></th>
+		            <th class="text-right" width="90">Discount</th>
+		            <th class="text-right" width="90">Subtotal</th>
 		           <? endif; ?>
-		            <th class="text-right" width="90"><?php echo ((TSP_TAX_ENABLED == '1') ? 'Tax,&nbsp;'.TSP_CURRENCY_SIGN : ''); ?></th>
+		            <th class="text-right" width="90"><?php echo ((TSP_TAX_ENABLED == '1') ? 'Tax': ''); ?></th>
 		            <th class="text-right" width="90"></th>
 		        </tr>
 		    </thead>
@@ -51,7 +51,10 @@ $selected_account = $cart['selected_account'];
 				            <p class="font-italic">
                                 <i>
                                     <b>Payment Plan:</b><br>
-                                    First Payment <?php echo TSP_CURRENCY_SIGN.$item['payment_plan']['FIRST_PAYMENT_AMOUNT'] ?> plus <?php echo TSP_CURRENCY_SIGN.$item['payment_plan']['PAYMENT_PLAN_FEE'] ?> fee
+                                    First Payment <?php echo TSP_CURRENCY_SIGN.$item['payment_plan']['FIRST_PAYMENT_AMOUNT'] ?>
+                                    <?php if (!empty($item['payment_plan']['PAYMENT_PLAN_FEE'])): ?>
+                                    &nbsp;plus <?php echo TSP_CURRENCY_SIGN.$item['payment_plan']['PAYMENT_PLAN_FEE'] ?> fee
+                                    <?php endif; ?>
                                     <br>and <?php echo $item['payment_plan']['REPEATS'] ?> payment(s) <?php echo TSP_CURRENCY_SIGN.$item['payment_plan']['RECURRING_AMOUNT'] ?> <?php echo $item['payment_plan']['SCHEDULE_NAME'] ?>
                                 <i>
                             </p>
@@ -83,13 +86,13 @@ $selected_account = $cart['selected_account'];
                         <?php if (TSP_MAIN_DISCOUNT == 'HOURLY_RATES'  && false) : ?>
                             <td class="text-right"><?php echo (($item['hours'] != 0) ? $item['hours'] : ''); ?></td>
                         <?php endif; ?>
-                            <td class="text-right"><?php echo number_format($item['price'],2); ?></td>
+                            <td class="text-right"><?= (!empty($item['price'])) ? TSP_CURRENCY_SIGN : ''?><?php echo number_format($item['price'],2); ?></td>
                             <td class="text-right" <?php echo (($item['discount_description'] != 0) ? 'width="270"' : ''); ?> ><?php echo $item['discount_description']; ?></td>
 			            <?php if (TSP_ENABLE_DISCOUNT_COUPONS == '1' || TSP_MAIN_DISCOUNT == 'MULTI_CLASS' || TSP_MULTI_STUDENT_ENABLED == '1') : ?>
-                            <td class="text-right"><?php echo number_format($item['discount'],2); ?></td>
-                            <td class="text-right"><?php echo number_format($item['subtotal'],2); ?></td>
+                            <td class="text-right"><?= (!empty($item['discount'])) ? TSP_CURRENCY_SIGN : ''?><?php echo number_format($item['discount'],2); ?></td>
+                            <td class="text-right"><?= (!empty($item['subtotal'])) ? TSP_CURRENCY_SIGN : ''?><?php echo number_format($item['subtotal'],2); ?></td>
                         <?php endif; ?>
-			            <td class="text-right"><?php echo ((TSP_TAX_ENABLED) ? $item['tax'] : ''); ?></td>
+			            <td class="text-right"><?php echo ((TSP_TAX_ENABLED) ? TSP_CURRENCY_SIGN.$item['tax'] : ''); ?></td>
 			            <td class="text-right">
 				            <a class="btn btn-warning btn-sm select-class <?php echo (($item['remove'] == "1") ? 'tsp_ajax_tab' : ''); ?>" type="button"
                                 href = '#tab-checkout-cart'
@@ -133,14 +136,14 @@ $selected_account = $cart['selected_account'];
 			<?php endif; ?>
             </tbody>
 			<tfoot>        
-		        <tr>
+		        <tr class="no_bold">
 		            <th class="text-right" colspan="2">Totals:</th>
 					<?php echo ((TSP_MAIN_DISCOUNT == 'HOURLY_RATES' && false) ? '<th class="text-right"></th>' : ''); ?>
-		            <th class="text-right"><?php echo number_format($cart['total_price'],2); ?></th>
+		            <th class="text-right"><?= (!empty($cart['total_price'])) ? TSP_CURRENCY_SIGN : ''?><?php echo number_format($cart['total_price'],2); ?></th>
 		            <th></th>
 					<?php if (TSP_ENABLE_DISCOUNT_COUPONS == '1' || TSP_MAIN_DISCOUNT == 'MULTI_CLASS' || TSP_MULTI_STUDENT_ENABLED == '1') : ?>
-		            <th class="text-right"><?php echo number_format($cart['total_discount'],2); ?></th>
-		            <th class="text-right"><?php echo number_format($cart['subtotal'],2); ?></th>
+		            <th class="text-right"><?= (!empty($cart['total_discount'])) ? TSP_CURRENCY_SIGN : ''?><?php echo number_format($cart['total_discount'],2); ?></th>
+		            <th class="text-right"><?= (!empty($cart['subtotal'])) ? TSP_CURRENCY_SIGN : ''?><?php echo number_format($cart['subtotal'],2); ?></th>
 		            <?php endif; ?>
 		            <th class="text-right"><?php echo ((TSP_TAX_ENABLED == '1') ? number_format($cart['tax'],2) : ''); ?></th>
 		            <th></th>
@@ -149,16 +152,16 @@ $selected_account = $cart['selected_account'];
                 <tr class="no_border_top">
                     <th class="text-right" colspan="2"></th>
                     <?php echo ((TSP_MAIN_DISCOUNT == 'HOURLY_RATES' && false) ? '<th class="text-right"></th>' : ''); ?>
-                    <th class="text-right" colspan="3"><?php echo $cart['convenience_fee_category']; ?>, <?php echo TSP_CURRENCY_SIGN; ?></th>
-		            <th class="text-right" ><?php echo number_format($cart['convenience_fee'],2); ?></th>
+                    <th class="text-right" colspan="3"><?php echo $cart['convenience_fee_category']; ?></th>
+		            <th class="text-right" ><?= (!empty($cart['convenience_fee'])) ? TSP_CURRENCY_SIGN : ''?><?php echo number_format($cart['convenience_fee'],2); ?></th>
                     <th></th>
                     <th></th>
                 </tr>
                 <tr class="no_border_top">
                     <th class="text-right" colspan="2"></th>
                     <?php echo ((TSP_MAIN_DISCOUNT == 'HOURLY_RATES' && false) ? '<th class="text-right"></th>' : ''); ?>
-                    <th class="text-right" colspan="3">Total, <?php echo TSP_CURRENCY_SIGN; ?></th>
-		            <th class="text-right" ><?php echo number_format($cart['total'],2); ?></th>
+                    <th class="text-right" colspan="3">Total</th>
+		            <th class="text-right" ><?= (!empty($cart['total'])) ? TSP_CURRENCY_SIGN : ''?><?php echo number_format($cart['total'],2); ?></th>
                     <th></th>
                     <th></th>
                 </tr>
