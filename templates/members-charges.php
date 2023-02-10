@@ -11,22 +11,27 @@ $result = App::GetClient()->GetController('members')->GetCharges();
 			<tr>
 				<th width="150">Date</th>
 				<th>Name</th>
-				<th>Category</th>
 				<th>Class</th>
 				<th>Notes</th>
-				<th style="text-align:right" width="90">Charged, <?php echo TSP_CURRENCY_SIGN; ?></th>
+				<th style="text-align:right" width="90">Charged</th>
 			</tr>
 		</thead>
 		<tbody>
+			
 		<? if (!empty($result->charges)) : ?>
 			<? foreach ($result->charges as $charge) : ?>
 			<tr>
 				<td><?php echo $charge->DATE; ?></td>
 				<td><?php echo $charge->NAME; ?></td>
-				<td><?php echo $charge->CATEGORY_NAME; ?></td>
 				<td><?php echo $charge->CLASS; ?></td>
-				<td><?php echo $charge->CHARGE_NOTES; ?></td>
-				<td><?php echo $charge->AMOUNT_CHARGED; ?></td>
+				<td>
+				<?php if ($charge->CHARGE_CATEGORY == TSP_CONVENIENCE_FEE_CATEGORY): ?>
+				<?php echo $charge->CATEGORY_NAME; ?>
+				<?php else: ?>
+				<?php echo $charge->CHARGE_NOTES; ?>
+				<?php endif; ?>
+				</td>
+				<td><?php echo TSP_CURRENCY_SIGN; ?><?php echo $charge->AMOUNT_CHARGED; ?></td>
 			</tr>
 			<? endforeach; ?>
 		<? else: ?>

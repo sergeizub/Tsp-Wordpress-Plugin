@@ -13,7 +13,7 @@ $result = App::GetClient()->GetController('members')->GetPayments();
 				<th>Type</th>
 				<th>Check #</th>
 				<th>Notes</th>
-				<th style="text-align:right" width="90">Paid, <?php echo TSP_CURRENCY_SIGN; ?></th>
+				<th style="text-align:right" width="90">Paid</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,7 +25,7 @@ $result = App::GetClient()->GetController('members')->GetPayments();
 				<td><?php echo $payment->TYPE_NAME; ?></td>
 				<td><?php echo $payment->RECEIPT_NUMBER; ?></td>
 				<td><?php echo $payment->PAYMENT_NOTES; ?></td>
-				<td><?php echo $payment->AMOUNT_PAID; ?></td>
+				<td><?php echo TSP_CURRENCY_SIGN; ?><?php echo $payment->AMOUNT_PAID; ?></td>
 			</tr>
 			<? endforeach; ?>
 		<? else: ?>
