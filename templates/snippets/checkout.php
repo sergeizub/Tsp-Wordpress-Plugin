@@ -166,4 +166,7 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 			</form>
 		</div>
 	</div>
+<?php if (!empty(TSP_OC_CHECKOUT_DISCLAIMER)): ?>
+	<div style="padding-top:20px"><? echo TSP_OC_CHECKOUT_DISCLAIMER; ?></div>
+<?php endif; ?>
 <?php endif; ?>

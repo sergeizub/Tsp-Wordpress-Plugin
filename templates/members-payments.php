@@ -33,6 +33,8 @@ $result = App::GetClient()->GetController('members')->GetPayments();
 		<? endif; ?>
 		</tbody>
 	</table>
-	
 	</div>
 </div>
+<?php if (!empty(TSP_OC_CHECKOUT_DISCLAIMER)): ?>
+<div style="padding-top:20px"><? echo TSP_OC_CHECKOUT_DISCLAIMER; ?></div>
+<?php endif; ?>
