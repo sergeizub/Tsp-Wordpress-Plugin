@@ -22,7 +22,13 @@ else {
   <div class="col-sm-6">
      <ul class="list-group">
 		<? foreach ($related_students->family as $student): ?>
-		<li class="list-group-item"><i class="fa fa-user"></i> <?php echo $student->FIRSTNAME; ?> <?php echo $student->LASTNAME; ?>
+		<li class="list-group-item">
+			<?php if (!empty($student->PHOTO)): ?>
+				<img width="40" id="photo-image-<?php echo $student->ID;?>" src="<?php echo get_option('tsp_api_url').'clients/'.$student->PHOTO;?>?t=<?php echo time(); ?>" alt="" class="img-thumbnail">
+			<?php else: ?>
+				<i class="fa fa-user"></i>
+			<?php endif; ?>
+			<?php echo $student->FIRSTNAME; ?> <?php echo $student->LASTNAME; ?>
 			<div class="pull-right">
 				<? if ($student->PARENT_ID > 0 && TSP_OC_RELATED_STUDENTS_ALLOW_EDIT_ARCHIVE == '1') : ?>
 				<a href="#tab-members-edit-<?php echo $student->ID; ?>" class="tsp_ajax_tab btn btn-primary btn-xs geturl">

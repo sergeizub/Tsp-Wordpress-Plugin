@@ -186,6 +186,62 @@ class Api
 			return $response;
 		}
 	}
+    
+    public function SubmitFile($post) {
+        if (!$this->ValidateTSPUrl())
+			return false;
+
+		if (empty($post['tsp_action']))
+			return false;
+
+		$post_action = str_replace('_','/',$post['tsp_action']);
+        
+        $authorization_token = App::GetApi()->GetAuthorizationToken();
+        
+        $boundary = wp_generate_password( 24 );
+        
+        $httpheader = array('Accept' => 'application/json', 'Content-Type' => 'multipart/form-data; boundary=' . $boundary);
+        
+        if (!empty($this->api_key))
+            $httpheader += ['x-api-key' => $this->api_key];
+			
+		if (!empty($authorization_token))
+            $httpheader += ['Authorization' => $authorization_token];
+            
+                
+        $payload = '--' . $boundary. "\r\n";
+        $payload .= 'Content-Disposition: form-data; name="'.$post['name'].'"; filename="'.$post['filename'].'"'."\r\n";
+        $payload .= 'Content-Type: image/jpeg' . "\r\n";
+        $payload .= 'Content-Transfer-Encoding: binary' . "\r\n\r\n";
+        $payload .= file_get_contents( $post['file'] );
+        $payload .= "\r\n";
+        $payload .= '--' . $boundary . '--';
+        $payload .= "\r\n\r\n";
+        $httpheader += ['Content-Length' => strlen($payload)];
+        
+        $result = wp_safe_remote_post($this->url."api/".$this->api_version.'/'.$post_action, array( 'body' => $payload, 'headers' => $httpheader, 'method_post' => 'POST' ));
+ 
+
+        $response = json_decode(wp_remote_retrieve_body($result));
+        
+        if (!empty($response->error)) {
+			App::GetError()->Show($response->error);
+			return false;
+		}
+		elseif (!empty($response->errors) && !empty($response->errors->message)) {
+			App::GetError()->Show($response->errors->message);
+			return false;
+		}
+		else {
+            if (!empty($response->message)) {
+				App::GetError()->Success($response->message);
+			}
+			if (!empty($response->token))
+				$this->token = $response->token;
+			return $response;
+		}
+    
+    }
 
 	public function Delete($post)
 	{

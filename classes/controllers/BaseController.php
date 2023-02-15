@@ -23,6 +23,10 @@ abstract class BaseController
 		return App::GetApi()->Submit($data);
 	}
 	
+	public function SubmitFile($data) {
+		return App::GetApi()->SubmitFile($data);
+	}
+	
 	public function Delete($data) {
 		return  App::GetApi()->Delete($data);
 	}

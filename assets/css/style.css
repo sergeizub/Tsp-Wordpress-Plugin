@@ -53,6 +53,10 @@ html {
    font-weight: normal;
 }
 
+.d-none {
+   display: none !important;
+}
+
 .tsp_body .navbar-nav li a, #m-dd li a {
     line-height: 50px;
     height: 50px;

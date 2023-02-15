@@ -192,4 +192,38 @@ class MembersController extends BaseController
 	{
 	 return parent::GetList("members/waivers");
 	}
+    
+    public function SubmitPhoto($data)
+    {
+        if (empty($data['student_id']) || !is_numeric($data['student_id']))
+            return false;
+        
+        $temp_dir = dirname(__FILE__).'/../../tmp';
+        if (!file_exists($temp_dir))
+			mkdir($temp_dir);
+        
+        //Delteting files from temp dir
+        $files = glob($temp_dir.'/*'); 
+        foreach($files as $file)
+            if(is_file($file)) 
+                unlink($file); 
+        
+        $savePath = $temp_dir.'/'.$data['student_id'].'.jpg';
+        $saveName = $data['student_id'].'.jpg';
+        
+        if (move_uploaded_file($_FILES['photo']['tmp_name'], $savePath)) {		
+            $data['tsp_action'] = 'members/photo/'.$data['student_id'];
+            $data['file'] = $savePath;
+            $data['name'] =  "photo";
+            $data['filename'] =  $saveName;
+            return parent::SubmitFile($data);
+        }
+        return false;
+    }
+    
+    public function DeletePhoto($data)
+	{
+		$data['tsp_action'] = 'members/photo/'.$data['student_id'];
+		return parent::Delete($data);
+	}
 }

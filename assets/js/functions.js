@@ -303,4 +303,45 @@ function tsp_ajax_click(link, tsp_form = false) {
     return false;
 }
 
+function PhotoUploaderInit() {
+    jQuery(".browse-photo").click(function () {
+        jQuery(".photo-input[tsp_student_id='" + jQuery(this).attr('tsp_student_id') + "']").trigger("click");
+    });
+
+    jQuery(".photo-input").change(function (e) {
+        var file = e.target.files[0];
+        var student_id = jQuery(this).attr('tsp_student_id');
+        var method = jQuery(this).attr('tsp_method');
+        var photo = document.getElementById('photo-image-' + student_id);
+        var imageType = file.type;
+        var match = ["image/jpeg", "image/jpg"];
+        if (!((imageType == match[0]) || (imageType == match[1]))) {
+            alert('Type of your image is not allowed');
+            return false;
+        } else {
+            var fd = new FormData();
+            fd.append("action", "tspclient");
+            fd.append("obj", "members");
+            fd.append("method", method);
+            fd.append("photo", file);
+            fd.append("student_id", student_id);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", tspajax.url);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        photo.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                    photo.style.display = 'block';
+                }
+            };
+            xhr.send(fd);
+        }
+
+        jQuery("#photo-image-" + student_id).removeClass('d-none');
+        jQuery(".delete-photo[tsp_student_id='" + student_id + "']").removeClass('d-none');
+    });
+}
 

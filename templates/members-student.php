@@ -18,6 +18,9 @@ else {
 <script>
 	jQuery(function() {
 		InputDateInit();
+		<?php if (!empty($student_id) && TSP_ALLOW_MEMBER_PHOTO == "1" && TSP_OC_ALLOW_MEMBER_PHOTO == "1"): ?>
+		PhotoUploaderInit();
+		<?php endif; ?>
 	});
 </script>
 <? if (is_array($student->form)) :
@@ -33,7 +36,33 @@ else {
             Registering students will cost <?php echo TSP_CURRENCY_SIGN; ?><?php echo TSP_REGISTRATION_FEE; ?>.
         </div>
     <? endif; ?>
-	<form class="form-horizontal" role="form" id="student-form" action="" method="post"> <?
+	<form class="form-horizontal" role="form" id="student-form" action="" method="post">
+	<?php if (!empty($student_id) && TSP_ALLOW_MEMBER_PHOTO == "1" && TSP_OC_ALLOW_MEMBER_PHOTO): ?>
+	<div class="form-group row">
+		<div class="col-sm-3">&nbsp;</div>
+		<div class="col-sm-3">
+			<?php if (!empty($student_data['photo'])): ?>
+				<img width="160" id="photo-image-<?php echo $student_id;?>" src="<?php echo get_option('tsp_api_url').'clients/'.$student_data['photo'];?>?t=<?php echo time(); ?>" alt="" class="img-thumbnail" />
+			<?php else: ?>
+				<img width="160" id="photo-image-<?php echo $student_id;?>" src="" alt="" class="img-thumbnail d-none" />
+			<?php endif; ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">Photo</label>
+		<div class="col-sm-6">
+			<input type="file" name="photo" class="photo-input d-none" tsp_student_id="<?php echo $student_id; ?>" tsp_method="SubmitPhoto">
+			<button class="btn btn-info browse-photo" type="button" tsp_student_id="<?php echo $student_id; ?>" ><i class="fa fa-search"></i> Browse</button>
+			<button class="btn btn-danger delete-photo <?php if (empty($student_data['photo'])): ?>d-none<?php endif; ?>" type="button" tsp_obj="members" tsp_method="DeletePhoto" tsp_student_id="<?php echo $student_id; ?>"
+			href="#tab-members-edit-<?php echo $student_id;?>"
+			onclick="if (confirm('Are you sure you want to delete photo?')) { tsp_ajax_click(this) };return false;">
+				<i class="fa fa-trash"></i> Delete Photo
+			</button>
+			
+		</div>
+	</div>
+	<? endif; ?>
+	<?
 		foreach ($student->form as $field) {
 			echo '<div class="form-group">
 					<label class="col-sm-3 control-label">
