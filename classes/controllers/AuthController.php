@@ -89,7 +89,7 @@ class AuthController extends BaseController
             $_SESSION['tsp_redirect']['boot_tab'] = $data['boot_tab'];
         }
         else {
-            $_SESSION['tsp_redirect']['boot_tab'] = 'chechout-cart';
+            $_SESSION['tsp_redirect']['boot_tab'] = '#tab-dashboard';
         }
 		if ($response->token) {
 			echo true;
