@@ -164,6 +164,12 @@ class MembersController extends BaseController
 	{
 	 return parent::GetList("members/payments");
 	}
+    
+    public function GetScheduledPayments($data)
+	{
+        $data['tsp_action'] = "members/scheduled-payments";
+        return parent::GetList($data);
+	}
 	
 	public function GetCardsAccounts($params = array())
 	{
