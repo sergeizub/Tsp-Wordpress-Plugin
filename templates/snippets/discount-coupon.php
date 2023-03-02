@@ -7,10 +7,9 @@
 		            <?php echo $cart['discount_coupon']['DISCOUNT_VALUE']; ?> (<?php echo (($cart['discount_coupon']['DISCOUNT_TYPE'] == 'percentage') ? '%' : TSP_CURRENCY_SIGN); ?>)</i>
 		        </label>
 		        <div class="col-sm-3">		            
-		            <button type="submit" class="btn btn-warning" id="remove-discount"><i class="fa fa-minus-circle"></i> Remove</button>
+		            <a href="#tab-checkout-cart" class="btn btn-warning tsp_ajax_tab" id="remove-discount" tsp_obj="checkout" tsp_method="RemoveDiscount"><i class="fa fa-minus-circle"></i> Remove</a>
 		        </div>
 	        </div>
-			<input type="hidden" name="method" value="RemoveDiscount"/>
 			<? else: ?>
 		    <div class="form-group">
 		        <label class="col-sm-5 control-label">Discount Coupon</label>
@@ -22,6 +21,5 @@
 					   onclick="this.setAttribute('tsp_discount_coupon', document.getElementById('discount_coupon').value);" >Apply Discount</a>
 		        </div>
 		    </div>
-			<input type="hidden" name="method" value="AddDiscount"/>
 	<?php endif; ?>
 <?php endif; ?>

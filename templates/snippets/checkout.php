@@ -66,7 +66,7 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 			<? if (!empty($selected_account)) :?>
 			<input type="hidden" name="selected_account" value="<?php echo $selected_account; ?>"/>
 			<? endif; ?>
-			<?php //include plugin_dir_path( __FILE__ ) . 'discount-coupon.php'; ?>
+			<?php include plugin_dir_path( __FILE__ ) . 'discount-coupon.php'; ?>
 		        
 			    <div class="form-group">
 			        <label class="col-sm-5 control-label">Total Amount to Pay</label>
