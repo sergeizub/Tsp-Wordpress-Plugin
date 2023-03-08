@@ -88,4 +88,10 @@ class CheckoutController extends BaseController
 		$data['tsp_action'] = 'checkout/sales-items';
 		return parent::Submit($data);
 	}
+    
+    public function PayScheduledPayment($data)
+	{
+		$data['tsp_action'] = 'checkout/pay-scheduled-payment';
+		return parent::Submit($data);
+	}
 }

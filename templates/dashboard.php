@@ -1,7 +1,8 @@
 <?php
 namespace TravelSportsPro;
 $related_students =  App::GetClient()->GetController('members')->GetChildList();
-$scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledPayments(array("interval" => "future","status" => "1"));
+$scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledPayments(array("interval" => "future","status" => "1,3"));
+$statuses = ['1'=>'Scheduled', '2'=>'Complete', '3'=>'Processing Error', '4'=>'On Hold', '5'=>'Terminated', '6'=>'Processing'];
 ?>
 <div id="tab-dashboard" class="tab-pane">
     <div class="page-header">
@@ -44,13 +45,15 @@ $scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledP
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="3">
-						<?php if (!empty($related_students->finance->next_scheduled_payment) && !empty($related_students->finance->next_scheduled_payment->PAYMENT_DATE)) :?>
-						Your next auto payment of <?php echo TSP_CURRENCY_SIGN.$related_students->finance->next_scheduled_payment->AMOUNT; ?> is schedule for
-						<?php echo $related_students->finance->next_scheduled_payment->PAYMENT_DATE; ?>
+					<td colspan="4">
+                        <?php $next_scheduled_payment = $related_students->finance->next_scheduled_payment; ?>
+                        <?php if (!empty($next_scheduled_payment) && !empty($next_scheduled_payment->PAYMENT_DATE)) :?>
+						Your next auto payment of <?php echo TSP_CURRENCY_SIGN.$next_scheduled_payment->AMOUNT; ?> is schedule for
+						<?php echo $next_scheduled_payment->PAYMENT_DATE; ?>
+                        <a href="#tab-dashboard"  tsp_obj="checkout" tsp_method="PayScheduledPayment" tsp_id="<?php echo $next_scheduled_payment->ID; ?>"  title="Pay Now" class="btn btn-danger pull-right"
+                           onclick="if (confirm('Are you sure you want to process payment?')) { tsp_ajax_click(this); } return false;" >Pay Now</a>
 						<?php endif; ?>
 					</td>
-					<td>&nbsp;</td>
 				</tr>
 			</tfoot>
             </table>
@@ -65,15 +68,24 @@ $scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledP
 					<th width="150">Due Date</th>
 					<th>Amount</th>
 					<th>Method</th>
+                    <th>Status</th>
+                    <th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
 			<? if (!empty($scheduled_payments->scheduled_payments)) : ?>
 				<? foreach ($scheduled_payments->scheduled_payments as $payment) : ?>
 				<tr>
-					<td><?php echo $payment->PAYMENT_DATE ?></td>
+					<td><?php echo $payment->PAYMENT_DATE; ?></td>
 					<td><?php echo TSP_CURRENCY_SIGN; ?><?php echo $payment->AMOUNT; ?></td>
-					<td><?php echo $payment->PAYMENT_METHOD ?></td>
+					<td><?php echo $payment->PAYMENT_METHOD; ?></td>
+                    <td><?php echo $statuses[$payment->SCHEDULED_PAYMENT_STATUS]; ?></td>
+                    <td>
+                        <?php if (in_array($payment->SCHEDULED_PAYMENT_STATUS, array("1","3"))): ?>
+                        <a href="#tab-dashboard"  tsp_obj="checkout" tsp_method="PayScheduledPayment" tsp_id="<?php echo $payment->ID; ?>"  title="Pay Now" class="btn btn-danger"
+                           onclick="if (confirm('Are you sure you want to process payment?')) { tsp_ajax_click(this); } return false;" >Pay Now</a>
+                        <?php endif; ?>
+                    </td>
 				</tr>
 				<? endforeach; ?>
 			<? else: ?>
