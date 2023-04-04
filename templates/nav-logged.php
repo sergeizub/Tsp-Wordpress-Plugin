@@ -43,7 +43,6 @@ jQuery(function() {
 	<li class="dropdown pull-right" id="m-dd">
 		<a href="#" data-toggle="dropdown"><i class="fa fa-users"></i> My Account<span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href="#tab-classes-calendar" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-users"></i> Programs</a></li>
 				<li><a href="#tab-program-registration" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-check-circle"></i> Register</a></li>
 				<?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
 					<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?>"><i class="fa fa-cube"></i> <?php echo TSP_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
@@ -72,7 +71,6 @@ jQuery(function() {
 	<li class="dropdown pull-right">
 		<a href="#" data-toggle="dropdown"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a>
 			<ul class="dropdown-menu">
-				<li><a href="#tab-classes-calendar" data-toggle="tab" class="tsp_ajax_tab default_tab"><i class="fa fa-users"></i> Programs</a></li>
 				<li><a href="#tab-program-registration" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-check-circle"></i> Register</a></li>
 				<?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
 					<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?>"><i class="fa fa-cube"></i> <?php echo TSP_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>

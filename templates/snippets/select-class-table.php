@@ -4,7 +4,7 @@ namespace TravelSportsPro;
             <table class="table table-borderless table_mobile_block" style="table-layout: auto;">
                 <thead>
                     <tr>
-                        <th>Class</th>
+                        <th>Program</th>
                         <?php if (TSP_OC_CLASS_LIST_CLASS_AGE == '1') { ?><th class="text-center">Age</th><?php } ?>
                         <?php if (TSP_OC_CLASS_LIST_CLASS_LEVEL == '1') { ?><th class="text-center">Level</th><?php } ?>
                         <?php if (TSP_OC_CLASS_LIST_CLASS_LOCATION == '1') { ?><th class="text-center">Location</th><?php } ?>
