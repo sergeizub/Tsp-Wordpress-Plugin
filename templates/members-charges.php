@@ -18,8 +18,8 @@ $result = App::GetClient()->GetController('members')->GetCharges();
 		</thead>
 		<tbody>
 			
-		<? if (!empty($result->charges)) : ?>
-			<? foreach ($result->charges as $charge) : ?>
+		<?php if (!empty($result->charges)) : ?>
+			<?php foreach ($result->charges as $charge) : ?>
 			<tr>
 				<td><?php echo $charge->DATE; ?></td>
 				<td><?php echo $charge->NAME; ?></td>
@@ -33,14 +33,14 @@ $result = App::GetClient()->GetController('members')->GetCharges();
 				</td>
 				<td><?php echo TSP_CURRENCY_SIGN; ?><?php echo $charge->AMOUNT_CHARGED; ?></td>
 			</tr>
-			<? endforeach; ?>
-		<? else: ?>
+			<?php endforeach; ?>
+		<?php else: ?>
 			<td colspan="6">Charges not added</td>
-		<? endif; ?>
+		<?php endif; ?>
 		</tbody>
 	</table>
 	</div>
 </div>
 <?php if (!empty(TSP_OC_CHECKOUT_DISCLAIMER)): ?>
-<div style="padding-top:20px"><? echo TSP_OC_CHECKOUT_DISCLAIMER; ?></div>
+<div style="padding-top:20px"><?php echo TSP_OC_CHECKOUT_DISCLAIMER; ?></div>
 <?php endif; ?>

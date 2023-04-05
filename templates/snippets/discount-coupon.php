@@ -10,7 +10,7 @@
 		            <a href="#tab-checkout-cart" class="btn btn-warning tsp_ajax_tab" id="remove-discount" tsp_obj="checkout" tsp_method="RemoveDiscount"><i class="fa fa-minus-circle"></i> Remove</a>
 		        </div>
 	        </div>
-			<? else: ?>
+			<?php else: ?>
 		    <div class="form-group">
 		        <label class="col-sm-5 control-label">Discount Coupon</label>
 		        <div class="col-sm-4">

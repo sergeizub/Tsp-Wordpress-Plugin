@@ -27,7 +27,7 @@ var show_login_alert = '<?php echo TSP_OC_SHOW_LOGIN_ALERT; ?>';
 <?php endif; ?>
 </style>
 <ul class="nav nav-pills">
-	    <?php if ($_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items') : ?>
+	    <?php if (isset($_SESSION['tsp_client_attrs']['default_tab']) && $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items') : ?>
 	    <li><a href="#tab-checkout-sales-items" data-toggle="tab"  class="tsp_ajax_tab default_tab"><i class="fa fa-cube"></i> <?php echo TSP_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
 		<?php else: ?>
 		<li><a href="#tab-auth-login" data-toggle="tab" class="tsp_ajax_tab default_tab"><i class="fa fa-users"></i> Programs</a></li>

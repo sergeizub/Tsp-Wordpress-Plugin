@@ -23,7 +23,7 @@ else {
 		<?php endif; ?>
 	});
 </script>
-<? if (is_array($student->form)) :
+<?php if (is_array($student->form)) :
 	?>
 	<div id="<?php echo ((!empty($student_id) ? 'members_edit_'.$student_id : 'tab-members-student')); ?>" class="<?php echo (!empty($student_id) ? '' : 'tab-pane'); ?>">
 	<div class="tsp-header"><h2><?php echo (!empty($student_id) ? 'Edit' : 'Add Related'); ?> Player</h2></div>
@@ -35,7 +35,7 @@ else {
 		<div class="alert alert-warning text-center">
             Registering students will cost <?php echo TSP_CURRENCY_SIGN; ?><?php echo TSP_REGISTRATION_FEE; ?>.
         </div>
-    <? endif; ?>
+    <?php endif; ?>
 	<form class="form-horizontal" role="form" id="student-form" action="" method="post">
 	<?php if (!empty($student_id) && TSP_ALLOW_MEMBER_PHOTO == "1" && TSP_OC_ALLOW_MEMBER_PHOTO): ?>
 	<div class="form-group row">
@@ -61,8 +61,8 @@ else {
 			
 		</div>
 	</div>
-	<? endif; ?>
-	<?
+	<?php endif; ?>
+	<?php
 		foreach ($student->form as $field) {
 			echo '<div class="form-group">
 					<label class="col-sm-3 control-label">
@@ -124,6 +124,6 @@ else {
 		<button type="submit" class="btn btn-default">Save</button></div></div>';
 	?> </form>
 	</div>
-<? else:
+<?php else:
 App::GetError()->Show("Unable Send Api Reqest");
 endif; 

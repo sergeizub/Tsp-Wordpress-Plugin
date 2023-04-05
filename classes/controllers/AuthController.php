@@ -206,7 +206,7 @@ class AuthController extends BaseController
 		);
 
 		foreach ($date_time_formats as $k => $v)
-			if (!defined($k))
+			if (!defined('TSP_'.$k))
 				define('TSP_'.$k, $v);
 	}	
 	

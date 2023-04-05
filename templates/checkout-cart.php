@@ -30,14 +30,14 @@ $selected_account = $cart['selected_account'];
                     <?php if (TSP_ENABLE_DISCOUNT_COUPONS == '1' || TSP_MAIN_DISCOUNT == 'MULTI_CLASS' || TSP_MULTI_STUDENT_ENABLED == '1') : ?>
 		            <th class="text-right" width="90">Discount</th>
 		            <th class="text-right" width="90">Subtotal</th>
-		           <? endif; ?>
+		           <?php endif; ?>
 		            <th class="text-right" width="90"><?php echo ((TSP_TAX_ENABLED == '1') ? 'Tax': ''); ?></th>
 		            <th class="text-right" width="90"></th>
 		        </tr>
 		    </thead>
             <tbody>
             <?php foreach ($student['items'] as $k_item => $item) :?>
-			<?php if (TSP_ENABLE_PAYMENT_ACCOUNT_2 == '1') $cart_locations[$item['location_id']] = $cart_locations[$item['location_id']]; ?>
+			<?php if (defined ('TSP_ENABLE_PAYMENT_ACCOUNT_2') && TSP_ENABLE_PAYMENT_ACCOUNT_2 == '1') $cart_locations[$item['location_id']] = $cart_locations[$item['location_id']]; ?>
                 <?php if ($item['student_id']) : ?>
                     <tr id="tr-<?php echo $k_item; ?>">
 			            <td colspan="2">

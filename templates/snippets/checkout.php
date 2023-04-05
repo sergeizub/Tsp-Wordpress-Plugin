@@ -63,9 +63,9 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 			<input type="hidden" name="obj" value="checkout"/>
 			<input type="hidden" name="boot_tab" value="tab-checkout-cart"/>
 			<input type="hidden" name="method" value="Submit"/>
-			<? if (!empty($selected_account)) :?>
+			<?php if (!empty($selected_account)) :?>
 			<input type="hidden" name="selected_account" value="<?php echo $selected_account; ?>"/>
-			<? endif; ?>
+			<?php endif; ?>
 			<?php include plugin_dir_path( __FILE__ ) . 'discount-coupon.php'; ?>
 		        
 			    <div class="form-group">
@@ -84,7 +84,7 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 			            <input type="checkbox" id="use_account_credit" name="use_account_credit"> Use Account Credit (<?php echo TSP_CURRENCY_SIGN; echo $cart['balance'] * -1;?>)
 			        </div>
 			    </div>
-			   <? endif; ?>
+			   <?php endif; ?>
 				<?php if (TSP_OC_PAY_AT_STUDIO == "1") : ?>
 			    <div class="form-group">
 			        <label class="col-sm-5 control-label"></label>
@@ -140,21 +140,21 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 						 <input class="form-control" type="text" name="card_verification" maxlength="4" value="<?php echo sanitize_text_field($_POST['card_verification']); ?>">
 					</div>
 			    </div>
-				<? if (!empty(trim(get_option('tsp_payment_notice')))) :?>
+				<?php if (!empty(trim(get_option('tsp_payment_notice')))) :?>
 				<div class="form-group">
 					<label class="col-sm-5 control-label">&nbsp;</label>
 					<div class="col-sm-7">
 						<?php echo get_option('tsp_payment_notice'); ?>
 					</div>      
 				</div>
-				<? else: ?>
+				<?php else: ?>
 				<div class="form-group">
 				  <label class="col-sm-5 control-label"></label>
 				  <div class="col-sm-7">
 					 <input type="checkbox" name="auto_payment" <?php echo (($_POST['auto_payment'] == 'on') ? 'checked="checked"' : ''); ?>> agree to enroll in automatic regular payment
 				  </div>
 				</div>
-				<? endif; ?>
+				<?php endif; ?>
 		    </div> 	
 			<div class="form-group">
 				<label class="col-sm-5 control-label"></label>
@@ -167,6 +167,6 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 		</div>
 	</div>
 <?php if (!empty(TSP_OC_CHECKOUT_DISCLAIMER)): ?>
-	<div style="padding-top:20px"><? echo TSP_OC_CHECKOUT_DISCLAIMER; ?></div>
+	<div style="padding-top:20px"><?php echo TSP_OC_CHECKOUT_DISCLAIMER; ?></div>
 <?php endif; ?>
 <?php endif; ?>

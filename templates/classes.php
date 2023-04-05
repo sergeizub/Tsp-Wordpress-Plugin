@@ -189,6 +189,6 @@ else :
 		</div>
 		<div class="panel-body" id="schedules-container"></div>
 	</div>
-	<?
+	<?php
 endif; ?>
 </div>

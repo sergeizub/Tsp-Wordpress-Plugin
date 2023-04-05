@@ -23,8 +23,8 @@ $statuses = ['1'=>'Scheduled', '2'=>'Complete', '3'=>'Processing Error', '4'=>'O
 			</thead>
 			<tbody>
 			<?php $displayed_balance = false; ?>
-			<? if (!empty($related_students->family)) : ?>
-				<? foreach ($related_students->family as $student) : ?>
+			<?php if (!empty($related_students->family)) : ?>
+				<?php foreach ($related_students->family as $student) : ?>
 				<tr>
 					<td><?php echo $student->FIRSTNAME.' '.$student->LASTNAME; ?></td>
 					<td><?php echo implode(", ",(array)$student->CLASSES); ?></td>
@@ -34,14 +34,14 @@ $statuses = ['1'=>'Scheduled', '2'=>'Complete', '3'=>'Processing Error', '4'=>'O
 					<?php $displayed_balance = true; ?>
 					<?php endif; ?>
 				</tr>
-				<? endforeach; ?>
-			<? else: ?>
+				<?php endforeach; ?>
+			<?php else: ?>
 				<td colspan="3">Players Not Added</td>
                 <?php if ($displayed_balance != true): ?>
 					<td style="vertical-align:middle;"><?php echo TSP_CURRENCY_SIGN; ?><?php echo $related_students->finance->balance; ?></td>
 				<?php $displayed_balance = true; ?>
-                <? endif; ?>
-			<? endif; ?>
+                <?php endif; ?>
+			<?php endif; ?>
 			</tbody>
 			<tfoot>
 				<tr>
@@ -73,8 +73,8 @@ $statuses = ['1'=>'Scheduled', '2'=>'Complete', '3'=>'Processing Error', '4'=>'O
 				</tr>
 			</thead>
 			<tbody>
-			<? if (!empty($scheduled_payments->scheduled_payments)) : ?>
-				<? foreach ($scheduled_payments->scheduled_payments as $payment) : ?>
+			<?php if (!empty($scheduled_payments->scheduled_payments)) : ?>
+				<?php foreach ($scheduled_payments->scheduled_payments as $payment) : ?>
 				<tr>
 					<td><?php echo $payment->PAYMENT_DATE; ?></td>
 					<td><?php echo TSP_CURRENCY_SIGN; ?><?php echo $payment->AMOUNT; ?></td>
@@ -87,10 +87,10 @@ $statuses = ['1'=>'Scheduled', '2'=>'Complete', '3'=>'Processing Error', '4'=>'O
                         <?php endif; ?>
                     </td>
 				</tr>
-				<? endforeach; ?>
-			<? else: ?>
+				<?php endforeach; ?>
+			<?php else: ?>
 				<td colspan="6">Payments Not Scheduled</td>
-			<? endif; ?>
+			<?php endif; ?>
 			</tbody>
             </table>
             </div>
