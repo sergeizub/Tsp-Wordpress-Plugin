@@ -31,12 +31,16 @@ class App
                 wp_register_style( 'tsp_fontawesome', plugins_url('../assets/font-awesome-4.7.0/css/font-awesome.min.css',__FILE__) );
                 wp_register_style( 'tsp_style', plugins_url('../assets/css/style.css?v='.rand(),__FILE__ ) );
                 wp_register_style( 'tsp_fullcalendar', plugins_url('../assets/fullcalendar-3.9.0/fullcalendar.min.css',__FILE__) );
+                wp_register_style( 'dataTables-css', 'https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css', '', '', true );
+                wp_register_style( 'dataTables-css-bootstrap', 'https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap.min.css', '', '', true );
 
                 wp_register_script( 'tsp_js_bootstrap', plugins_url('../assets/bootstrap-3.3.7/js/bootstrap.min.js',__FILE__) , array('jquery'));
                 wp_register_script( 'tsp_momentjs', plugins_url('../assets/js/moment.js/2.20.1/moment.min.js',__FILE__) , array('jquery'));
                 wp_register_script( 'tsp_signature_pad', plugins_url('../assets/js/signature_pad/index.js',__FILE__ ) , array('jquery'), time());
                 wp_register_script( 'tspfunctionjs', plugins_url('../assets/js/functions.js',__FILE__ ) , array('jquery') , time());
-
+                wp_register_script( 'dataTables-js', 'https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js' , '', '', true );
+                wp_register_script( 'dataTables-js-bootstrap', 'https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap.min.js' , '', '', true );
+        
                 wp_localize_script( 'tspfunctionjs', 'tspajax',
                     array(
                         'url' => admin_url('admin-ajax.php')
@@ -60,6 +64,9 @@ class App
             wp_enqueue_style('tsp_style');
             wp_enqueue_style('tsp_style_united');
             wp_enqueue_style('tsp_fullcalendar');
+            wp_enqueue_style('tsp_fullcalendar');
+            wp_enqueue_style('dataTables-css');
+            wp_enqueue_style('dataTables-css-bootstrap');
             
             wp_dequeue_script( 'bootstrap' );
             
@@ -69,6 +76,8 @@ class App
             wp_enqueue_script('tspfunctionjs');
             wp_enqueue_script('tsp_datetimepicker');
             wp_enqueue_script('tsp_fullcalendar');
+            wp_enqueue_script('dataTables-js');
+            wp_enqueue_script('dataTables-js-bootstrap');
 
             $args = array(
                 'before_widget' => '<div class="box widget">',
@@ -91,6 +100,8 @@ class App
             wp_enqueue_style('tsp_style');
             wp_enqueue_style('tsp_style_united');
             wp_enqueue_style('tsp_fullcalendar');
+            wp_enqueue_style('dataTables-css');
+            wp_enqueue_style('dataTables-css-bootstrap');
             
             wp_dequeue_script( 'bootstrap' );
 
@@ -100,6 +111,8 @@ class App
             wp_enqueue_script('tspfunctionjs');
             wp_enqueue_script('tsp_datetimepicker');
             wp_enqueue_script('tsp_fullcalendar');
+            wp_enqueue_script('dataTables-js');
+            wp_enqueue_script('dataTables-js-bootstrap');
 
             $args = array(
                 'before_widget' => '<div class="box widget">',
@@ -122,6 +135,8 @@ class App
             wp_enqueue_style('tsp_style');
             wp_enqueue_style('tsp_style_united');
             wp_enqueue_style('tsp_fullcalendar');
+            wp_enqueue_style('dataTables-css');
+            wp_enqueue_style('dataTables-css-bootstrap');
             
             wp_dequeue_script( 'bootstrap' );
 
@@ -131,6 +146,8 @@ class App
             wp_enqueue_script('tspfunctionjs');
             wp_enqueue_script('tsp_datetimepicker');
             wp_enqueue_script('tsp_fullcalendar');
+            wp_enqueue_script('dataTables-js');
+            wp_enqueue_script('dataTables-js-bootstrap');
 
             $args = array(
                 'before_widget' => '<div class="box widget">',
@@ -153,6 +170,8 @@ class App
             wp_enqueue_style('tsp_style');
             wp_enqueue_style('tsp_style_united');
             wp_enqueue_style('tsp_fullcalendar');
+            wp_enqueue_style('dataTables-css');
+            wp_enqueue_style('dataTables-css-bootstrap');
             
             wp_dequeue_script( 'bootstrap' );
 
@@ -162,8 +181,11 @@ class App
             wp_enqueue_script('tspfunctionjs');
             wp_enqueue_script('tsp_datetimepicker');
             wp_enqueue_script('tsp_fullcalendar');
+            wp_enqueue_script('dataTables-js');
+            wp_enqueue_script('dataTables-js-bootstrap');
 
             unset($_SESSION['tsp_client_attrs']);
+            if (is_array($atts))
             foreach ($atts as $k_att => $att) {
                 if ($k_att == 'class_genre')
                     $k_att = 'class_name';

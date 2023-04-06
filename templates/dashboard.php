@@ -2,7 +2,6 @@
 namespace TravelSportsPro;
 $related_students =  App::GetClient()->GetController('members')->GetChildList();
 $scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledPayments(array("interval" => "future","status" => "1,3"));
-$statuses = ['1'=>'Scheduled', '2'=>'Complete', '3'=>'Processing Error', '4'=>'On Hold', '5'=>'Terminated', '6'=>'Processing'];
 ?>
 <div id="tab-dashboard" class="tab-pane">
     <div class="page-header">
@@ -79,7 +78,7 @@ $statuses = ['1'=>'Scheduled', '2'=>'Complete', '3'=>'Processing Error', '4'=>'O
 					<td><?php echo $payment->PAYMENT_DATE; ?></td>
 					<td><?php echo TSP_CURRENCY_SIGN; ?><?php echo $payment->AMOUNT; ?></td>
 					<td><?php echo $payment->PAYMENT_METHOD; ?></td>
-                    <td><?php echo $statuses[$payment->SCHEDULED_PAYMENT_STATUS]; ?></td>
+                    <td><?php echo App::GetClient()->GetController('members')->GetScheduledPaymentsStatusLabel($payment->SCHEDULED_PAYMENT_STATUS); ?></td>
                     <td>
                         <?php if (in_array($payment->SCHEDULED_PAYMENT_STATUS, array("1","3"))): ?>
                         <a href="#tab-dashboard"  tsp_obj="checkout" tsp_method="PayScheduledPayment" tsp_id="<?php echo $payment->ID; ?>"  title="Pay Now" class="btn btn-danger"

@@ -71,6 +71,7 @@ html {
 
 .tsp_body .tsp-header {
     padding-left:20px;
+    min-height: 20px;
 }
 
 .tsp_body .entry-content .nav a {
@@ -150,12 +151,21 @@ html {
 /* Class list */
 /* bootstrap: fix content width inside hidden tabs */
 .tsp_body .classes-list > .tab-pane:not(.active),
-.tsp_body .classes-list > .pill-pane:not(.active) {
+.tsp_body .classes-list > .pill-pane:not(.active),
+.tsp_body .finance-tabs > .tab-pane:not(.active),
+.tsp_body .finance-tabs > .pill-pane:not(.active){
     display: none !important;
     overflow-y: hidden;
      overflow-x: hidden;
     padding:0px;
-} 
+}
+.finance-tabs .table {
+   margin-top: 20px;
+}
+.finance-tabs .table th {
+   padding: 0.75rem;
+   border-top: 1px solid #dee2e6 !important;
+}
 /* bootstrap hack end */
 .tsp_body #current-date {
 	display: inline-block; 

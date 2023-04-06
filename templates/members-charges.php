@@ -1,45 +1,8 @@
 <?php
 namespace TravelSportsPro;
-$result = App::GetClient()->GetController('members')->GetCharges();
 ?>
-
 <div id="tab-members-charges" class="tab-pane">
-	<h2 class="page-header">Charges</h2>
-	<div class="table-responsive">
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th width="150">Date</th>
-				<th>Name</th>
-				<th>Class</th>
-				<th>Notes</th>
-				<th style="text-align:right" width="90">Charged</th>
-			</tr>
-		</thead>
-		<tbody>
-			
-		<?php if (!empty($result->charges)) : ?>
-			<?php foreach ($result->charges as $charge) : ?>
-			<tr>
-				<td><?php echo $charge->DATE; ?></td>
-				<td><?php echo $charge->NAME; ?></td>
-				<td><?php echo $charge->CLASS; ?></td>
-				<td>
-				<?php if ($charge->CHARGE_CATEGORY == TSP_CONVENIENCE_FEE_CATEGORY): ?>
-				<?php echo $charge->CATEGORY_NAME; ?>
-				<?php else: ?>
-				<?php echo $charge->CHARGE_NOTES; ?>
-				<?php endif; ?>
-				</td>
-				<td><?php echo TSP_CURRENCY_SIGN; ?><?php echo $charge->AMOUNT_CHARGED; ?></td>
-			</tr>
-			<?php endforeach; ?>
-		<?php else: ?>
-			<td colspan="6">Charges not added</td>
-		<?php endif; ?>
-		</tbody>
-	</table>
-	</div>
+<?php include plugin_dir_path( __FILE__ ) . 'snippets/members-charges.php'; ?>
 </div>
 <?php if (!empty(TSP_OC_CHECKOUT_DISCLAIMER)): ?>
 <div style="padding-top:20px"><?php echo TSP_OC_CHECKOUT_DISCLAIMER; ?></div>

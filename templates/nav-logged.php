@@ -50,6 +50,7 @@ jQuery(function() {
 				
 				<li><a href="#tab-members-change-password" class="tsp_ajax_tab"><i class="fa fa-lock"></i> Change Password</a></li>
 				<li><a href="#tab-members-student" class="tsp_ajax_tab"><i class="fa fa-child"></i>  Add Related Player</a></li>
+				<li><a href="#tab-gateway-finance" class="tsp_ajax_tab"><i class="fa fa-dollar"></i>  Finance</a></li>
 				<li><a href="#tab-members-classes" class="tsp_ajax_tab"><i class="fa fa-list"></i> Programs</a></li>
 				<?php if (get_option('tsp_private_lesson_section') == '1'): ?>
 				<li><a href="#tab-members-private-lessons" class="tsp_ajax_tab"><i class="fa fa-user-circle"></i>  Private Lessons</a></li>
@@ -57,7 +58,6 @@ jQuery(function() {
 				<li><a href="#tab-members-charges" class="tsp_ajax_tab"><i class="fa fa-dollar"></i> Charges</a></li>
 				<li><a href="#tab-members-purchases" class="tsp_ajax_tab"><i class="fa fa-shopping-cart"></i> Purchases</a></li>
 				<li><a href="#tab-members-gift-cards" class="tsp_ajax_tab"><i class="fa fa-gift"></i> Gift Cards</a></li>
-				<li><a href="#tab-members-cards-accounts" class="tsp_ajax_tab"><i class="fa fa-credit-card"></i> Stored Cards</a></li>
 				<li><a href="#" data-toggle="tab"  tsp_obj="auth" tsp_method="Logout"  tsp_reload="true" class="tsp_ajax_tab"><i class="fa fa-sign-out"></i> Logout</a></li>
 			</ul>
 	</li>
@@ -78,6 +78,7 @@ jQuery(function() {
 				<li><a href="#tab-members-edit" class="tsp_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>
 				<li><a href="#tab-members-change-password" class="tsp_ajax_tab"><i class="fa fa-lock"></i> Change Password</a></li>
 				<li><a href="#tab-members-student" class="tsp_ajax_tab"><i class="fa fa-child"></i>  Add Related Player</a></li>
+				<li><a href="#tab-gateway-finance" class="tsp_ajax_tab"><i class="fa fa-dollar"></i>  Finance</a></li>
 				<li><a href="#tab-members-classes" class="tsp_ajax_tab"><i class="fa fa-list"></i> Programs</a></li>
 				<?php if (get_option('tsp_private_lesson_section') == '1'): ?>
 				<li><a href="#tab-members-private-lessons" class="tsp_ajax_tab"><i class="fa fa-user-circle"></i>  Private Lessons</a></li>
@@ -88,7 +89,6 @@ jQuery(function() {
 				<?php if (TSP_OC_LEDGER_SHOW_PAYMENTS == "1"): ?>
 				<li><a href="#tab-members-payments" class="tsp_ajax_tab"><i class="fa fa-credit-card"></i> Payments</a></li>
 				<?php endif; ?>
-				<li><a href="#tab-members-cards-accounts" class="tsp_ajax_tab"><i class="fa fa-credit-card"></i> Stored Cards</a></li>
 				<li><a href="#" data-toggle="tab"  tsp_obj="auth" tsp_method="Logout"  tsp_reload="true" class="tsp_ajax_tab"><i class="fa fa-sign-out"></i> Logout</a></li>
 			</ul>
 	</li>
