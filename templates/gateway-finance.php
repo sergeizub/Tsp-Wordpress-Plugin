@@ -2,10 +2,17 @@
 namespace TravelSportsPro;
 ?>
 <div id="tab-gateway-finance" class="tab-pane">
+	<script>
+		jQuery(function() {
+			jQuery('#pay-now-button').click(function() {
+				jQuery('#pgw-tabs a[href="#tab-pay"]').tab('show');
+			});
+		});
+	</script>
 	<div class="page-header">
         <h2>Finance</h2>
     </div>
-<div id="tabs">
+<div id="pgw-tabs">
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active">
 			<a href="#tab-ledger" role="tab" data-toggle="tab" aria-controls="Ledger">Ledger</a>
@@ -19,6 +26,11 @@ namespace TravelSportsPro;
 		<li role="presentation">
 			<a href="#tab-gateway-account" role="tab" data-toggle="tab" aria-controls="Add Bank Account (ACH)">Add Bank Account (ACH)</a>
 		</li>
+		<?php endif; ?>
+		<?php if ((defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1") || (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1")) : ?>
+			<li class="nav-item" role="presentation">
+				<a href="#tab-pay" aria-controls="Make Payment" role="tab" data-toggle="tab" class="nav-link">Make Payment</a>
+			</li>
 		<?php endif; ?>
 		<?php if ((defined('TSP_OC_ALLOW_CARD_PAYMENTS') && TSP_OC_ALLOW_CARD_PAYMENTS == "1") || (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1")) : ?>
 		<li role="presentation">
@@ -48,6 +60,11 @@ namespace TravelSportsPro;
 	<?php if (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1") : ?>
 	<div role="tabpanel" class="tab-pane" id="tab-gateway-account">
 		<?php include plugin_dir_path( __FILE__ ) . 'snippets/gateway-account.php'; ?>
+	</div>
+	<?php endif; ?>
+	<?php if ((defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1") || (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1")) : ?>	
+	<div role="tabpanel" class="tab-pane" id="tab-pay">			
+		<?php include plugin_dir_path( __FILE__ ) . 'snippets/gateway-pay.php'; ?>
 	</div>
 	<?php endif; ?>
 	<?php if ((defined('TSP_OC_ALLOW_CARD_PAYMENTS') && TSP_OC_ALLOW_CARD_PAYMENTS == "1") || (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1")) : ?>

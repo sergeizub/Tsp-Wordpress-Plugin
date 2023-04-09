@@ -24,7 +24,13 @@ $finance = $related_students['finance'];
 			<br /><?php echo $user_data['CITY']; ?>, <?php echo $user_data['STATE']; ?> <?php echo $user_data['ZIP']; ?>
 		</td>
 		<td>
+			<?php if ($finance['balance'] > 0 && (TSP_OC_ALLOW_CARD_PAYMENTS == "1" || TSP_OC_ALLOW_ACH_PAYMENTS == "1")):?>
+			<button class="btn btn-primary" id="pay-now-button">
+				<i class="fa fa-dollar-sign"></i> Pay Now
+			</button>
+			<?php else: ?>
 			&nbsp;
+			<?php endif; ?>
 		</td>		
 		<td width="130" class="text-right">
 			<?php if ((!defined('TSP_OC_LEDGER_UNPAID_CHARGES_ONLY') || empty(TSP_OC_LEDGER_UNPAID_CHARGES_ONLY)) && (!defined('TSP_OC_SHOW_TOTAL_CHARGED') || TSP_OC_SHOW_TOTAL_CHARGED == '1')) : ?>

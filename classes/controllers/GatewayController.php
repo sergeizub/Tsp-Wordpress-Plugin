@@ -7,6 +7,12 @@ class GatewayController extends BaseController
     {
       parent::__construct();
     }
+    
+    public function PaymentForm($data = array())
+	{
+		$data['tsp_action'] = 'gateway/payment';
+		return parent::GetList($data);
+	}
 	
 	public function SubmitCard($data)
 	{
@@ -59,4 +65,27 @@ class GatewayController extends BaseController
 		$data['tsp_action'] = 'gateway/delete';
 		return parent::Delete($data);
 	}
+    
+    public function GetConvenienceFeeJson($data)
+	{
+        if (TSP_OC_ALLOW_CONVENIENCE_FEE == 1 && $data['amount'] > 0)
+			$amount = number_format(TSP_CONVENIENCE_FEE_AMOUNT + ($data['amount'] * TSP_CONVENIENCE_FEE_PERCENT * 0.01),2);
+		else
+			$amount = 0.00;
+             
+		echo json_encode(array('amount' => $amount));
+	}
+    
+    public function ApplyChargeDiscountJson($data)
+	{
+        $data['tsp_action'] = 'gateway/discount';
+		echo parent::Submit($data);
+	}
+    
+    public function MakePayment($data)
+	{
+		$data['tsp_action'] = 'gateway/payment';
+		return parent::Submit($data);
+	}
+    
 }
