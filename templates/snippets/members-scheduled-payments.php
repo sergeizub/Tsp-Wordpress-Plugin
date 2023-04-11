@@ -1,15 +1,16 @@
 <?php
 namespace TravelSportsPro;
 $scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledPayments();
+//var_dump($scheduled_payments);
 ?>
 <script>
 	jQuery(function() {
 		jQuery("#scheduled-payments").dataTable({
 			"bFilter":false,
-			"stateSave":true,
-			"lengthMenu":["20",40,60],
-			"columnDefs":[{"targets":[0],"orderable":false},{"targets":0,"orderable":false},{"targets":2,"className":"text-right"}],
-			"order":[0,"asc"],
+			"stateSave":false,
+			"lengthMenu":[20,40,60],
+			"columnDefs":[{target:0,visible: false,searchable: false},{target:2,className:"text-right"}],
+			"order":[0,'asc'],
 			"dom":"<i><t><lp>"
 		});
 	});
@@ -19,6 +20,7 @@ $scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledP
 	<table id="scheduled-payments" class="table table-striped display autorefresh" cellspacing="0" width="100%">
 		<thead>
 			<tr>
+				<th>&nbsp;</th>
 			    <th>Date</th>
 			    <th>Purchase</th>
 			    <th>Amount</th>
@@ -31,6 +33,7 @@ $scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledP
 			<?php if (!empty($scheduled_payments->scheduled_payments)) : ?>
 			<?php foreach($scheduled_payments->scheduled_payments as $sp) :?>
 			<tr>
+				<td><?php echo strtotime($sp->PAYMENT_DATE); ?></td>
 				<td><?php echo $sp->PAYMENT_DATE;?></td>
 				<td>
 				<?php
@@ -57,6 +60,7 @@ $scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledP
 		</tbody>	
 		<tfoot>
 			<tr>
+				<th>&nbsp;</th>
 			    <th>Date</th>
 			    <th>Purchase</th>
 			    <th>Amount</th>
