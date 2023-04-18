@@ -21,7 +21,7 @@ $result = App::GetClient()->GetController('members')->GetCharges();
 			<?php foreach ($result->charges as $charge) : ?>
 			<tr>
 				<td><?php echo $charge->DATE; ?></td>
-				<td><?php echo $charge->CLASS; ?></td>
+				<td><?php echo (!empty($charge->CLASS) ? $charge->CLASS : $charge->SEASON); ?></td>
 				<td>
 				<?php if ($charge->CHARGE_CATEGORY == TSP_CONVENIENCE_FEE_CATEGORY): ?>
 				<?php echo $charge->CATEGORY_NAME; ?>
