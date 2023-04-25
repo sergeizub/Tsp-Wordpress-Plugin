@@ -9,13 +9,25 @@ if (defined('TSP_OC_BUY_ITEM_PAGE_VIEW_TYPE') && TSP_OC_BUY_ITEM_PAGE_VIEW_TYPE 
 else
 	$sales_products = $items['sales_items'];
 $categories = $items['categories'];
+
+if (!empty($_POST['category_id']))
+	$selected_category_id = $_POST['category_id'];
+else
+	$selected_category_id = 0;
+
 ?>
 <div id="tab-sales-items" class="tab-pane">
 <?php if (empty($sales_item_id)) : ?>
-	<h2 class="page-header"><?php echo (TSP_OC_SALES_ITEMS_SECTION_TITLE); ?></h2>
+	<?php if (empty($selected_category_id)) : ?>
+	<h2 class="page-header">
+		<?php echo (TSP_OC_SALES_ITEMS_SECTION_TITLE); ?>
+	</h2>
+	<?php endif; ?>
+	<?php ?>
 <?php if (!empty($sales_products)) : ?>
 	<?php foreach ($sales_products as $category_id=>$products) : ?>
-	<?php if(!empty($_SESSION['tsp_client_attrs']['si_category_id']) && $_SESSION['tsp_client_attrs']['si_category_id'] != $category_id) continue;?>
+	<?php if((!empty($_SESSION['tsp_client_attrs']['si_category_id']) && $_SESSION['tsp_client_attrs']['si_category_id'] != $category_id) ||
+				(!empty($selected_category_id) && $selected_category_id != $category_id)) continue;?>
 	<h3><?php echo $categories[$category_id]; ?></h3>
 	<table class="table table-striped table-condensed table-hover">
 		<thead>

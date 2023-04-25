@@ -1,5 +1,15 @@
 <?php
 	namespace TravelSportsPro;
+	
+	if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items') {
+		$sales_items = App::GetClient()->GetController('checkout')->GetSalesItems();
+		if (defined('TSP_OC_BUY_ITEM_PAGE_VIEW_TYPE') && TSP_OC_BUY_ITEM_PAGE_VIEW_TYPE == '1')
+			$sales_products = $sales_items['sales_items']['item'];
+		else
+			$sales_products = $sales_items['sales_items'];
+		$categories = $sales_items['categories'];
+	}
+	
 ?>
 <script>
 jQuery(function() {
@@ -46,6 +56,11 @@ jQuery(function() {
 				<li><a href="#tab-program-registration" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-check-circle"></i> Register</a></li>
 				<?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
 					<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?>"><i class="fa fa-cube"></i> <?php echo TSP_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
+					<?php if (is_array($sales_products)) : ?>
+					<?php foreach ($sales_products as $category_id=>$products) : ?>
+					<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab" tsp_category_id = "<?php echo $category_id; ?>"><i class="fa fa-cube"></i> <?php echo $categories[$category_id]; ?></a></li>
+					<?php endforeach; ?>
+					<?php endif; ?>
 				<?php endif; ?>
 				
 				<li><a href="#tab-members-change-password" class="tsp_ajax_tab"><i class="fa fa-lock"></i> Change Password</a></li>
