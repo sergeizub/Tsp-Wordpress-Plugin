@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Travel Sports Pro
-Description: Plugin for Travel Sports Pro.
+Description: WP Plugin to power online registrations, payments, customer profiles, rosters, schedules, messaging and more. Operate your sports club with organization and growth in mind.
 Version: 1.0
 Requires at least: 5
 Requires PHP: 5.6
 Author: TSP
-Author URI: https://clients.travelsportspro.com/
+Author URI: https://travelsportspro.com/
 License: GPL v2 or later
 */
 
