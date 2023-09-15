@@ -1,8 +1,24 @@
 <?php
 namespace TravelSportsPro;
+
 $cart = App::GetClient()->GetController('checkout')->GetCart();
+
+if (!empty($cart['upsell_item_id'])) {
+	$upsell_data = json_decode($cart['upsell_item_id'],true);
+
+	if (isset($upsell_data['UP_SELL_ITEM_ID']) && !empty($upsell_data['UP_SELL_ITEM_ID'])) {
+		$upsell_sales_item = App::GetClient()->GetController('checkout')->GetUpSell(array('id' => $upsell_data['UP_SELL_ITEM_ID']));
+	}
+}
 $selected_account = $cart['selected_account'];
 ?>
+<?php if(!empty($upsell_sales_item)): ?>
+	<script>
+	jQuery(function() {
+		jQuery('#upsellModal').modal('show');
+	});
+	</script>
+<?php endif; ?> 
 <div id="tab-checkout-cart" class="tab-pane">
     <div class="page-header">
         <h2>Shopping Cart</h2>
@@ -197,3 +213,30 @@ $selected_account = $cart['selected_account'];
 		No items in cart
 	</div>
 <?php endif; ?>
+<?php if(!empty($upsell_sales_item) && !empty($upsell_sales_item->data)): ?>
+<!-- Modal -->
+<div class="modal fade" id="upsellModal" tabindex="-1" role="dialog" aria-labelledby="myWaiver" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title"><?php echo $upsell_sales_item->data->NAME; ?></h4>
+			</div>
+			<div class="modal-body">
+				<?php echo $upsell_sales_item->data->DESCRIPTION; ?>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button class="btn btn-success select-product tsp_ajax_tab"  data-dismiss="modal" type="button"
+						id="quant-<?php echo $upsell_sales_item->data->ID; ?>"
+						tsp_obj="checkout" tsp_method="SubmitSalesItem"
+						tsp_boot_tab="checkout-cart"
+						tsp_sales_item_id="<?php echo $upsell_sales_item->data->ID; ?>" tsp_quantity="1"
+        				tsp_activation_date="<?php echo date("M j, Y"); ?>">
+        				<i class="fa fa-shopping-cart"></i> <span>Add to Cart</span>
+				</button>
+			</div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+<?php endif; ?> 
