@@ -54,6 +54,13 @@ jQuery(function() {
 				
 			if (selected_values.class_id == 0)
 				msg += 'Please select Program\n';
+
+			let hide_uniform = jQuery('#PROGRAM option:selected').data('hide-uniform');
+			if (msg == '' && hide_uniform != undefined && hide_uniform == "1") {
+				jQuery('#step' + step).hide();
+				step = 3;
+				jQuery(this).html('Add to Cart and Checkout');
+			}
 		}
 		else if (step == 3) {
 			if (jQuery('#jersey_size').val() > 0) {
@@ -263,7 +270,11 @@ function AddToCart()
 	<h4>Select Program</h4>
 	<select name="PROGRAM" id="PROGRAM" class="form-control">
 	<?php foreach ($program_reg_init['data']['programs'] as $k_program => $program): ?>
-	<option value="<?php echo $k_program;?>"><?php echo $program;?></option>
+	<option value="<?php echo $k_program;?>"
+	<?php if (isset($program_reg_init['data']['programs_hide_uniform']) 
+				&& is_array($program_reg_init['data']['programs_hide_uniform']) 
+				&& isset($program_reg_init['data']['programs_hide_uniform'][$k_program]))  echo 'data-hide-uniform="'.$program_reg_init['data']['programs_hide_uniform'][$k_program].'"' ?>
+	><?php echo $program;?></option>
 	<?php endforeach; ?>
 	</select>
 	<div id="team_container">
