@@ -224,7 +224,7 @@ function loadDivisions(program_id)
 				s += '<option value="' + t.ID + '"> ' + t.NAME + '</option>';
 			});
 		}
-		$('#DIVISION').html(s);
+		jQuery('#DIVISION').html(s);
 	});
 }
 
