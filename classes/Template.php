@@ -12,8 +12,7 @@ class Template
 	{
 		 if (file_exists(plugin_dir_path( __FILE__ ) . '../templates/'. $file )) {
 			$tab = App::GetClient()->GetTab();
-			?>
-			<?php if (!isset($_REQUEST['type']) || $_REQUEST['type'] != 'json'): ?>
+			?><?php if (!isset($_REQUEST['type']) || $_REQUEST['type'] != 'json'): ?>
 			<script>
 				jQuery(function() {
 				<?php if ($tab): ?>
@@ -24,9 +23,8 @@ class Template
 				});
 			</script>
 			<div id="tsp_loading"><i class="fa fa-refresh fa-spin fa-3x"></i></div>
-			<?php endif; ?>
-			<?php
-            load_template(plugin_dir_path( __FILE__ ) . '../templates/'. $file);
+			<?php endif; ?><?php
+			load_template(plugin_dir_path( __FILE__ ) . '../templates/'. $file);
 		 }
 	}
 }

@@ -13,6 +13,9 @@ switch ($_POST['load']) {
     case 'teams':
         $result =  json_decode(json_encode(App::GetClient()->GetController('teams')->LoadTeams($_POST)), true);
         break;
+    case 'divisions':
+        $result =  json_decode(json_encode(App::GetClient()->GetController('divisions')->LoadDivisions($_POST)), true);
+    break;
 }
 
 echo json_encode($result['data']);

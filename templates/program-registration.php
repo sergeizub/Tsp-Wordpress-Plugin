@@ -18,16 +18,37 @@ jQuery(function() {
 	
 	jQuery(document).on('change', '#TEAM', function() {
 		if (select_program_first != '1')
-			loadPrograms(jQuery(this).val());
+			loadPrograms(jQuery(this).val(),'team');
+		else
+			loadProgramPaymentPlans(jQuery('#PROGRAM').val());		
+	});
+
+	jQuery(document).on('change', '#DIVISION', function() {
+		if (select_program_first != '1')
+			loadPrograms(jQuery(this).val(), 'division');
 		else
 			loadProgramPaymentPlans(jQuery('#PROGRAM').val());		
 	});
 
 	jQuery(document).on('change', '#PROGRAM', function() {
-		if (select_program_first == '1')
+	<?php if (defined('TSP_DIVISIONS_ENABLED') && TSP_DIVISIONS_ENABLED == "1"): ?>
+		if (jQuery('#PROGRAM option:selected').data('use-divisions') == "1") {
+			jQuery("#division_container").show();
+			jQuery("#team_container").hide();
+		} else {
+			jQuery("#division_container").hide();
+			jQuery("#team_container").show();
+		}
+	<?php endif; ?>
+		if (select_program_first == '1') {
+			<?php if (defined('TSP_DIVISIONS_ENABLED') && TSP_DIVISIONS_ENABLED == "1"): ?>
+			loadDivisions(jQuery(this).val());
+			<?php endif; ?>
 			loadTeams(jQuery(this).val());
+		}
 		else
 			loadProgramPaymentPlans(jQuery(this).val());
+
 	});
 	
 	jQuery('#next-step').click(function() {
@@ -40,16 +61,34 @@ jQuery(function() {
 				msg = 'Please select Player';
 		}
 		else if (step == 2) {
-			step_title += 'Team: ' + jQuery('#TEAM option:selected').text() + '<br>';
+
+			if (jQuery('#TEAM').is(':visible')) {
+				step_title += 'Team: ' + jQuery('#TEAM option:selected').text() + '<br>';
+				selected_values.team_id = jQuery('#TEAM').val();
+			}
+
+			<?php if (defined('TSP_DIVISIONS_ENABLED') && TSP_DIVISIONS_ENABLED == "1"): ?>
+			if (jQuery('#DIVISION').is(':visible'))
+				step_title += 'Division: ' + jQuery('#DIVISION option:selected').text() + '<br>';
+			<?php endif; ?>
+
 			step_title += 'Program: ' + jQuery('#PROGRAM option:selected').text() + '<br>';
 			step_title += 'Payment Plan: ' + jQuery('#pp-description-' + jQuery('input[name=payment_plan]:checked').val()).html() + '<br>';
 
-			selected_values.team_id = jQuery('#TEAM').val();
 			selected_values.class_id = jQuery('#PROGRAM').val();
 			selected_values.sales_item_id = jQuery('input[name=payment_plan]:checked').data('sales_item_id');
 			selected_values.payment_plan_id = jQuery('input[name=payment_plan]:checked').val();
+
+			<?php if (defined('TSP_DIVISIONS_ENABLED') && TSP_DIVISIONS_ENABLED == "1"): ?>
+				if (jQuery('#DIVISION').is(':visible')) {
+					selected_values.division_id = jQuery('#DIVISION').val();
+					if (selected_values.division_id == 0) {
+						msg += 'Please select Division\n';
+					}
+				}
+			<?php endif; ?>
 			
-			if (selected_values.team_id == 0) 
+			if (jQuery('#TEAM').is(':visible') &&  selected_values.team_id == 0) 
 				msg += 'Please select Team\n';
 				
 			if (selected_values.class_id == 0)
@@ -131,13 +170,31 @@ jQuery(function() {
 	});
 });
 
-function loadPrograms(team_id)
+function loadPrograms(item_id, item_type)
 {
-	jQuery.post(tspajax.url, { action : 'tspclient', boot_tab: 'program-registration' , type: 'json', load: 'programs', team_id: team_id}, function(data) {
+	var division_id = 0;
+	var team_id = 0;
+	if (item_type == 'division')
+		division_id = item_id;
+	else
+		team_id = item_id;
+
+	jQuery.post(tspajax.url, { action : 'tspclient', boot_tab: 'program-registration' , type: 'json', load: 'programs', team_id: team_id, division_id: division_id}, function(data) {
 		var s = '<option value="0">Please Select...</option>';
 		if (data != undefined && data.length > 0) {
 			jQuery.each(data, function(k, c) {
-				s += '<option value="' + c.ID + '"> ' + c.CODE + '</option>';
+				var add_data = "";
+				if (c.HIDE_UNIFORM_FIELDS != undefined && c.HIDE_UNIFORM_FIELDS == "1")
+					add_data += ' data-hide-uniform="1"';
+				else
+					add_data += ' data-hide-uniform="0"';
+				<?php if (defined('TSP_DIVISIONS_ENABLED') && TSP_DIVISIONS_ENABLED == "1"): ?>
+				if (c.USE_DIVISIONS != undefined && c.USE_DIVISIONS == "1")
+					add_data += ' data-use-divisions="1"';
+				else
+					add_data += ' data-use-divisions="0"';
+				<?php endif; ?>
+				s += '<option value="' + c.ID + '" ' + add_data + ' > ' + c.CODE + '</option>';
 			});
 		}
 		jQuery('#PROGRAM').html(s);
@@ -150,11 +207,25 @@ function loadTeams(program_id)
 		var s = '<option value="0">Please Select...</option>';
 		if (data != undefined && data.length > 0) {
 			jQuery.each(data, function(k, t) {
-				s += '<option value="' + t.ID + '"> ' + t.NAME + '</option>';
+				s += '<option value="' + t.ID + '" > ' + t.NAME + '</option>';
 			});
 		}
 		jQuery('#TEAM').html(s);
 	}, "json");
+}
+
+function loadDivisions(program_id)
+{	
+	jQuery.post(tspajax.url, { action : 'tspclient', boot_tab: 'program-registration' , type: 'json', load: 'divisions', program_id: program_id}, function(data) {
+		var s = '<option value="0">Please Select...</option>';
+		if (!Array.isArray(data)) data = JSON.parse(data);
+		if (data != undefined && data.length > 0) {
+			jQuery.each(data, function(k, t) {
+				s += '<option value="' + t.ID + '"> ' + t.NAME + '</option>';
+			});
+		}
+		$('#DIVISION').html(s);
+	});
 }
 
 function loadProgramPaymentPlans(program_id)
@@ -273,25 +344,49 @@ function AddToCart()
 	<option value="<?php echo $k_program;?>"
 	<?php if (isset($program_reg_init['data']['programs_hide_uniform']) 
 				&& is_array($program_reg_init['data']['programs_hide_uniform']) 
-				&& isset($program_reg_init['data']['programs_hide_uniform'][$k_program]))  echo 'data-hide-uniform="'.$program_reg_init['data']['programs_hide_uniform'][$k_program].'"' ?>
-	><?php echo $program;?></option>
+				&& isset($program_reg_init['data']['programs_hide_uniform'][$k_program]))  echo ' data-hide-uniform="'.$program_reg_init['data']['programs_hide_uniform'][$k_program].'"' ?>
+	<?php if (isset($program_reg_init['data']['programs_use_divisions']) 
+				&& is_array($program_reg_init['data']['programs_use_divisions']) 
+				&& isset($program_reg_init['data']['programs_use_divisions'][$k_program]))  echo ' data-use-divisions="'.$program_reg_init['data']['programs_use_divisions'][$k_program].'"' ?>
+	data-use-divisions="1"><?php echo $program;?></option>
 	<?php endforeach; ?>
 	</select>
-	<div id="team_container">
-		<label for="TEAM" class="col-form-label mt-3"><h4>Team</h4></label>
-		<select name="TEAM" id="TEAM" class="form-control">
-			<option value="0">Please Select...</option>
-		</select>
+	<div>
+		<?php if (defined('TSP_DIVISIONS_ENABLED') && TSP_DIVISIONS_ENABLED == "1"): ?>
+		<div id="division_container">
+			<label for="DIVISION" class="col-form-label mt-3"><h4>Division</h4></label>
+				<select name="DIVISION" id="DIVISION" class="form-control">
+					<option value="0">Please Select...</option>
+			</select>
+		</div>
+		<?php endif; ?>
+		<div id="team_container" style="<?php if (defined('TSP_DIVISIONS_ENABLED') && TSP_DIVISIONS_ENABLED == "1") echo 'display:none;'; ?>">
+			<label for="TEAM" class="col-form-label mt-3"><h4>Team</h4></label>
+			<select name="TEAM" id="TEAM" class="form-control">
+				<option value="0">Please Select...</option>
+			</select>
+		</div>
 		<ul id="selected-payment-plans" class="list-group mb-4">
 		</ul>		
 	</div>	
 	<?php else: ?>
-	<h4>Select your Team</h4>
-	<select name="TEAM" id="TEAM" class="form-control">
-	<?php foreach ($program_reg_init['data']['teams'] as $k_team => $team): ?>
-	<option value="<?php echo $k_team;?>"><?php echo $team;?></option>
-	<?php endforeach; ?>
-	</select>
+	<?php if (defined('TSP_DIVISIONS_ENABLED') && TSP_DIVISIONS_ENABLED == "1"): ?>
+	<div id="division_container">
+		<h4>Select your Division</h4>
+		<select name="DIVISION" id="DIVISION" class="form-control">
+		<?php foreach ($program_reg_init['data']['divisions'] as $k_division => $division): ?>
+			<option value="<?php echo $k_division;?>"><?php echo $division;?></option>
+		<?php endforeach; ?>
+	</div>
+	<?php endif; ?>
+	<div id="team_container" style="<?php if (defined('TSP_DIVISIONS_ENABLED') && TSP_DIVISIONS_ENABLED == "1") echo 'display:none;'; ?>">
+		<h4>Select your Team</h4>
+		<select name="TEAM" id="TEAM" class="form-control">
+		<?php foreach ($program_reg_init['data']['teams'] as $k_team => $team): ?>
+		<option value="<?php echo $k_team;?>"><?php echo $team;?></option>
+		<?php endforeach; ?>
+		</select>
+	</div>
 	<div id="program_container">
 		<label for="PROGRAM" class="col-form-label mt-3"><h4>Program</h4></label>
 		<select name="PROGRAM" id="PROGRAM" class="form-control">
