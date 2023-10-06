@@ -5,7 +5,10 @@ $cart = App::GetClient()->GetController('checkout')->GetCart();
 
 if (!empty($cart['upsell_item_id'])) {
 	$upsell_data = json_decode($cart['upsell_item_id'],true);
-
+	if (!empty($upsell_data['STUDENT_ID']))
+	{
+		$upsell_student = App::GetClient()->GetController('members')->GetUserData($upsell_data['STUDENT_ID']);
+	}
 	if (isset($upsell_data['UP_SELL_ITEM_ID']) && !empty($upsell_data['UP_SELL_ITEM_ID'])) {
 		$upsell_sales_item = App::GetClient()->GetController('checkout')->GetUpSell(array('id' => $upsell_data['UP_SELL_ITEM_ID']));
 	}
@@ -224,6 +227,7 @@ $selected_account = $cart['selected_account'];
 			</div>
 			<div class="modal-body">
 				<?php echo $upsell_sales_item->data->DESCRIPTION; ?>
+				<p><?php echo $upsell_student->FIRSTNAME ?> <?php echo $upsell_student->LASTNAME ?></p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -231,6 +235,7 @@ $selected_account = $cart['selected_account'];
 						id="quant-<?php echo $upsell_sales_item->data->ID; ?>"
 						tsp_obj="checkout" tsp_method="SubmitSalesItem"
 						tsp_boot_tab="checkout-cart"
+						tsp_student_id="<?php echo $upsell_data['STUDENT_ID']; ?>" 
 						tsp_sales_item_id="<?php echo $upsell_sales_item->data->ID; ?>" tsp_quantity="1"
         				tsp_activation_date="<?php echo date("M j, Y"); ?>">
         				<i class="fa fa-shopping-cart"></i> <span>Add to Cart</span>
