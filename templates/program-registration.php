@@ -19,15 +19,11 @@ jQuery(function() {
 	jQuery(document).on('change', '#TEAM', function() {
 		if (select_program_first != '1')
 			loadPrograms(jQuery(this).val(),'team');
-		else
-			loadProgramPaymentPlans(jQuery('#PROGRAM').val());		
 	});
 
 	jQuery(document).on('change', '#DIVISION', function() {
 		if (select_program_first != '1')
-			loadPrograms(jQuery(this).val(), 'division');
-		else
-			loadProgramPaymentPlans(jQuery('#PROGRAM').val());		
+			loadPrograms(jQuery(this).val(), 'division');	
 	});
 
 	jQuery(document).on('change', '#PROGRAM', function() {
@@ -46,9 +42,6 @@ jQuery(function() {
 			<?php endif; ?>
 			loadTeams(jQuery(this).val());
 		}
-		else
-			loadProgramPaymentPlans(jQuery(this).val());
-
 	});
 	
 	jQuery('#next-step').click(function() {
@@ -73,11 +66,9 @@ jQuery(function() {
 			<?php endif; ?>
 
 			step_title += 'Program: ' + jQuery('#PROGRAM option:selected').text() + '<br>';
-			step_title += 'Payment Plan: ' + jQuery('#pp-description-' + jQuery('input[name=payment_plan]:checked').val()).html() + '<br>';
 
 			selected_values.class_id = jQuery('#PROGRAM').val();
-			selected_values.sales_item_id = jQuery('input[name=payment_plan]:checked').data('sales_item_id');
-			selected_values.payment_plan_id = jQuery('input[name=payment_plan]:checked').val();
+
 
 			<?php if (defined('TSP_DIVISIONS_ENABLED') && TSP_DIVISIONS_ENABLED == "1"): ?>
 				if (jQuery('#DIVISION').is(':visible')) {
@@ -98,6 +89,7 @@ jQuery(function() {
 			if (msg == '' && hide_uniform != undefined && hide_uniform == "1") {
 				jQuery('#step' + step).hide();
 				step = 3;
+				loadProgramPaymentPlans(jQuery("#PROGRAM").val());
 				jQuery(this).html('Add to Cart and Checkout');
 			}
 		}
@@ -134,9 +126,10 @@ jQuery(function() {
 			if (selected_values.jersey_number_1 != '' && !isNaN(selected_values.jersey_number_1) && !Number.isInteger(selected_values.jersey_number_1))
 				msg += 'Please enter valid Jersey Number 1\n';
 			
-			
-			if (msg == '')
-				jQuery(this).html('Add to Cart and Checkout');
+			if (msg == '') {
+				loadProgramPaymentPlans(jQuery("#PROGRAM").val());
+				jQuery(this).html('Add to Cart and Checkout'); 
+			}
 		}
 		else if (step == 4) {
 			AddToCart();
@@ -233,6 +226,7 @@ function loadProgramPaymentPlans(program_id)
 	let html = '';
 	let price = 0;
 	let sales_item_id = 0;
+	jQuery('#next-step').prop("disabled",true);
 	jQuery.post(tspajax.url, { action : 'tspclient', boot_tab: 'program-registration' , type: 'json', load: 'payment-plans', program_id: program_id}, function(data) {
 		if (data != undefined && data != '' && data.length > 0) {
 			jQuery.each(data, function(k, item) {
@@ -246,6 +240,7 @@ function loadProgramPaymentPlans(program_id)
 					price + '</span><label></li>' + html;
 			}
 			jQuery('#selected-payment-plans').html(html);
+			jQuery('#next-step').prop("disabled",false);
 		}
     }, "json");		
 }
@@ -266,6 +261,9 @@ function AddToCart()
 	
 	var tsp_boot_tab = 'checkout-cart';
 	
+	selected_values.sales_item_id = jQuery('input[name=payment_plan]:checked').data('sales_item_id');
+	selected_values.payment_plan_id = jQuery('input[name=payment_plan]:checked').val();
+
 	var tsp_data = { 
 		action: 'tspclient',
 		obj: 'checkout',
@@ -365,9 +363,7 @@ function AddToCart()
 			<select name="TEAM" id="TEAM" class="form-control">
 				<option value="0">Please Select...</option>
 			</select>
-		</div>
-		<ul id="selected-payment-plans" class="list-group mb-4">
-		</ul>		
+		</div>	
 	</div>	
 	<?php else: ?>
 	<?php if (defined('TSP_DIVISIONS_ENABLED') && TSP_DIVISIONS_ENABLED == "1"): ?>
@@ -391,9 +387,7 @@ function AddToCart()
 		<label for="PROGRAM" class="col-form-label mt-3"><h4>Program</h4></label>
 		<select name="PROGRAM" id="PROGRAM" class="form-control">
 			<option value="0">Please Select...</option>
-		</select>
-		<ul id="selected-payment-plans" class="list-group mb-4">
-		</ul>		
+		</select>		
 	</div>
 	<?php endif; ?>
 </div>
@@ -451,6 +445,8 @@ function AddToCart()
 </div>
 
 <div id="step4" data-step="4" class="step">
+<ul id="selected-payment-plans" class="list-group mb-4">
+</ul>	
 </div>
 
 <br>
