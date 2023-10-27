@@ -101,6 +101,7 @@ class Client
 	}
 	
 	public function NavRedirect() {
+		$params = "";
 		if ($_SESSION['tsp_redirect'] && !empty($_SESSION['tsp_redirect']['boot_tab'])) {
 			foreach ($_SESSION['tsp_redirect'] as $k=>$v) {
 				if ($k == 'boot_tab') continue;

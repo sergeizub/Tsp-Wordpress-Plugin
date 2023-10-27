@@ -296,6 +296,7 @@ class Api
 
 	public function GetList($get)
 	{
+		$params = "";
 		if (!$this->ValidateTSPUrl())
 			return false;
 

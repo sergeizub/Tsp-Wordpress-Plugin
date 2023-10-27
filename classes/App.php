@@ -184,7 +184,7 @@ class App
             wp_enqueue_script('dataTables-js');
             wp_enqueue_script('dataTables-js-bootstrap');
 
-            unset($_SESSION['tsp_client_attrs']);
+            $_SESSION['tsp_client_attrs'] = array();
             if (is_array($atts))
             foreach ($atts as $k_att => $att) {
                 if ($k_att == 'class_genre')
@@ -197,7 +197,10 @@ class App
                 if (is_array($_SESSION['tsp_client_attrs'][$k_att]))
                     foreach($_SESSION['tsp_client_attrs'][$k_att] as $k => $v)
                         $_SESSION['tsp_client_attrs'][$k_att][$k] = sanitize_text_field($v);
-            }
+            } 
+
+            if (!isset($_SESSION['tsp_client_attrs']['default_tab']))
+                $_SESSION['tsp_client_attrs']['default_tab'] = "";
 
             ob_start();
             self::$client->Output();
