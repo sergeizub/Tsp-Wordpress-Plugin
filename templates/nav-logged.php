@@ -38,76 +38,111 @@ jQuery(function() {
 </style>
 <div>
 <ul class="nav nav-pills visible-md visible-lg">
-	<li>
-		<a href="#tab-dashboard" data-toggle="tab" class="tsp_ajax_tab default_tab" ><i class="fa fa-users"></i> Dashboard</a>
-	</li>
-	<li><a href="#tab-members-edit" class="tsp_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>
-	<?php if (TSP_OC_LEDGER_SHOW_PAYMENTS == "1"): ?>
-		<li><a href="#tab-members-payments" class="tsp_ajax_tab"><i class="fa fa-credit-card"></i> Payments</a></li>
-	<?php endif; ?>
-	<?php if (TSP_OC_SHOPPING_CART_ENABLED  == '1') : ?>	
-			<li>
-				<a href="#tab-checkout-cart" data-toggle="tab" class="tsp_ajax_tab" ><i class="fa fa-shopping-cart"></i> Cart</a>
-			</li>
-	<?php endif; ?>
-	<?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
-		<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?>"><i class="fa fa-shopping-bag"></i> <?php echo TSP_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
-	<?php endif; ?>
-	<li class="dropdown pull-right" id="m-dd">
-		<a href="#" data-toggle="dropdown"><i class="fa fa-users"></i> My Account<span class="caret"></span></a>
-			<ul class="dropdown-menu">
-				<li><a href="#tab-members-edit" class="tsp_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>
-				<li><a href="#tab-members-student" class="tsp_ajax_tab"><i class="fa fa-child"></i>  Add Related Player</a></li>
-				<li><a href="#tab-program-registration" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-check-circle"></i> Register</a></li>
-				<?php if ((TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items') && is_array($sales_products)): ?>
-					<?php foreach ($sales_products as $category_id=>$products) : ?>
-					<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab" tsp_category_id = "<?php echo $category_id; ?>"><i class="fa fa-cube"></i> <?php echo $categories[$category_id]; ?></a></li>
-					<?php endforeach; ?>
-				<?php endif; ?>
-				<li><a href="#tab-gateway-finance" class="tsp_ajax_tab"><i class="fa fa-dollar"></i>  Finance</a></li>
-				<!--<li><a href="#tab-classes-calendar" class="tsp_ajax_tab"><i class="fa fa-calendar"></i> Calendar</a></li>-->
-				<!--<li><a href="#tab-members-classes" class="tsp_ajax_tab"><i class="fa fa-list"></i> Programs</a></li>-->
-				<!-- <?php if (get_option('tsp_private_lesson_section') == '1'): ?>
-				<li><a href="#tab-members-private-lessons" class="tsp_ajax_tab"><i class="fa fa-user-circle"></i>  Private Lessons</a></li>
-				<?php endif; ?>-->
-				<li><a href="#tab-members-charges" class="tsp_ajax_tab"><i class="fa fa-dollar"></i> Charges</a></li>
-				<li><a href="#tab-members-purchases" class="tsp_ajax_tab"><i class="fa fa-shopping-cart"></i> Purchases</a></li>
-				<li><a href="#tab-members-change-password" class="tsp_ajax_tab"><i class="fa fa-lock"></i> Change Password</a></li>
-				<!--<li><a href="#tab-members-gift-cards" class="tsp_ajax_tab"><i class="fa fa-gift"></i> Gift Cards</a></li>-->
-				<li><a href="#" data-toggle="tab"  tsp_obj="auth" tsp_method="Logout"  tsp_reload="true" class="tsp_ajax_tab"><i class="fa fa-sign-out"></i> Logout</a></li>
-			</ul>
-	</li>
-</ul>
+<!-- Dashboard Menu Items -->	
+		<?php if(get_option('show_dashboard_menu') == '1'): ?>
+            <li><a href="#tab-dashboard" data-toggle="tab" class="tsp_ajax_tab default_tab" ><i class="fa fa-users"></i> Dashboard</a></li>
+        <?php endif; ?>
+        <?php if(get_option('show_profile_menu') == '1'): ?>
+            <li><a href="#tab-members-edit" class="tsp_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>
+        <?php endif; ?>
+        <?php if (TSP_OC_LEDGER_SHOW_PAYMENTS == "1" && get_option('show_payments_menu') == '1'): ?>
+            <li><a href="#tab-members-payments" class="tsp_ajax_tab"><i class="fa fa-credit-card"></i> Payments</a></li>
+        <?php endif; ?>
+        <?php if (TSP_OC_SHOPPING_CART_ENABLED == '1' && get_option('show_cart_menu') == '1'): ?>
+            <li><a href="#tab-checkout-cart" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+        <?php endif; ?>
+		<?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
+			<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?> "><i class="fa fa-shopping-bag"></i> <?php echo TSP_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
+		<?php endif; ?>
+		<?php if(get_option('show_register_menu') == '1'): ?>
+            <li><a href="#tab-program-registration" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-check-circle"></i> Register</a></li>
+        <?php endif; ?>	
+<!-- Dropdown Menu Items -->
+			<li class="dropdown pull-right" id="m-dd">
+    <a href="#" data-toggle="dropdown"><i class="fa fa-users"></i> My Account<span class="caret"></span></a>
+    <ul class="dropdown-menu">
+        <?php if(get_option('dropdown_show_profile_menu') == '1'): ?>
+            <li><a href="#tab-members-edit" class="tsp_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>
+        <?php endif; ?>
+        <?php if(get_option('dropdown_show_addrelated_menu') == '1'): ?>
+            <li><a href="#tab-members-student" class="tsp_ajax_tab"><i class="fa fa-child"></i> Add Related Player</a></li>
+        <?php endif; ?>
+        <?php if(get_option('dropdown_show_register_menu') == '1'): ?>
+            <li><a href="#tab-program-registration" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-check-circle"></i> Register</a></li>
+        <?php endif; ?>
+		<?php if(get_option('dropdown_show_calendar_menu') == '1'): ?>
+		<li><a href="#tab-classes-calendar" class="tsp_ajax_tab"><i class="fa fa-calendar"></i> Calendar</a></li>
+		<?php endif; ?>		
+        <?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
+            <?php foreach ($sales_products as $category_id=>$products) : ?>
+                <?php if(get_option('dropdown_show_salesitems_menu_category_' . $category_id) == '1'): ?>
+                    <li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab" tsp_category_id = "<?php echo $category_id; ?>"><i class="fa fa-cube"></i> <?php echo $categories[$category_id]; ?></a></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>	
+        <?php if(get_option('dropdown_show_finance_menu') == '1'): ?>
+            <li><a href="#tab-gateway-finance" class="tsp_ajax_tab"><i class="fa fa-dollar"></i> Finance</a></li>
+        <?php endif; ?>
+        <?php if(get_option('dropdown_show_charges_menu') == '1'): ?>
+            <li><a href="#tab-members-charges" class="tsp_ajax_tab"><i class="fa fa-dollar"></i> Charges</a></li>
+        <?php endif; ?>
+        <?php if(get_option('dropdown_show_purchases_menu') == '1'): ?>
+            <li><a href="#tab-members-purchases" class="tsp_ajax_tab"><i class="fa fa-shopping-cart"></i> Purchases</a></li>
+        <?php endif; ?>
+        <?php if(get_option('dropdown_show_changepassword_menu') == '1'): ?>
+            <li><a href="#tab-members-change-password" class="tsp_ajax_tab"><i class="fa fa-lock"></i> Change Password</a></li>
+        <?php endif; ?>
+        <?php if(get_option('dropdown_show_logout_menu') == '1'): ?>
+            <li><a href="#" data-toggle="tab"  tsp_obj="auth" tsp_method="Logout"  tsp_reload="true" class="tsp_ajax_tab"><i class="fa fa-sign-out"></i> Logout</a></li>
+        <?php endif; ?>
+    </ul>
+</li>
+    </ul> 	
+<!-- Mobile Menu -->
 <ul class="nav nav-pills visible-xs visible-sm">
-	<?php if (TSP_OC_SHOPPING_CART_ENABLED  == '1') : ?>	
-			<li>
-				<a href="#tab-checkout-cart" data-toggle="tab" class="tsp_ajax_tab" ><i class="fa fa-shopping-cart fa-2x"></i></a>
-			</li>
-	<?php endif; ?>
-	<?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
+	<?php if (TSP_OC_SHOPPING_CART_ENABLED  == '1'): ?>	
+			<li><a href="#tab-checkout-cart" data-toggle="tab" class="tsp_ajax_tab" ><i class="fa fa-shopping-cart fa-2x"></i></a></li>
+	<?php endif; ?>	
+	<?php if(get_option('mobile_show_calendar_menu') == '1'): ?>
+		<li><a href="#tab-classes-calendar" class="tsp_ajax_tab"><i class="fa fa-calendar fa-2x"></i></a></li>
+		<?php endif; ?>	
+	<!-- ERRORS HERE
+		<?php if(get_option('mobile_sales_items_menu') == '1'): ?>
+		<?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
 		<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?>"><i class="fa fa-shopping-bag fa-2x"></i></a></li>
-	<?php endif; ?>
+		<?php endif; ?>
+		<?php endif; ?> -->			
 	<li class="dropdown pull-right">
 		<a href="#" data-toggle="dropdown"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a>
 			<ul class="dropdown-menu">
-				<li><a href="#tab-program-registration" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-check-circle"></i> Register</a></li>
+				<li><a href="#tab-dashboard" data-toggle="tab" class="tsp_ajax_tab default_tab" ><i class="fa fa-users"></i> Dashboard</a></li>				
+				<li><a href="#tab-members-edit" class="tsp_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>				
+				<li><a href="#tab-members-student" class="tsp_ajax_tab"><i class="fa fa-child"></i>  Add Related Player</a></li>				
+				<li><a href="#tab-program-registration" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-check-circle"></i> Register</a></li>			
+				<!-- ERRORS HERE
 				<?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
-					<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?>"><i class="fa fa-shopping-bag"></i> <?php echo TSP_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
-				<?php endif; ?>
-				<li><a href="#tab-members-edit" class="tsp_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>
-				<li><a href="#tab-members-change-password" class="tsp_ajax_tab"><i class="fa fa-lock"></i> Change Password</a></li>
-				<li><a href="#tab-members-student" class="tsp_ajax_tab"><i class="fa fa-child"></i>  Add Related Player</a></li>
-				<li><a href="#tab-gateway-finance" class="tsp_ajax_tab"><i class="fa fa-dollar"></i>  Finance</a></li>
+					<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?>"><i class="fa fa-shopping-bag"></i> 					<?php echo TSP_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
+				<?php endif; ?> -->			
+				<li><a href="#tab-gateway-finance" class="tsp_ajax_tab"><i class="fa fa-dollar"></i> Finance</a></li>
+				<?php if(get_option('mobile_show_programs_menu') == '1'): ?>
 				<li><a href="#tab-members-classes" class="tsp_ajax_tab"><i class="fa fa-list"></i> Programs</a></li>
+				<?php endif; ?>				
 				<?php if (get_option('tsp_private_lesson_section') == '1'): ?>
-				<li><a href="#tab-members-private-lessons" class="tsp_ajax_tab"><i class="fa fa-user-circle"></i>  Private Lessons</a></li>
-				<?php endif; ?>
+				<li><a href="#tab-members-private-lessons" class="tsp_ajax_tab"><i class="fa fa-user-circle"></i> Private Lessons</a></li>
+				<?php endif; ?>				
+				<?php if(get_option('mobile_show_charges_menu') == '1'): ?>
 				<li><a href="#tab-members-charges" class="tsp_ajax_tab"><i class="fa fa-dollar"></i> Charges</a></li>
+				<?php endif; ?>				
+				<?php if(get_option('mobile_show_purchases_menu') == '1'): ?>
 				<li><a href="#tab-members-purchases" class="tsp_ajax_tab"><i class="fa fa-shopping-cart"></i> Purchases</a></li>
+				<?php endif; ?>				
+				<?php if(get_option('mobile_show_giftcards_menu') == '1'): ?>
 				<li><a href="#tab-members-gift-cards" class="tsp_ajax_tab"><i class="fa fa-gift"></i> Gift Cards</a></li>
-				<?php if (TSP_OC_LEDGER_SHOW_PAYMENTS == "1"): ?>
-				<li><a href="#tab-members-payments" class="tsp_ajax_tab"><i class="fa fa-credit-card"></i> Payments</a></li>
-				<?php endif; ?>
+				<?php endif; ?>				
+				<?php if (TSP_OC_LEDGER_SHOW_PAYMENTS == "1" && get_option('mobile_show_payments_menu') == '1'): ?>
+            	<li><a href="#tab-members-payments" class="tsp_ajax_tab"><i class="fa fa-credit-card"></i> Payments</a></li>
+        		<?php endif; ?>				
+				<li><a href="#tab-members-change-password" class="tsp_ajax_tab"><i class="fa fa-lock"></i> Change Password</a></li>				
 				<li><a href="#" data-toggle="tab"  tsp_obj="auth" tsp_method="Logout"  tsp_reload="true" class="tsp_ajax_tab"><i class="fa fa-sign-out"></i> Logout</a></li>
 			</ul>
 	</li>
