@@ -29,6 +29,13 @@ else
 	<?php if((!empty($_SESSION['tsp_client_attrs']['si_category_id']) && $_SESSION['tsp_client_attrs']['si_category_id'] != $category_id) ||
 				(!empty($selected_category_id) && $selected_category_id != $category_id)) continue;?>
 	<h3><?php echo $categories[$category_id]; ?></h3>
+	<?php foreach ($products as $product) {
+			if (!empty($product['CATEGORY_DESCRIPTION'])) {
+				echo '<h4>'. $product['CATEGORY_DESCRIPTION'] . '</h4>';
+				break;
+			}
+			reset($products);
+	} ?>
 	<table class="table table-striped table-condensed table-hover">
 		<thead>
 			<tr>
