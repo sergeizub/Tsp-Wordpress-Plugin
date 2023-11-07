@@ -193,13 +193,13 @@ class Settings
             <td><input type="checkbox" name="dropdown_show_logout_menu" value="1" <?php checked(1, get_option('dropdown_show_logout_menu'), true); ?> /></td>
         </tr>
         </table>
-		<!-- Mobile Menu Items
+		<!-- Mobile Menu Items -->
 		<h2>Mobile Menu Dropdown</h2>
 		<p>Check the mobile menu items you want to display for mobile device users</p>
 		<table class="form-table">
         <tr valign="top">
-            <th scope="row">Show "Calendar" in Menu</th>
-            <td><input type="checkbox" name="show_calendar_menu" value="1" <?php checked(1, get_option('show_calendar_menu'), true); ?> /></td>
+            <th scope="row">Show "Calendar" in Mobile Menu</th>
+            <td><input type="checkbox" name="mobile_show_calendar_menu" value="1" <?php checked(1, get_option('mobile_show_calendar_menu'), true); ?> /></td>
         </tr>	
 		<tr valign="top">
             <th scope="row">Show "Sales Items" in Mobile Menu</th>
@@ -225,7 +225,7 @@ class Settings
             <th scope="row">Show "Programs" in Mobile Menu</th>
             <td><input type="checkbox" name="mobile_show_programs_menu" value="1" <?php checked(1, get_option('mobile_show_programs_menu'), true); ?> /></td>
         </tr>
-        </table>-->
+        </table>
         </div>		
         <!-- Tab Contents -->
         <div id="brand-settings" class="tsp-tab-content">

@@ -106,12 +106,9 @@ jQuery(function() {
 	<?php if(get_option('mobile_show_calendar_menu') == '1'): ?>
 		<li><a href="#tab-classes-calendar" class="tsp_ajax_tab"><i class="fa fa-calendar fa-2x"></i></a></li>
 		<?php endif; ?>	
-	<!-- ERRORS HERE
-		<?php if(get_option('mobile_sales_items_menu') == '1'): ?>
-		<?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
+		<?php if (get_option('mobile_show_sales_items_menu') == '1' || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
 		<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?>"><i class="fa fa-shopping-bag fa-2x"></i></a></li>
 		<?php endif; ?>
-		<?php endif; ?> -->			
 	<li class="dropdown pull-right">
 		<a href="#" data-toggle="dropdown"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a>
 			<ul class="dropdown-menu">
@@ -119,10 +116,10 @@ jQuery(function() {
 				<li><a href="#tab-members-edit" class="tsp_ajax_tab"><i class="fa fa-users"></i> Profile</a></li>				
 				<li><a href="#tab-members-student" class="tsp_ajax_tab"><i class="fa fa-child"></i>  Add Related Player</a></li>				
 				<li><a href="#tab-program-registration" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-check-circle"></i> Register</a></li>			
-				<!-- ERRORS HERE
-				<?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
-					<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?>"><i class="fa fa-shopping-bag"></i> 					<?php echo TSP_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
-				<?php endif; ?> -->			
+				<?php if (get_option('mobile_show_sales_items_menu') == '1' || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
+					<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?>"><i class="fa fa-shopping-bag"></i> 					
+					<?php echo TSP_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
+				<?php endif; ?>	
 				<li><a href="#tab-gateway-finance" class="tsp_ajax_tab"><i class="fa fa-dollar"></i> Finance</a></li>
 				<?php if(get_option('mobile_show_programs_menu') == '1'): ?>
 				<li><a href="#tab-members-classes" class="tsp_ajax_tab"><i class="fa fa-list"></i> Programs</a></li>
