@@ -2,6 +2,7 @@
 namespace TravelSportsPro;
 $related_students =  App::GetClient()->GetController('members')->GetChildList();
 $scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledPayments(array("interval" => "future","status" => "1,3"));
+$cart = App::GetClient()->GetController('checkout')->GetCart();
 ?>
 <div id="tab-dashboard" class="tab-pane">
     <div class="page-header">
@@ -72,6 +73,21 @@ $scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledP
 				</tr>
 			</thead>
 			<tbody>
+			<?php if (!empty($cart) && isset($cart['list']) && is_array($cart['list'])): ?>
+				<?php foreach($cart['list'] as $student): ?>
+					<?php if (isset($student['items']) && is_array($student['items'])): ?>
+						<?php foreach($student['items'] as $item): ?>
+					<tr>
+						<td><?php echo date(TSP_PHPDATE); ?></td>
+						<td><?php echo TSP_CURRENCY_SIGN; ?><?php echo $item['subtotal']; ?></td>
+						<td>&nbsp;</td>
+						<td>In Cart</td>
+						<td><a href="#tab-checkout-cart" class="tsp_ajax_tab geturl btn btn-danger" title="Pay Now">Pay Now</a></td>
+					</tr>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
 			<?php if (!empty($scheduled_payments->scheduled_payments)) : ?>
 				<?php foreach ($scheduled_payments->scheduled_payments as $payment) : ?>
 				<tr>
@@ -87,7 +103,8 @@ $scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledP
                     </td>
 				</tr>
 				<?php endforeach; ?>
-			<?php else: ?>
+			<?php endif; ?>
+			<?php if (!empty($scheduled_payments->scheduled_payments) && (empty($cart) || empty($cart['list']))): ?>
 				<td colspan="6">Payments Not Scheduled</td>
 			<?php endif; ?>
 			</tbody>
