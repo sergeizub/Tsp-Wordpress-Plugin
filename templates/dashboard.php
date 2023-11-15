@@ -3,6 +3,26 @@ namespace TravelSportsPro;
 $related_students =  App::GetClient()->GetController('members')->GetChildList();
 $scheduled_payments =  App::GetClient()->GetController('members')->GetScheduledPayments(array("interval" => "future","status" => "1,3"));
 $cart = App::GetClient()->GetController('checkout')->GetCart();
+
+$payment_form = App::GetClient()->GetController('gateway')->PaymentForm();
+
+if (!empty($payment_form->form) && !empty($payment_form->form->charges_list)) {
+	$unpaid_charges_list = $payment_form->form->charges_list;
+
+	//Compare unpaid charges with scheduled payments charges, if have same ids remove it from unpaid
+	$scheduled_charges = array();
+	if (isset($scheduled_payments->scheduled_payments) && is_array($scheduled_payments->scheduled_payments))
+		foreach ($scheduled_payments->scheduled_payments as $key => $value)
+			if (isset($value->CHARGE_ID) && !empty($value->CHARGE_ID))
+				array_push($scheduled_charges, $value->CHARGE_ID);
+	
+	if (!empty($scheduled_charges) && is_array($unpaid_charges_list))
+		foreach ($unpaid_charges_list as  $key => $unpaid) 
+			if (in_array($unpaid->id, $scheduled_charges))
+				unset($unpaid_charges_list[$key]);
+		
+}
+
 ?>
 <div id="tab-dashboard" class="tab-pane">
     <div class="page-header">
@@ -86,6 +106,17 @@ $cart = App::GetClient()->GetController('checkout')->GetCart();
 					</tr>
 						<?php endforeach; ?>
 					<?php endif; ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
+			<?php if (isset($unpaid_charges_list) && !empty($unpaid_charges_list)): ?>
+				<?php foreach($unpaid_charges_list as $charge): ?>
+					<tr>
+						<td><?php echo date(TSP_PHPDATE); ?></td>
+						<td><?php echo TSP_CURRENCY_SIGN; ?><?php echo $charge->amount; ?></td>
+						<td>&nbsp;</td>
+						<td>Not Paid</td>
+						<td><a href="#tab-gateway-finance" tsp_sub_tab="#tab-pay" class="tsp_ajax_tab geturl btn btn-danger" title="Pay Now">Pay Now</a></td>
+					</tr>
 				<?php endforeach; ?>
 			<?php endif; ?>
 			<?php if (!empty($scheduled_payments->scheduled_payments)) : ?>

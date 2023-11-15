@@ -7,6 +7,10 @@ namespace TravelSportsPro;
 			jQuery('#pay-now-button').click(function() {
 				jQuery('#pgw-tabs a[href="#tab-pay"]').tab('show');
 			});
+
+			<?php if (!empty($_REQUEST['sub_tab'])):?>
+			jQuery('#pgw-tabs a[href="<?php echo $_REQUEST['sub_tab']; ?>"]').tab('show');
+			<?php endif; ?>
 		});
 	</script>
 	<div class="page-header">
