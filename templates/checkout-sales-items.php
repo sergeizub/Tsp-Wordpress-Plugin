@@ -39,17 +39,22 @@ else
 	<table class="table table-striped table-condensed table-hover">
 		<thead>
 			<tr>
-				<th width="25%">Name</th>
-				<th>Description</th>
+				<?php if (TSP_SALES_ITEMS_PHOTO == "1"): ?>
+				<th width="20%">&nbsp;</th>
+				<?php endif; ?>
+				<th>Item</th>
 				<th class="text-right">Price</th>
 				<th width="10%"></th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php foreach ($products as $product) : ?>
-			<tr>
-			<td><?php echo $product['NAME']; ?></td>
+			<tr> 
+			<?php if (TSP_SALES_ITEMS_PHOTO == "1"): ?>
+			<td><?php if ($product['photo']): ?> <h3><img id="inventory-image" src="<?php echo get_option('tsp_api_url').'clients/'.$product['photo'];?>?t=<?php echo time(); ?>" alt="" class="img-thumbnail" /><?php else: ?> &nbsp;<?php endif; ?></h3></td>
+			<?php endif; ?>
 			<td>
+				<h3><?php echo $product['NAME']; ?></h3>
 				<?php echo $product['DESCRIPTION']; ?>
 				<?php echo ((TSP_IGNORE_ITEMS_AVAILABLE_QUANTITY === '0' && $product['AVAILABLE_QUANTITY'] && $product['AVAILABLE_QUANTITY'] > 0) ? '<div class="label label-warning">Only '.$product['AVAILABLE_QUANTITY'].' items available</div>' : ''); ?>
 			</td>
