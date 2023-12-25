@@ -110,6 +110,7 @@ if (!empty($payment_form->form) && !empty($payment_form->form->charges_list)) {
 			<?php endif; ?>
 			<?php if (isset($unpaid_charges_list) && !empty($unpaid_charges_list)): ?>
 				<?php foreach($unpaid_charges_list as $charge): ?>
+					<?php if ($charge->id == 'convenience_fee') continue; ?>
 					<tr>
 						<td><?php echo date(TSP_PHPDATE); ?></td>
 						<td><?php echo TSP_CURRENCY_SIGN; ?><?php echo $charge->amount; ?></td>
