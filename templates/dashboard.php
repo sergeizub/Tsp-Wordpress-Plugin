@@ -28,6 +28,7 @@ if (!empty($payment_form->form) && !empty($payment_form->form->charges_list)) {
     <div class="page-header">
         <h2>Dashboard</h2>
     </div>
+	<?php include plugin_dir_path( __FILE__ ) . 'snippets/unsigned-waivers.php'; ?>
 	<div class="row">
 		<div class="col-md-6">
             <h3>Your Player (s)</h3>

@@ -26,6 +26,7 @@ $selected_account = $cart['selected_account'];
     <div class="page-header">
         <h2>Shopping Cart</h2>
     </div>
+	<?php include plugin_dir_path( __FILE__ ) . 'snippets/unsigned-waivers.php'; ?>
 </div>
 <?php if ($cart['list']) : ?>
 <div id="cart-items-list">
