@@ -16,8 +16,7 @@ jQuery(function() {
 	jQuery('#tsp_calendar').fullCalendar({
 		header: {
 			left: 'prev next', 
-			center: 'title',
-			right: 'month,agendaWeek'
+			center: 'title'
 		},
 		defaultView: '<?php echo ((defined('TSP_OC_DEFAULT_CALENDAR_VIEW')) ? TSP_OC_DEFAULT_CALENDAR_VIEW : 'agendaDay' ); ?>',
 		firstDay: 1,
@@ -62,9 +61,31 @@ jQuery(function() {
         },
 		eventClick: function(calEv, jsEv) {
 			jsEv.preventDefault();
+			var tsp_data = { 
+				action: 'tspclient',
+				boot_tab: 'event-details',
+				schedule_id: calEv.schedule_id,
+			};
+			jQuery.ajax({
+        		type: "POST",
+        		url: tspajax.url,
+        		data: tsp_data,
+        		beforeSend: function () {
+             		tsp_ajax = true;
+             		jQuery('#tsp_loading').show();
+        		},
+        		success: function (response) {
+					jQuery("#eventModal .modal-content").html(response);
+					jQuery("#eventModal").modal('show');
+       			 },
+       			complete: function (response) {
+           			tsp_ajax = false;
+            		jQuery('#tsp_loading').hide();
+        		}
 			/*if (navigator.onLine) {
 				tsp_ajax_click(this);
 			}*/
+		})
 		}
 		
 	});
@@ -72,5 +93,11 @@ jQuery(function() {
 </script>
 
 <div id="tsp_calendar" ></div>
+
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="myWaiver" aria-hidden="true">
+<div class="modal-dialog">
+	    <div class="modal-content">
+		</div>
+</div>
 <?php endif; ?>
 </div>

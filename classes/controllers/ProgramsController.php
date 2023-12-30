@@ -29,4 +29,19 @@ class ProgramsController extends ClassesController
             $data['tsp_action'] .= $data['program_id'];
 		return parent::GetList($data);
 	}
+
+	public function GetEventInfo($schedule_id)
+	{
+		if ($schedule_id) {
+			return parent::GetList("programs/schedule/".$schedule_id);
+		}
+		else
+			return false;
+	}
+
+	public function GetMyEvents($data)
+	{
+		$data['tsp_action'] = "programs/schedule/my";
+		return parent::GetList($data);
+	}
 }
