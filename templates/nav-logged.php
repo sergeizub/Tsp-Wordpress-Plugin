@@ -54,6 +54,9 @@ jQuery(function() {
 		<?php if (get_option('show_sales_items_menu') == '1' || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
 			<li><a href="#tab-checkout-sales-items" class="tsp_ajax_tab <?php if (($_SESSION['tsp_client_attrs']['default_tab']) == 'sales-items') echo 'default_tab'; ?> "><i class="fa fa-shopping-bag"></i> <?php echo TSP_OC_SALES_ITEMS_SECTION_TITLE; ?></a></li>
 		<?php endif; ?>
+		<?php if(get_option('show_calendar_menu') == '1'): ?>
+		<li><a href="#tab-classes-calendar" class="tsp_ajax_tab"><i class="fa fa-calendar"></i> Calendar</a></li>
+		<?php endif; ?>	
 		<?php if(get_option('show_register_menu') == '1'): ?>
             <li><a href="#tab-program-registration" data-toggle="tab" class="tsp_ajax_tab"><i class="fa fa-check-circle"></i> Register</a></li>
         <?php endif; ?>	
@@ -72,7 +75,7 @@ jQuery(function() {
         <?php endif; ?>
 		<?php if(get_option('dropdown_show_calendar_menu') == '1'): ?>
 		<li><a href="#tab-classes-calendar" class="tsp_ajax_tab"><i class="fa fa-calendar"></i> Calendar</a></li>
-		<?php endif; ?>		
+		<?php endif; ?>
         <?php if (TSP_OC_SHOW_SALES_ITEMS == "1" || $_SESSION['tsp_client_attrs']['default_tab'] == 'sales-items'): ?>
             <?php foreach ($sales_products as $category_id=>$products) : ?>
                 <?php if(get_option('dropdown_show_salesitems_menu_category_' . $category_id) == '1'): ?>
