@@ -16,15 +16,17 @@ jQuery(function() {
 	jQuery('#tsp_calendar').fullCalendar({
 		header: {
 			left: 'prev next', 
-			center: 'title'
+			center: 'title',
+			right: 'month, agendaWeek, listWeek, agendaDay'
 		},
-		defaultView: '<?php echo ((defined('TSP_OC_DEFAULT_CALENDAR_VIEW')) ? TSP_OC_DEFAULT_CALENDAR_VIEW : 'agendaDay' ); ?>',
+		defaultView: (function () { if (jQuery(window).width() <= 768) { return defaultView = 'listWeek'; } else { return defaultView = 'month'; } })(),
 		firstDay: 1,
         height: 'auto',
 		allDaySlot: false,
 		slotEventOverlap: false,
 		slotDuration: '00:15:00',
 		timeFormat: '<?php echo TSP_CALENDARTIME; ?>',
+		views: { listWeek: { buttonText: 'list week' } },
         minTime: '<?php echo ((TSP_CALENDAR_START_TIME) ? TSP_CALENDAR_START_TIME  : '6:00'); ?>',
         maxTime: '<?php echo ((TSP_CALENDAR_END_TIME) ? TSP_CALENDAR_END_TIME  : '24:00'); ?>',
 		editable: false,
