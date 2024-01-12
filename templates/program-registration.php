@@ -230,15 +230,14 @@ function loadProgramPaymentPlans(program_id)
 	jQuery.post(tspajax.url, { action : 'tspclient', boot_tab: 'program-registration' , type: 'json', load: 'payment-plans', program_id: program_id}, function(data) {
 		if (data != undefined && data != '' && data.length > 0) {
 			jQuery.each(data, function(k, item) {
-				html += displayPaymentPlan(item.ID, item.PAYMENT_PLAN_FEE, item.FIRST_PAYMENT_AMOUNT, item.REPEATS, item.RECURRING_AMOUNT, item.SCHEDULE_NAME, item.SALES_ITEM_ID);
+				if (item.SCHEDULE_NAME)
+					html += displayPaymentPlan(item.ID, item.PAYMENT_PLAN_FEE, item.FIRST_PAYMENT_AMOUNT, item.REPEATS, item.RECURRING_AMOUNT, item.SCHEDULE_NAME, item.SALES_ITEM_ID);
 				price = item.FULL_PRICE;
 				sales_item_id = item.SALES_ITEM_ID;
 			});
-			if (html != '') {
-				html = '<h4 class="mt-3">Payment Plan</h4><li class="list-group-item"><label><input type="radio" name="payment_plan" value="0" checked="checked" data-sales_item_id="' + 
-					sales_item_id + '"> <span id="pp-description-0">Pay in full $' +
-					price + '</span><label></li>' + html;
-			}
+			html = '<h4 class="mt-3">Payment Plan</h4><li class="list-group-item"><label><input type="radio" name="payment_plan" value="0" checked="checked" data-sales_item_id="' + 
+				sales_item_id + '"> <span id="pp-description-0">Pay in full $' +
+				price + '</span><label></li>' + html;
 			jQuery('#selected-payment-plans').html(html);
 			jQuery('#next-step').prop("disabled",false);
 		}
