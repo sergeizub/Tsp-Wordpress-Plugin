@@ -83,6 +83,9 @@ $selected_account = $cart['selected_account'];
                                 <?php if (!empty($item['selected_values']['jersey_size'])):?>
 				            	Jersey Size: <?php echo $cart['special_categs']['jersey_sizes'][$item['selected_values']['jersey_size']]; ?><br>
                                 <?php endif; ?>
+								<?php if (!empty($item['selected_values']['jersey_name'])):?>
+				            	Jersey Name: <?php echo $item['selected_values']['jersey_name']; ?><br>
+                                <?php endif; ?>
                                 <?php if (!empty($item['selected_values']['jersey_number_1'])):?>
 				            	Jersey Number 1 (Not Guaranteed): <?php echo $item['selected_values']['jersey_number_1']; ?><br>
                                 <?php endif; ?>

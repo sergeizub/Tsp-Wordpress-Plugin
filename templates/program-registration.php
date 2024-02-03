@@ -52,6 +52,9 @@ jQuery(function() {
 			selected_values.player_id = jQuery('#step1 input[type=radio]:checked').val();
 			if (selected_values.player_id == '')
 				msg = 'Please select Player';
+			<?php if (defined('TSP_REG_JERSEY_NAME') && TSP_REG_JERSEY_NAME == "1"): ?>
+			jQuery('#jersey_name').val(jQuery('#step1 input[type=radio]:checked').data('jerseyname'));
+			<?php endif; ?>
 		}
 		else if (step == 2) {
 
@@ -97,6 +100,10 @@ jQuery(function() {
 			if (jQuery('#jersey_size').val() > 0) {
 				step_title += 'Jersey Size: ' + jQuery('#jersey_size option:selected').text() + '<br>';
 				selected_values.jersey_size = jQuery('#jersey_size').val();
+			}
+			if (jQuery('#jersey_name').val() != undefined && jQuery('#jersey_name').val() != "") {
+				step_title += 'Jersey Name: ' + jQuery('#jersey_name').val() + '<br>';
+				selected_values.jersey_name = jQuery('#jersey_name').val();
 			}
 			if (jQuery('#jersey_number_1').val() > 0) {
 				step_title += 'Jersey Number 1: ' + jQuery('#jersey_number_1').val() + '<br>';
@@ -327,7 +334,11 @@ function AddToCart()
 	<h4>Player Profile</h4>
 	<ul class="list-group">
 	<?php foreach ($related_students->family as $student): ?>
-		<li class="list-group-item"><label><input type="radio" name="member_id" value="<?php echo $student->ID; ?>" checked="checked" data-title="<?php echo $student->FIRSTNAME; ?> <?php echo $student->LASTNAME; ?>">
+		<li class="list-group-item"><label><input type="radio" name="member_id"
+													value="<?php echo $student->ID; ?>" checked="checked" 
+													data-title="<?php echo $student->FIRSTNAME; ?> <?php echo $student->LASTNAME; ?>"
+													data-jerseyname="<?php if (!empty($student->JERSEY_NAME)) echo  $student->JERSEY_NAME; else echo  $student->LASTNAME; ?>"
+													>
 		<i class="fa fa-user"></i> <?php echo $student->FIRSTNAME; ?> <?php echo $student->LASTNAME; ?></label></li>
 	<?php endforeach; ?>
 	</ul>	
@@ -399,6 +410,11 @@ function AddToCart()
 	<?php foreach ($program_reg_init['data']['jersey_sizes'] as $k_jersey_size => $jersey_size): ?>
 	<option value="<?php echo $k_jersey_size;?>"><?php echo $jersey_size;?></option>
 	<?php endforeach; ?>
+	</select>
+	<?php endif; ?>
+	<?php if (TSP_REG_JERSEY_NAME == "1"): ?>
+	<label for="jersey_name" class="col-form-label">Jersey Name</label>
+	<input type="text" id="jersey_name" name="jersey_name" class="form-control">
 	</select>
 	<?php endif; ?>
 	<?php if (TSP_REG_JERSEY_NUMBER1 == "1"): ?>
