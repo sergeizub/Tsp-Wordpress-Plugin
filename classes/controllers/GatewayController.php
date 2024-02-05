@@ -84,6 +84,10 @@ class GatewayController extends BaseController
     
     public function MakePayment($data)
 	{
+		if (empty($data['charges'])) {
+			App::GetError()->Show("Select at Least One Charge");
+			return false;
+		}
 		$data['tsp_action'] = 'gateway/payment';
 		return parent::Submit($data);
 	}

@@ -261,6 +261,7 @@ function tsp_ajax_click(link, tsp_form = false) {
     var tsp_data = { action : 'tspclient' };
     
     if (tsp_form != false && tsp_form != undefined) {
+        tsp_form.find('[type="submit"]').attr('disabled', 'disabled');
         jQuery.each(tsp_form.serializeArray(), function() {
                 if(this.name) {
                     tsp_data[this.name] = this.value;
