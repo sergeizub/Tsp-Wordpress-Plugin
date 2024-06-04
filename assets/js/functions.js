@@ -259,13 +259,19 @@ function tsp_ajax_click(link, tsp_form = false) {
         return false;
     }
     var tsp_data = { action : 'tspclient' };
-    
     if (tsp_form != false && tsp_form != undefined) {
         tsp_form.find('[type="submit"]').attr('disabled', 'disabled');
         jQuery.each(tsp_form.serializeArray(), function() {
-                if(this.name) {
+            
+                if(this.name && this.name.indexOf("[]") > 0) {
+                    if (Array.isArray(tsp_data[this.name]))
+                        tsp_data[this.name].push(this.value);
+                   else
+                        tsp_data[this.name] = [this.value];
+                       
+                    console.log(this);
+                } else if (this.name)
                     tsp_data[this.name] = this.value;
-                }
         });
     }
     else {
