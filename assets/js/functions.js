@@ -245,6 +245,8 @@ function RegisterWithPurchasedItemForm(student_id, class_id, schedule_id,options
 function tsp_connect_ajax(link) {
     jQuery('#tsp-tab-content form').on('submit', function(e) {
 		e.preventDefault();
+        if (jQuery(this).data('valid') && eval(jQuery(this).data('valid')) == false)
+            return false;
         tsp_ajax_click(link, jQuery(this));
 	});
     
@@ -294,6 +296,7 @@ function tsp_ajax_click(link, tsp_form = false) {
              jQuery('#tsp_loading').show();
         },
         success: function (response) {
+            response = response.trim();
             if ((tsp_data['reload'] != undefined && tsp_data['reload'] == 'true') || response == '1' || response == 'true') {
                 if(window.location.href.indexOf('qrnd=') != -1) {
                     var tsp_queryParams = new URLSearchParams(window.location.search);
@@ -403,4 +406,82 @@ function RecalculateTotalForMakePayment()
 		amount += convenience_fee_amount;
 	});
     jQuery("input[name='transaction_amount']").val(amount.toFixed(2));
+}
+
+
+//OC Signature
+
+
+var signPads = [];
+
+function initPads() {
+    var canvas = document.getElementsByTagName("canvas");
+    for (var i = 0; i < canvas.length; i++) {
+
+        var dataset = canvas[i].dataset;
+        var id = dataset.id;
+
+        signPads[id] = new SignaturePad(canvas[i]);
+
+        canvas[i].width = 580;
+        canvas[i].height = 300;
+        canvas[i].getContext("2d");
+
+        signPads[id].minWidth = 1;
+        signPads[id].maxWidth = 3;
+        signPads[id].penColor = "black";
+
+        jQuery('#pad-clear-' + id).click(function () {
+            signPads[jQuery(this).data('id')].clear();
+        });
+
+        jQuery('#pad-sign-' + id).click(function () {
+            var id = jQuery(this).data('id');
+            jQuery('.if-sinned-checkbox_' + id).prop('checked', true);
+            var is_empty = signPads[id].isEmpty();
+            if (is_empty === true) {
+                // jQuery(".warning").append("<div class=\"alert alert-danger col-sm-9\">\n" +
+                //     "                    <strong>Warning!</strong> Please sign.\n" +
+                //     "                </div>");
+            } else {
+                var file = signPads[id].toDataURL();
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: tspajax.url,
+                    dataType: "json",
+                    data: {
+                        action: "tspclient",
+                        obj: "members",
+                        method: "SignWaiver",
+                        signature: file,
+                        id: id,
+                        cart: true,
+                    },
+                    success: function (response) {
+                        tsp_ajax_click(jQuery('<a class="tsp_ajax_tab geturl" href="#tab-checkout-cart"></a>'));
+                    }
+                })
+            }
+        });
+    }
+}
+
+function ReadAgreement(id){
+    jQuery('#agreement_' + id).modal('show');
+}
+
+function validateGatewayForm() {
+    var validGatewayForm = true;
+
+    if (jQuery('#transaction_amount').val() == 0 && jQuery('#source_selector').val() == 'do_not_add_card' && !jQuery('#pay_at_studio').prop('checked')) // allow zero amount cart checkout without card adding
+        jQuery('#gateway-form-checkout').append('<input type="hidden" name="pay_at_studio" value="on">');	
+    
+    jQuery( ".signed-waiver" ).each(function( index ) {
+          if (jQuery(this).val() == "0" && validGatewayForm != false) {
+          alert('You must agree to our terms and conditions');
+          validGatewayForm = false;
+        }
+    });
+    return validGatewayForm;
 }
