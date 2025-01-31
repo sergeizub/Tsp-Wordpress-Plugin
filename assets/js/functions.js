@@ -402,8 +402,16 @@ function RecalculateTotalForMakePayment()
 	    amount += parseFloat(jQuery(this).attr('data-amount'));
 	});
 	jQuery("input[value='convenience_fee']:checked").each(function() {
-	    amount += amount * (convenience_fee_percent / 100);
-		amount += convenience_fee_amount;
+        if (convenience_fee_percent) {
+            let convenience_fee  = (amount * (convenience_fee_percent / 100));
+            amount += convenience_fee;
+            jQuery("#convenience_fee_amount").html(convenience_fee.toFixed(2));
+        }
+        if (convenience_fee_amount) {
+            let convenience_fee  = convenience_fee_amount;
+            amount += convenience_fee;
+            jQuery("#convenience_fee_amount").html(convenience_fee.toFixed(2));
+        }
 	});
     jQuery("input[name='transaction_amount']").val(amount.toFixed(2));
 }

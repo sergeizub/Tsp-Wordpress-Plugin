@@ -28,7 +28,7 @@ if (!empty($result->form))
 		<?php if($form->charges_list): ?>
 		<?php foreach ($form->charges_list as $item): ?>
 		<?php if ($item->id == 'convenience_fee'): ?>
-				<input type="checkbox" value="convenience_fee" data-amount="0" id="convenience_fee_checkbox" onclick="return false;" checked="checked" /> <?php echo $item->value; ?> <br />
+				<input type="checkbox" value="convenience_fee" data-amount="0" id="convenience_fee_checkbox" onclick="return false;" checked="checked" /> <?php echo $item->value; ?> - <?php echo TSP_CURRENCY_SIGN;?><span id="convenience_fee_amount"></span><br />
 				<input type="hidden" name="charges[]" value="<?php echo $item->id; ?>" data-amount="<?php echo $item->amount; ?>">
 		<?php else: ?>
 				<input type="checkbox" name="charges[]" value="<?php echo $item->id; ?>" data-amount="<?php echo $item->amount; ?>" data-charge_category_id="<?php echo $item->charge_category_id; ?>" /> <?php echo $item->value; ?> <span id="charge_discount_<?php echo $item->id; ?>" class="text-muted"></span><br />
