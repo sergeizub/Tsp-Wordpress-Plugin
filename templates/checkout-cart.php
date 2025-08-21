@@ -172,7 +172,7 @@ $selected_account = $cart['selected_account'];
 		            <th></th>
 		        </tr>
                 <?php if ($cart['convenience_fee'] > 0) : ?>
-                <tr class="no_border_top">
+                <tr class="no_border_top" id="convenience_fee_block">
                     <th class="text-right" colspan="2"></th>
                     <?php echo ((TSP_MAIN_DISCOUNT == 'HOURLY_RATES' && false) ? '<th class="text-right"></th>' : ''); ?>
                     <th class="text-right" colspan="3"><?php echo $cart['convenience_fee_category']; ?></th>
@@ -184,7 +184,7 @@ $selected_account = $cart['selected_account'];
                     <th class="text-right" colspan="2"></th>
                     <?php echo ((TSP_MAIN_DISCOUNT == 'HOURLY_RATES' && false) ? '<th class="text-right"></th>' : ''); ?>
                     <th class="text-right" colspan="3">Total</th>
-		            <th class="text-right" ><?= (!empty($cart['total'])) ? TSP_CURRENCY_SIGN : ''?><?php echo number_format($cart['total'],2); ?></th>
+		            <th class="text-right" id="grand_total_place"><?= (!empty($cart['total'])) ? TSP_CURRENCY_SIGN : ''?><?php echo number_format($cart['total'],2); ?></th>
                     <th></th>
                     <th></th>
                 </tr>

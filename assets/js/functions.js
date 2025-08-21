@@ -25,25 +25,6 @@ jQuery(function () {
 		tsp_ajax_click(jQuery(this),  jQuery('#schedule-filter'));
 	});
     
-    jQuery(document).on('change', "#source_selector", function() {
-		var option = jQuery('#source_selector option:selected');
-        var tender_type = jQuery('input[name="tender_type"]');
-        var card_info = jQuery('#card_info');
-        var card_cvv_info = jQuery('#card_cvv_info');
-        if (option.val() == 0) {
-            tender_type.val('CARD');
-            card_info.show();
-            card_cvv_info.show();
-        } else {
-            tender_type.val(option.data('tender_type'));
-            card_info.hide();
-			if (window.payment_form_cvv) 
-				card_cvv_info.show();
-			else  
-				card_cvv_info.hide();
-        }
-    });
-    
     jQuery(document).on('change', "#use_account_credit", function() {
 	    var account_credit = parseFloat(window.account_credit);
 	    var cart_total = parseFloat(window.cart_total);
@@ -211,6 +192,43 @@ jQuery(function () {
     jQuery(document).on('change', "#gateway-form-checkout select[name=token_id]", function () {
 		RecalculateTotalForMakePayment();
 	});
+
+        
+    jQuery(document).on('change', "#source_selector", function() {
+        var convenience_fee_for_check = parseFloat(jQuery("input[name='convenience_fee_for_check']").val()); 
+       
+		var option = jQuery('#source_selector option:selected');
+        var tender_type = jQuery('input[name="tender_type"]');
+        var card_info = jQuery('#card_info');
+        var card_cvv_info = jQuery('#card_cvv_info');
+        if (option.val() == 0) {
+            tender_type.val('CARD');
+            card_info.show();
+            card_cvv_info.show();
+        } else {
+            tender_type.val(option.data('tender_type'));
+            card_info.hide();
+			if (window.payment_form_cvv) 
+				card_cvv_info.show();
+			else  
+				card_cvv_info.hide();
+        }
+        var fee = jQuery('#convenience_fee_value').val(), total_amount = jQuery('#total_amount').val();
+		if (option.data('tender_type') == 'ACH' && convenience_fee_for_check!=1) { 
+           
+			jQuery('#transaction_amount').val(parseFloat(total_amount-fee).toFixed(2));
+			jQuery('#grand_total_place').html(parseFloat(total_amount-fee).toFixed(2));
+			jQuery('#convenience_fee_amount_place').html(parseFloat(0).toFixed(2));
+			jQuery('#convenience_fee_block').hide();
+		}
+		else {
+			jQuery('#convenience_fee_block').show();
+			jQuery('#transaction_amount').val(parseFloat(total_amount).toFixed(2));
+			jQuery('#grand_total_place').html(parseFloat(total_amount).toFixed(2));
+			jQuery('#convenience_fee_amount_place').html(parseFloat(0).toFixed(2));			
+		}
+
+    });
     
 });
 
