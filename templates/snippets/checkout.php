@@ -121,7 +121,7 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 							card_cvv_info.hide();
 		        	}
 		
-					var fee = jQuery('#convenience_fee_value').val(), total_amount = $('#total_amount').val();
+					var fee = jQuery('#convenience_fee_value').val(), total_amount = jQuery('#total_amount').val();
 		
 					if (option.val() == 0 ||  option.data('tender_type') == 'CARD' || (option.data('tender_type') == 'ACH' && convenience_fee_for_check==1)) { 
 						jQuery('#transaction_amount').val(parseFloat(total_amount).toFixed(2));
@@ -130,10 +130,10 @@ $payment_sources = App::GetClient()->GetController('members')->GetCardsAccounts(
 						jQuery('#convenience_fee_block').show();
 					}
 					else {
-						$('#convenience_fee_block').hide();
-						$('#transaction_amount').val(parseFloat(total_amount-fee).toFixed(2));
-						$('#grand_total_place').html(parseFloat(total_amount-fee).toFixed(2));
-						$('#convenience_fee_amount_place').html(parseFloat(0).toFixed(2));			
+						jQuery('#convenience_fee_block').hide();
+						jQuery('#transaction_amount').val(parseFloat(total_amount-fee).toFixed(2));
+						jQuery('#grand_total_place').html(parseFloat(total_amount-fee).toFixed(2));
+						jQuery('#convenience_fee_amount_place').html(parseFloat(0).toFixed(2));			
 					}
 				});	
 				</script>	    
