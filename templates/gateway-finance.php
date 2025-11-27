@@ -35,7 +35,7 @@ namespace TravelSportsPro;
 		<li role="presentation">
 			<a href="#tab-members-cards-accounts" role="tab" data-toggle="tab" aria-controls="Stored Cards">
 				Stored <?php if (defined('TSP_OC_ALLOW_CARD_PAYMENTS') && TSP_OC_ALLOW_CARD_PAYMENTS == "1") echo 'Cards '; ?>
-				<?php if ((defined('TSP_OC_ALLOW_CARD_PAYMENTS') && TSP_OC_ALLOW_CARD_PAYMENTS == "1") || (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1")) echo '/ '; ?>
+				<?php if ((defined('TSP_OC_ALLOW_CARD_PAYMENTS') && TSP_OC_ALLOW_CARD_PAYMENTS == "1") && (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1")) echo '/ '; ?>
 				<?php if (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1") echo 'Bank (ACH)'; ?>
 			</a>
 		</li>
@@ -45,7 +45,7 @@ namespace TravelSportsPro;
 			<a href="#tab-scheduled-payments" aria-controls="Scheduled Payments" role="tab" data-toggle="tab">Scheduled Payments</a>
 		</li>
 		<?php endif; ?>
-		<?php if ((defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1") || (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1")) : ?>
+		<?php if ((defined('TSP_OC_ALLOW_CARD_PAYMENTS') && TSP_OC_ALLOW_CARD_PAYMENTS == "1") || (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1")) : ?>
 			<li class="nav-item" role="presentation">
 				<a href="#tab-pay" aria-controls="Make Payment" role="tab" data-toggle="tab" class="nav-link">Make Payment</a>
 			</li>
@@ -76,7 +76,7 @@ namespace TravelSportsPro;
 		<?php include plugin_dir_path( __FILE__ ) . 'snippets/members-scheduled-payments.php'; ?>
 	</div>
 	<?php endif; ?>
-	<?php if ((defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1") || (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1")) : ?>	
+	<?php if ((defined('TSP_OC_ALLOW_CARD_PAYMENTS') && TSP_OC_ALLOW_CARD_PAYMENTS == "1") || (defined('TSP_OC_ALLOW_ACH_PAYMENTS') && TSP_OC_ALLOW_ACH_PAYMENTS == "1")) : ?>	
 	<div role="tabpanel" class="tab-pane" id="tab-pay">			
 		<?php include plugin_dir_path( __FILE__ ) . 'snippets/gateway-pay.php'; ?>
 	</div>
