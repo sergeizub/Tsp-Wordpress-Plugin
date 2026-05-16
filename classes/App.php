@@ -14,7 +14,8 @@ class App
     {
         self::$error = new Error();
         self::$api = new Api();
-        self::$client = new Client();
+        if (wp_doing_ajax())
+            self::$client = new Client();
         self::$template = new Template();
         self::$settings = new Settings();
         self::$emailer = new Emailer();
@@ -57,7 +58,7 @@ class App
             });
 
         add_shortcode('tsp_classes_list', function ( $atts ) {
-
+            self::$client = new Client();
             wp_enqueue_style('tsp_css_bootstrap');
             wp_enqueue_style('tsp_datetimepicker');
             wp_enqueue_style('tsp_fontawesome');
@@ -93,7 +94,7 @@ class App
         });
 
         add_shortcode('tsp_calendar', function ( $atts ) {
-
+            self::$client = new Client();
             wp_enqueue_style('tsp_css_bootstrap');
             wp_enqueue_style('tsp_datetimepicker');
             wp_enqueue_style('tsp_fontawesome');
@@ -128,7 +129,7 @@ class App
         });
 
         add_shortcode('tsp_register', function ( $atts ) {
-
+            self::$client = new Client();
             wp_enqueue_style('tsp_css_bootstrap');
             wp_enqueue_style('tsp_datetimepicker');
             wp_enqueue_style('tsp_fontawesome');
@@ -163,7 +164,7 @@ class App
         });
 
         add_shortcode('tsp_client', function ( $atts ) {
-
+            self::$client = new Client();
             wp_enqueue_style('tsp_css_bootstrap');
             wp_enqueue_style('tsp_datetimepicker');
             wp_enqueue_style('tsp_fontawesome');
